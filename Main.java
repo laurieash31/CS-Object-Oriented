@@ -33,6 +33,8 @@ public class Main {
             
             //Debug for user input
             System.out.println("Your selection is: " + selection + "\n");
+            
+             //Add a try-catch to handle the "InputMismatchException" when user enters wrong info
     }
     
 }
