@@ -26,7 +26,7 @@ public class Main {
             System.out.println("[6] Exit the program");
             System.out.println("[7] Display the menu choices");
             System.out.println("------------------------------------------------------------------------");
-            System.out.print(">>");
+            System.out.print(">> ");
             
             Scanner input = new Scanner(System.in);
             int selection = input.nextInt();
