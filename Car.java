@@ -7,8 +7,14 @@ package assignment1;
 
 /**
  *
- * @author lauragarcia
+ * @author lauragarcia/Austin Stamper
  */
 public class Car {
     
+    private int[] vin = new int[5]; //Double check this; vin is always 5
+    private int year;
+    private int mileage;
+    private float price;
+    private String make;
+    private String model;
 }
