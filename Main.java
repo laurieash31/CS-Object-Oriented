@@ -8,7 +8,7 @@ package assignment1;
 import java.util.Scanner;
 /**
  *
- * @author lauragarcia
+ * @author lauragarcia/Austin Stamper
  */
 public class Main {
 
@@ -29,12 +29,46 @@ public class Main {
             System.out.print(">> ");
             
             Scanner input = new Scanner(System.in);
+            
+            
+            //User input is held in "int selection"
+            System.out.println("Your selection is: " );
             int selection = input.nextInt();
+            //System.out.println(selection + "\n");
             
-            //Debug for user input
-            System.out.println("Your selection is: " + selection + "\n");
-            
-             //Add a try-catch to handle the "InputMismatchException" when user enters wrong info
+            //int comparison wasn't working, converted to string
+            String selectstring = "" + selection;
+        
+        //All inputs are read successfully
+        //Can use for when each option is selected
+        switch (selectstring) {
+            case "1":
+                System.out.println("You selected 1");
+                break;        
+            case "2":
+                System.out.println("You selected 2");
+                break;
+            case "3":
+                System.out.println("You selected 3");
+                break;
+            case "4":
+                System.out.println("You selected 4");
+                break;
+            case "5":
+                System.out.println("You selected 5");
+                break;
+            case "6":
+                System.out.println("You selected 6");
+                break;
+            case "7":
+                System.out.println("You selected 7");
+                break;
+            default:
+                System.out.println("Your selection is unavailable");
+                break;
+        }
+        
+        //Add a try-catch to handle the "InputMismatchException" when user enters wrong info
     }
     
 }
