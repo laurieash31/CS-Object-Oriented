@@ -11,7 +11,7 @@ package assignment1;
  */
 public class Car {
     
-    private int[] vin = new int[5]; //Double check this; vin is always 5
+    private String[] vin = new String [5]; //Double check this; vin is always 5
     private int year;
     private int mileage;
     private float price;
