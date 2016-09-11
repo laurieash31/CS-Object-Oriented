@@ -22,17 +22,21 @@ public class Main {
 	      File car_records = new File("cars.txt");
 
 	      if (car_records.createNewFile()){
-            //Debug to check when creating new cars.txt file
+                //Debug to check when creating new cars.txt file
 	        //System.out.println("File is created!");
 	      }
               else{
-            //Debug to check if cars.txt already exists
+                //Debug to check if cars.txt already exists
 	        //System.out.println("File already exists.");
 	      }
     	} catch (IOException e) {
 	      e.printStackTrace();
         }
         
+        //Set "exit program" to false for menu loop
+        boolean quit = false;
+        
+        do{
             //Display option menu
             System.out.println("Welcome to the dealership database. Please choose one of the following: ");
             System.out.println("------------------------------------------------------------------------");
@@ -46,9 +50,12 @@ public class Main {
             System.out.println("------------------------------------------------------------------------");
             System.out.print(">> ");
             
+            
+            //Add a try-catch to handle the "InputMismatchException" when user enters wrong info
+            
+            
             Scanner input = new Scanner(System.in);
-            
-            
+           
             //User input is held in "int selection"
             System.out.println("Your selection is: " );
             int selection = input.nextInt();
@@ -57,36 +64,35 @@ public class Main {
             //int comparison wasn't working, converted to string
             String selectstring = "" + selection;
         
-        //All inputs are read successfully
-        //Can use for when each option is selected
-        switch (selectstring) {
-            case "1":
-                System.out.println("You selected 1");
-                break;        
-            case "2":
-                System.out.println("You selected 2");
-                break;
-            case "3":
-                System.out.println("You selected 3");
-                break;
-            case "4":
-                System.out.println("You selected 4");
-                break;
-            case "5":
-                System.out.println("You selected 5");
-                break;
-            case "6":
-                System.out.println("You selected 6");
-                break;
-            case "7":
-                System.out.println("You selected 7");
-                break;
-            default:
-                System.out.println("Your selection is unavailable");
-                break;
-        }
-        
-        //Add a try-catch to handle the "InputMismatchException" when user enters wrong info
+            //All inputs are read successfully
+            //Can use for when each option is selected
+            switch (selectstring) {
+                case "1":
+                    System.out.println("You selected 1");
+                    break;        
+                case "2":
+                    System.out.println("You selected 2");
+                    break;
+                case "3":
+                    System.out.println("You selected 3");
+                    break;
+                case "4":
+                    System.out.println("You selected 4");
+                    break;
+                case "5":
+                    System.out.println("You selected 5");
+                    break;
+                case "6":
+                    System.out.println("You selected 6");
+                    quit = true;
+                    break;
+                case "7":
+                    System.out.println("You selected 7");
+                    break;
+                default:
+                    System.out.println("Your selection is unavailable");
+                    break;
+                }
+        } while(quit == false);
     }
-    
 }
