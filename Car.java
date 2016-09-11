@@ -14,13 +14,23 @@ import java.util.ArrayList;
 public class Car {
     
     /*
-    I'm not sure if we need these or not. If we do, we need a "set???" 
-    functions for each one since they are private. 
+    I'm not sure if we need these "get" functions or not. Also I left off
+    the ArrayList for now in the constructor. 
     
-    And then have a function that either combines all the pieces of the record
+    We might need a function that either combines all the pieces of the record
     into a string, and then put the string in the ArrayList as one long string for 
-    each car record line entered by the user. 
+    each car record line entered by the user.
     */
+        public Car(String tempVin, int tempYear, int tempMileage, float tempPrice, 
+            String tempMake, String tempModel){
+        vin = tempVin;
+        year = tempYear;
+        mileage = tempMileage;
+        price = tempPrice;
+        make = tempMake;
+        model = tempModel; 
+    }
+    
     public String getVIN(){
         return vin;
     }
