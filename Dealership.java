@@ -7,7 +7,7 @@ package assignment1;
 
 /**
  *
- * @author lauragarcia
+ * @authors Laura Garcia/Austin Stamper
  */
 public class Dealership {
     
