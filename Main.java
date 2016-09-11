@@ -6,16 +6,34 @@
 package assignment1;
 
 import java.util.Scanner;
+import java.io.File;
+import java.io.IOException;
+
 /**
  *
- * @author lauragarcia/Austin Stamper
+ * @author Laura Garcia/Austin Stamper
  */
 public class Main {
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String[] args) {
+        
+        //Tests if cars.txt exists and creates files if it doesn't
+        try {
+	      File car_records = new File("cars.txt");
+
+	      if (car_records.createNewFile()){
+            //Debug to check when creating new cars.txt file
+	        //System.out.println("File is created!");
+	      }
+              else{
+            //Debug to check if cars.txt already exists
+	        //System.out.println("File already exists.");
+	      }
+    	} catch (IOException e) {
+	      e.printStackTrace();
+        }
+        
+            //Display option menu
             System.out.println("Welcome to the dealership database. Please choose one of the following: ");
             System.out.println("------------------------------------------------------------------------");
             System.out.println("[1] Display existing car records");
