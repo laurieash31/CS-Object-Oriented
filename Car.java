@@ -14,7 +14,8 @@ import java.util.ArrayList;
 public class Car {
     
     /*
-    I don't know if we need a plain constructor or not. And I don't know if we need set functions for each too.
+    I don't know if we need a plain constructor or not. And I don't know if we need set functions for each too. 
+    I added them just in case, but I wasn't sure how to make a set function for ArrayList.
     
     We might need a function that either combines all the pieces of the record
     into a string like on the slides from today, and then put the string in the ArrayList as one long string for 
@@ -31,24 +32,48 @@ public class Car {
         model = tempModel; 
     }
     
+    public void setVIN(String newVIN){
+        vin = newVIN;
+    }
+    
     public String getVIN(){
         return vin;
+    }
+    
+    public void setYear(int newYear){
+        year = newYear;
     }
     
     public Integer getYear(){
         return year;
     }
     
+    public void setMileage(int newMileage){
+        mileage = newMileage;
+    }
+    
     public Integer getMileage(){
         return mileage;
+    }
+    
+    public void setPrice(float newPrice){
+        price = newPrice;
     }
     
     public Float getPrice(){
         return price;
     }
     
+    public void setMake(String newMake){
+        make = newMake;
+    }
+    
     public String getMake(){
         return make;
+    }
+    
+    public void setModel(String newModel){
+        model = newModel;
     }
     
     public String getModel(){
