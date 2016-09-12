@@ -14,11 +14,10 @@ import java.util.ArrayList;
 public class Car {
     
     /*
-    I'm not sure if we need these "get" functions or not. Also I left off
-    the ArrayList for now in the constructor. 
+    I don't know if we need a plain constructor or not. And I don't know if we need set functions for each too.
     
     We might need a function that either combines all the pieces of the record
-    into a string, and then put the string in the ArrayList as one long string for 
+    into a string like on the slides from today, and then put the string in the ArrayList as one long string for 
     each car record line entered by the user.
     */
         public Car(ArrayList<String>tempRecord, String tempVin, int tempYear, int tempMileage, float tempPrice, 
@@ -57,7 +56,7 @@ public class Car {
     }
     
     
-    ArrayList<String> record = new ArrayList<String>();
+    private ArrayList<String> record = new ArrayList<String>();
     private String vin; //Double check this; vin is always 5
     private int year;
     private int mileage;
