@@ -84,6 +84,14 @@ public class Car {
         return model;
     }
     
+    public void setRecord(String newRecord){
+        record.add(newRecord);
+    }
+    
+    public ArrayList<String> getRecord(){
+        return this.record;
+    }
+    
     
     private ArrayList<String> record = new ArrayList<String>();
     private String vin; //Double check this; vin is always 5
