@@ -18,21 +18,10 @@ public class Main {
 
     public static void main(String[] args) {
         
-        //Tests if cars.txt exists and creates files if it doesn't
-        try {
-	      File car_records = new File("cars.txt");
-
-	      if (car_records.createNewFile()){
-                //Debug to check when creating new cars.txt file
-	        //System.out.println("File is created!");
-	      }
-              else{
-                //Debug to check if cars.txt already exists
-	        //System.out.println("File already exists.");
-	      }
-    	} catch (IOException e) {
-	      e.printStackTrace();
-        }
+        Dealership dealer = new Dealership();
+        
+        //Check if file exists
+        dealer.fileCheck();
         
         //Set "exit program" to false for menu loop
         boolean quit = false;
