@@ -60,4 +60,53 @@ public class Dealership {
 
     }
     
+    
+    //This function gets the user input for each field, then converts it to a string.
+    //Then it puts the string into the ArrayList at the first index and so on.
+    //Remove the printline debug statement that prints what's in the array elements. 
+    public void addCar(){
+        Scanner input = new Scanner(System.in);
+        
+        //Get VIN
+        System.out.println("Enter the VIN: " );
+        String userVIN = input.nextLine();
+        carRecord.setVIN(userVIN);
+        
+        //Get Year
+        System.out.println("Enter the Year: " );
+        int userYear = input.nextInt();
+        carRecord.setYear(userYear);
+        
+        //DOES THE THING WITH THE NEWLINE, FIX FROM NOTES WITH PROPER NEXT() FUNCTION
+        
+        //Get Make
+        System.out.println("Enter the Make: " );
+        String userMake = input.nextLine();
+        carRecord.setMake(userMake);
+        
+        //Get Model
+        System.out.println("Enter the Model: " );
+        String userModel = input.nextLine();
+        carRecord.setModel(userModel);
+        
+        //Get Mileage
+        System.out.println("Enter the Mileage: " );
+        int userMileage = input.nextInt();
+        carRecord.setMileage(userMileage);
+        
+        //Get Price
+        System.out.println("Enter the Price: " );
+        Float userPrice = input.nextFloat();
+        carRecord.setPrice(userPrice);
+        
+        //Add the data to the ArrayList
+        String recordLine = carRecord.getVIN() + " " + carRecord.getYear() + " " + carRecord.getMake() 
+                + " " + carRecord.getModel() + " " + carRecord.getMileage() + " " + carRecord.getPrice();
+        
+        carRecord.setRecord(recordLine);
+        
+        //Debugging print statement--Not necessary for final
+        System.out.println(carRecord.getRecord());
+    }
+    
 }
