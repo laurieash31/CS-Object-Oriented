@@ -15,6 +15,9 @@ import java.io.PrintWriter;
  * @author Laura Garcia/Austin Stamper
  */
 public class Dealership {
+
+    //This is needed for being able to store the string in the ArrayList	
+    Car carRecord = new Car();
     
     //Used to figure out if cars have been added or removed.
     //Increases in either situation to switch the output function on
