@@ -11,4 +11,21 @@ package assignment1;
  */
 public class Dealership {
     
+    public void fileCheck(){
+    //Tests if cars.txt exists and creates files if it doesn't
+        try {
+                File car_records = new File("cars.txt");
+                if (car_records.createNewFile()){
+                //Debug to check when creating new cars.txt file
+	        //System.out.println("File is created!");
+                }
+                 else{
+                //Debug to check if cars.txt already exists
+	        //System.out.println("File already exists.");
+               }
+        } catch (IOException e) {
+                e.printStackTrace();
+        }
+    }
+    
 }
