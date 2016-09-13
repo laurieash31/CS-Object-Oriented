@@ -6,8 +6,6 @@
 package assignment1;
 
 import java.util.Scanner;
-import java.io.File;
-import java.io.IOException;
 import java.util.InputMismatchException;
 
 /**
@@ -20,11 +18,15 @@ public class Main {
         
         Dealership dealer = new Dealership();
         
+        //Needs constructor
+        Car car = new Car();
+        
         //Check if file exists
         dealer.fileCheck();
         
         //Set "exit program" to false for menu loop
         boolean quit = false;
+        int count = 0;
         
         do{
             //Display option menu
@@ -61,9 +63,11 @@ public class Main {
                         break;        
                     case "2":
                         System.out.println("You selected 2");
+                        dealer.counter(count);
                         break;
                     case "3":
                         System.out.println("You selected 3");
+                        dealer.counter(count);
                         break;
                     case "4":
                         System.out.println("You selected 4");
@@ -73,6 +77,10 @@ public class Main {
                         break;
                     case "6":
                         System.out.println("You selected 6");
+                        if(count > 0) {
+                            //Car value needs to be added
+                            dealer.exportData(null);
+                        }
                         quit = true;
                         break;
                     case "7":
