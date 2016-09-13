@@ -5,11 +5,23 @@
  */
 package assignment1;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.FileReader;
+import java.io.PrintWriter;
+
 /**
  *
  * @author Laura Garcia/Austin Stamper
  */
 public class Dealership {
+    
+    //Used to figure out if cars have been added or removed.
+    //Increases in either situation to switch the output function on
+    public int counter(int count) {
+        count++;
+        return count;
+    }
     
     public void fileCheck(){
     //Tests if cars.txt exists and creates files if it doesn't
@@ -26,6 +38,26 @@ public class Dealership {
         } catch (IOException e) {
                 e.printStackTrace();
         }
+    }
+    
+    //If counter > 0, this will run to export new data
+    public void exportData(Car car){
+       
+       String vin = car.getVIN();
+       String make = car.getMake();
+       String model = car.getModel();
+       int year = car.getYear();
+       int mileage = car.getMileage();
+       float price = car.getPrice();
+       
+       try {
+       PrintWriter outFile = new PrintWriter("cars.txt");
+       outFile.println(vin + " " + make + " " + model + " " + year + " "
+                       + year + " " + mileage + " " + price);
+       } catch (IOException e) {
+           e.printStackTrace();
+       }
+
     }
     
 }
