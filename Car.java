@@ -21,7 +21,11 @@ public class Car {
     into a string like on the slides from today, and then put the string in the ArrayList as one long string for 
     each car record line entered by the user.
     */
-        public Car(ArrayList<String> tempRecord, String tempVin, int tempYear, int tempMileage, float tempPrice, 
+    public Car(){
+            
+    }
+    
+    public Car(ArrayList<String> tempRecord, String tempVin, int tempYear, int tempMileage, float tempPrice, 
             String tempMake, String tempModel){
         this.record = tempRecord;        
         vin = tempVin;
