@@ -10,6 +10,8 @@ import java.io.IOException;
 import java.io.FileReader;
 import java.util.Scanner;
 import java.io.FileWriter;
+import java.io.BufferedReader;
+import java.io.FileReader;
 
 /**
  *
@@ -27,8 +29,9 @@ public class Dealership {
         return count;
     }
     
+    
+    //This function tests if cars.txt exists and creates files if it doesn't
     public void fileCheck(){
-    //Tests if cars.txt exists and creates files if it doesn't
         try {
                 File car_records = new File("cars.txt");
                 if (car_records.createNewFile()){
@@ -43,6 +46,22 @@ public class Dealership {
                 e.printStackTrace();
         }
     }
+    
+    
+    //This function reads data in from the cars.txt file if there are 
+    //car records already in the file. It stores them into the ArrayList.
+    public void readRecords(){
+        try (BufferedReader br = new BufferedReader(new FileReader("cars.txt"))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                carRecord.setRecord(line);
+            }
+        } catch(IOException e) {
+            e.printStackTrace();
+        }
+        
+    }
+    
     
     //If counter > 0, this will run to export new data
     public void exportData(Car car){
