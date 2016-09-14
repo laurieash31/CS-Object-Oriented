@@ -8,7 +8,8 @@ package assignment1;
 import java.io.File;
 import java.io.IOException;
 import java.io.FileReader;
-import java.io.PrintWriter;
+import java.util.Scanner;
+import java.io.FileWriter;
 
 /**
  *
@@ -45,18 +46,12 @@ public class Dealership {
     
     //If counter > 0, this will run to export new data
     public void exportData(Car car){
-       
-       String vin = car.getVIN();
-       String make = car.getMake();
-       String model = car.getModel();
-       int year = car.getYear();
-       int mileage = car.getMileage();
-       float price = car.getPrice();
-       
        try {
-       PrintWriter outFile = new PrintWriter("cars.txt");
-       outFile.println(vin + " " + make + " " + model + " " + year + " "
-                       + year + " " + mileage + " " + price);
+           FileWriter outFile = new FileWriter("cars.txt");
+           for (String s : carRecord.getRecord()){
+               outFile.write(s);
+           }
+           outFile.close();
        } catch (IOException e) {
            e.printStackTrace();
        }
@@ -103,8 +98,9 @@ public class Dealership {
         carRecord.setPrice(userPrice);
         
         //Add the data to the ArrayList
-        String recordLine = carRecord.getVIN() + " " + carRecord.getYear() + " " + carRecord.getMake() 
-                + " " + carRecord.getModel() + " " + carRecord.getMileage() + " " + carRecord.getPrice();
+        String recordLine = carRecord.getVIN() + " " + carRecord.getYear() + " " 
+                + carRecord.getMake() + " " + carRecord.getModel() + " " 
+                + carRecord.getMileage() + " " + carRecord.getPrice() + "\n";
         
         carRecord.setRecord(recordLine);
         
