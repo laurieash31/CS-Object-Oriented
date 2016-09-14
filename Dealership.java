@@ -127,4 +127,13 @@ public class Dealership {
         System.out.println(carRecord.getRecord());
     }
     
+    
+    
+    //This function diplays the car records to the console for Option 1
+    public void displayRecords(){
+        for (String s : carRecord.getRecord()){
+               System.out.println(s);
+        }
+    }
+    
 }
