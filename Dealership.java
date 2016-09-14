@@ -87,7 +87,7 @@ public class Dealership {
         //Get VIN
         System.out.println("Enter the VIN: " );
         String userVIN = input.nextLine();
-        carRecord.setVIN(userVIN);
+        carRecord.setVIN(userVIN.toUpperCase);
         
         //Get Year
         System.out.println("Enter the Year: " );
