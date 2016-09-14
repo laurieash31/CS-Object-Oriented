@@ -53,7 +53,6 @@ public class Main {
                 //User input is held in "int selection"
                 System.out.println("Your selection is: " );
                 int selection = input.nextInt();
-                //System.out.println(selection + "\n");
             
                 //int comparison wasn't working, converted to string
                 String selectstring = "" + selection;
@@ -80,10 +79,10 @@ public class Main {
                         break;
                     case "6":
                         System.out.println("You selected 6");
-                        if(count > 0) {
+                        //if(count > 0) {
                             //Car value needs to be added
                             dealer.exportData();
-                        }
+                        //}
                         quit = true;
                         break;
                     case "7":
