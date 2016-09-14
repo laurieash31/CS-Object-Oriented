@@ -24,6 +24,9 @@ public class Main {
         //Check if file exists
         dealer.fileCheck();
         
+        //Read data (if any) from cars.txt file into the ArrayList
+        dealer.readRecords();
+        
         //Set "exit program" to false for menu loop
         boolean quit = false;
         int count = 0;
