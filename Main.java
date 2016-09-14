@@ -79,7 +79,7 @@ public class Main {
                         System.out.println("You selected 6");
                         if(count > 0) {
                             //Car value needs to be added
-                            dealer.exportData(null);
+                            dealer.exportData();
                         }
                         quit = true;
                         break;
