@@ -62,6 +62,7 @@ public class Main {
                 switch (selectstring) {
                     case "1":
                         System.out.println("You selected 1");
+                        dealer.displayRecords();
                         break;        
                     case "2":
                         System.out.println("You selected 2");
