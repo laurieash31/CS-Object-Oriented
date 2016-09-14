@@ -65,6 +65,7 @@ public class Main {
                         break;        
                     case "2":
                         System.out.println("You selected 2");
+                        dealer.addCar();
                         dealer.counter(count);
                         break;
                     case "3":
