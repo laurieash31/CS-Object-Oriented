@@ -119,7 +119,7 @@ public class Dealership {
         //Add the data to the ArrayList
         String recordLine = carRecord.getVIN() + " " + carRecord.getYear() + " " 
                 + carRecord.getMake() + " " + carRecord.getModel() + " " 
-                + carRecord.getMileage() + " " + carRecord.getPrice() + "\n";
+                + carRecord.getMileage() + " " + "$" + carRecord.getPrice() + "\n";
         
         carRecord.setRecord(recordLine);
         
