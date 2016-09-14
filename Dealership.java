@@ -64,7 +64,7 @@ public class Dealership {
     
     
     //If counter > 0, this will run to export new data
-    public void exportData(Car car){
+    public void exportData(){
        try {
            FileWriter outFile = new FileWriter("cars.txt");
            for (String s : carRecord.getRecord()){
