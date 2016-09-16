@@ -12,6 +12,7 @@ import java.util.Scanner;
 import java.io.FileWriter;
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.util.ArrayList;
 
 /**
  *
@@ -87,7 +88,7 @@ public class Dealership {
         //Get VIN
         System.out.println("Enter the VIN: " );
         String userVIN = input.nextLine();
-        carRecord.setVIN(userVIN.toUpperCase);
+        //carRecord.setVIN(userVIN.toUpperCase); //Had issues here
         
         //Get Year
         System.out.println("Enter the Year: " );
@@ -125,6 +126,70 @@ public class Dealership {
         
         //Debugging print statement--Not necessary for final
         System.out.println(carRecord.getRecord());
+    }
+    
+    //Re-enter information that is to be deleted
+    //Issue with this design is that it will delete the first read of input data
+    //it finds. It will not delete a specifically designated slot entirely.
+    public void deleteCar(){
+        Scanner input = new Scanner(System.in);
+        
+        //Get VIN
+        System.out.println("Enter the VIN: " );
+        String userVIN = input.nextLine();
+        //carRecord.setVIN(userVIN.toUpperCase); //Had issues here
+        
+        //Get Year
+        System.out.println("Enter the Year: " );
+        int userYearInt = input.nextInt();
+        String userYear = "" + userYearInt;
+        
+        //Get Make
+        System.out.println("Enter the Make: " );
+        String userMake = input.nextLine();
+        
+        //Get Model
+        System.out.println("Enter the Model: " );
+        String userModel = input.nextLine();
+        
+        //Get Mileage
+        System.out.println("Enter the Mileage: " );
+        int userMileageInt = input.nextInt();
+        String userMileage = "" + userMileageInt;
+        
+        //Get Price
+        System.out.println("Enter the Price: " );
+        Float userPriceFlt = input.nextFloat();
+        String userPrice = "" + userPriceFlt;
+        
+       //Remove Car Elements
+       //Issue here: Will remove earlier iterations of the same type
+       carRecord.removeElement(userVIN);
+       carRecord.removeElement(userYear);
+       carRecord.removeElement(userMake);
+       carRecord.removeElement(userModel);
+       carRecord.removeElement(userMileage);
+       carRecord.removeElement(userPrice);
+       
+              
+        //Debugging print statement--Not necessary for final
+        System.out.println(carRecord.getRecord());
+    }
+    
+    public boolean checkCar(){       
+        Scanner input = new Scanner(System.in);
+        ArrayList<String> record = carRecord.getRecord();
+        
+        //Get VIN
+        System.out.println("Enter the VIN: " );
+        String userVIN = input.nextLine();
+        
+        if(!carRecord.searchList(userVIN).equals("negativeSearch")) {
+            return true;
+        }
+        else {
+            return false;
+        }
     }
     
     
