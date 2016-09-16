@@ -92,6 +92,32 @@ public class Car {
         return this.record;
     }
     
+    //Searches the list for a VIN number
+    //Placed in Car beacuse it's difficult to traverse array in Dealership
+    public String searchList(String VIN) {
+        String negativeSearch = "negativeSearch";
+        
+        if (this.record.isEmpty()) {
+            System.out.println("There is nothing to search.");
+            return negativeSearch;
+        }
+        
+        for(int i = 0; i < this.record.size();i++) {
+            if(this.record.get(i).equals(VIN)) {
+                return record.get(i);
+            }
+            else {
+                return negativeSearch;
+            }
+        }
+        return negativeSearch;      
+    }
+    
+    //Intended to remove an element from the ArrayList
+    public void removeElement(String element) {
+        record.remove(element);
+    }
+    
     
     private ArrayList<String> record = new ArrayList<String>();
     private String vin; //Double check this; vin is always 5
