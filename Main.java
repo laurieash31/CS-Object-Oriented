@@ -71,10 +71,18 @@ public class Main {
                         break;
                     case "3":
                         System.out.println("You selected 3");
+                        dealer.deleteCar();
                         dealer.counter(count);
                         break;
                     case "4":
                         System.out.println("You selected 4");
+                        if(dealer.checkCar()) {
+                            System.out.println("The selected car is in the"
+                                    + " database.");                           
+                        }
+                        else { System.out.println("The selected car is not in"
+                                    + " the database.");                           
+                        }
                         break;
                     case "5":
                         System.out.println("You selected 5");
