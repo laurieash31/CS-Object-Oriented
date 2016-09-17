@@ -33,15 +33,13 @@ public class Dealership {
     //This function tests if cars.txt exists and creates files if it doesn't
     public void fileCheck(){
         try {
-                File car_records = new File("cars.txt");
-                if (car_records.createNewFile()){
-                //Debug to check when creating new cars.txt file
-	        //System.out.println("File is created!");
-                }
-                 else{
-                //Debug to check if cars.txt already exists
-	        //System.out.println("File already exists.");
-               }
+            File car_records = new File("cars.txt");
+            if (car_records.createNewFile()){
+                System.out.println("'cars.txt' has been created.");
+            }
+            else {
+                System.out.println("Importing car record data... ");
+            }
         } catch (IOException e) {
             System.out.println("There was a problem creating 'cars.txt' ");
             e.printStackTrace();
@@ -86,8 +84,13 @@ public class Dealership {
         Scanner input = new Scanner(System.in);
         
         //Get VIN
-        System.out.println("Enter the VIN: " );
-        String userVIN = input.nextLine();
+        String userVIN;
+        int strLength = 0;
+        do {
+            System.out.println("Enter the VIN: " );
+            userVIN = input.nextLine();
+            strLength = userVIN.length();
+        } while(strLength != 5);
         carRecord.setVIN(userVIN.toUpperCase()); 
         
         //Get Year
@@ -122,6 +125,7 @@ public class Dealership {
                 + carRecord.getMileage() + " " + "$" + carRecord.getPrice();
         
         carRecord.setRecord(recordLine);
+        System.out.println();
     }
     
     
