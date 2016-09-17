@@ -6,6 +6,7 @@
 package assignment1;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 /**
  *
@@ -84,14 +85,25 @@ public class Car {
         return this.record;
     }
     
-    //Intended to remove an element from the ArrayList
-    public void removeElement(String element) {
-        record.remove(element);
+    //Removes an element from the ArrayList
+    public void removeElement(String userVIN) {
+        //record.remove(element);
+        //Find the matching car record VIN
+        Iterator<String> iter = record.iterator();
+
+        while (iter.hasNext()) {
+            String str = iter.next();
+
+            if (str.contains(userVIN) == true) {
+                iter.remove();
+            }
+        
+        }
     }
     
     
     private ArrayList<String> record = new ArrayList<String>();
-    private String vin; //Double check this; vin is always 5
+    private String vin;
     private int year;
     private int mileage;
     private float price;
