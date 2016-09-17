@@ -22,13 +22,6 @@ public class Dealership {
     //This is needed for being able to store the string in the ArrayList	
     Car carRecord = new Car();
     
-    //Used to figure out if cars have been added or removed.
-    //Increases in either situation to switch the output function on
-    public int counter(int count) {
-        count++;
-        return count;
-    }
-    
     
     //This function tests if cars.txt exists and creates files if it doesn't
     public void fileCheck(){
@@ -140,17 +133,10 @@ public class Dealership {
         String userVIN = input.nextLine();
         userVIN = userVIN.toUpperCase();
         
-        //Find the matching car record VIN
-        for (String s : carRecord.getRecord()){
-            if (s.contains(userVIN) == true){
-                System.out.println(s);
-            }
-        }
-        
-      
-        //Debugging print statement--Not necessary for final
-        System.out.println(carRecord.getRecord());
+        //Remove the car record with matching VIN
+        carRecord.removeElement(userVIN);        
     }
+    
     
     
     /*
