@@ -11,8 +11,10 @@ import java.io.FileReader;
 import java.util.Scanner;
 import java.io.FileWriter;
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.ArrayList;
+import java.io.PrintWriter;
 
 /**
  *
@@ -66,7 +68,17 @@ public class Dealership {
     
     //If counter > 0, this will run to export new data
     public void exportData(){
-       try {
+        try {
+            PrintWriter outFile = new PrintWriter("cars.txt");
+            for (String s : carRecord.getRecord()){
+               outFile.println(s);
+            }
+            outFile.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found.");
+            e.printStackTrace();
+        }
+       /*try {
            FileWriter outFile = new FileWriter("cars.txt");
            for (String s : carRecord.getRecord()){
                outFile.write(s);
@@ -74,7 +86,7 @@ public class Dealership {
            outFile.close();
        } catch (IOException e) {
            e.printStackTrace();
-       }
+       }*/
 
     }
     
@@ -88,17 +100,16 @@ public class Dealership {
         //Get VIN
         System.out.println("Enter the VIN: " );
         String userVIN = input.nextLine();
-        //carRecord.setVIN(userVIN.toUpperCase); //Had issues here
+        carRecord.setVIN(userVIN.toUpperCase()); //Had issues here
         
         //Get Year
         System.out.println("Enter the Year: " );
         int userYear = input.nextInt();
         carRecord.setYear(userYear);
         
-        //DOES THE THING WITH THE NEWLINE, FIX FROM NOTES WITH PROPER NEXT() FUNCTION
-        
         //Get Make
         System.out.println("Enter the Make: " );
+        input.nextLine();
         String userMake = input.nextLine();
         carRecord.setMake(userMake);
         
@@ -120,7 +131,7 @@ public class Dealership {
         //Add the data to the ArrayList
         String recordLine = carRecord.getVIN() + " " + carRecord.getYear() + " " 
                 + carRecord.getMake() + " " + carRecord.getModel() + " " 
-                + carRecord.getMileage() + " " + "$" + carRecord.getPrice() + "\n";
+                + carRecord.getMileage() + " " + "$" + carRecord.getPrice();
         
         carRecord.setRecord(recordLine);
         
@@ -137,7 +148,7 @@ public class Dealership {
         //Get VIN
         System.out.println("Enter the VIN: " );
         String userVIN = input.nextLine();
-        //carRecord.setVIN(userVIN.toUpperCase); //Had issues here
+        carRecord.setVIN(userVIN.toUpperCase()); //Had issues here
         
         //Get Year
         System.out.println("Enter the Year: " );
@@ -199,6 +210,28 @@ public class Dealership {
         for (String s : carRecord.getRecord()){
                System.out.println(s);
         }
+    }
+    
+    
+    
+    //This function finds a car record between a certain price
+    public void findPrice(){
+        //Scanner input = new Scanner(System.in);
+        
+        /*
+        System.out.println("Enter the minimum of the price range: ");
+        Float min_price = input.nextFloat();
+        
+        System.out.println("Enter the maximum of the price range: ");
+        Float max_price = input.nextFloat();
+        */
+        
+        String temp;
+        for (String s : carRecord.getRecord()){
+               temp = s.substring(s.indexOf("$") + 1 , s.length());
+               System.out.println(temp);
+        }
+        
     }
     
 }
