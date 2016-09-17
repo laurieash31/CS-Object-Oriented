@@ -86,6 +86,7 @@ public class Main {
                         break;
                     case "5":
                         System.out.println("You selected 5");
+                        dealer.findPrice();
                         break;
                     case "6":
                         System.out.println("You selected 6");
