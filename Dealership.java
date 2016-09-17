@@ -214,22 +214,45 @@ public class Dealership {
     
     
     
-    //This function finds a car record between a certain price
+    //This function for Option 5 finds a car record between a certain price
     public void findPrice(){
-        //Scanner input = new Scanner(System.in);
+        Scanner input = new Scanner(System.in);
         
-        /*
+        //Get user input to set the price range
         System.out.println("Enter the minimum of the price range: ");
         Float min_price = input.nextFloat();
         
         System.out.println("Enter the maximum of the price range: ");
         Float max_price = input.nextFloat();
-        */
         
+        /*
+        Convert the prices in the car records to float and check if the car
+        record is within the user's specified price range.
+        */
         String temp;
+        Boolean hasRecord = false;
         for (String s : carRecord.getRecord()){
-               temp = s.substring(s.indexOf("$") + 1 , s.length());
-               System.out.println(temp);
+            
+            //Get the price from the end of the car record   
+            temp = s.substring(s.indexOf("$") + 1 , s.length());
+            
+            //Convert price to float
+            float price = Float.parseFloat(temp);
+            
+            /*
+            Check if car record price is within user's price range and display
+            car record if it is.
+            */
+            if (price >= min_price && price <= max_price){
+                System.out.println(s);
+                hasRecord = true;
+            }               
+        }
+        
+        //If no car record was found within the price range...
+        if (hasRecord == false){
+            System.out.println("Sorry, cannot find car within that "
+                    + "price range." + "\n");
         }
         
     }
