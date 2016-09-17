@@ -7,13 +7,10 @@ package assignment1;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.FileReader;
 import java.util.Scanner;
-import java.io.FileWriter;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.util.ArrayList;
 import java.io.PrintWriter;
 
 /**
@@ -46,7 +43,8 @@ public class Dealership {
 	        //System.out.println("File already exists.");
                }
         } catch (IOException e) {
-                e.printStackTrace();
+            System.out.println("There was a problem creating 'cars.txt' ");
+            e.printStackTrace();
         }
     }
     
@@ -66,7 +64,7 @@ public class Dealership {
     }
     
     
-    //If counter > 0, this will run to export new data
+    //This function places the car records into "cars.txt"
     public void exportData(){
         try {
             PrintWriter outFile = new PrintWriter("cars.txt");
@@ -78,16 +76,6 @@ public class Dealership {
             System.out.println("File not found.");
             e.printStackTrace();
         }
-       /*try {
-           FileWriter outFile = new FileWriter("cars.txt");
-           for (String s : carRecord.getRecord()){
-               outFile.write(s);
-           }
-           outFile.close();
-       } catch (IOException e) {
-           e.printStackTrace();
-       }*/
-
     }
     
     
@@ -100,7 +88,7 @@ public class Dealership {
         //Get VIN
         System.out.println("Enter the VIN: " );
         String userVIN = input.nextLine();
-        carRecord.setVIN(userVIN.toUpperCase()); //Had issues here
+        carRecord.setVIN(userVIN.toUpperCase()); 
         
         //Get Year
         System.out.println("Enter the Year: " );
@@ -134,10 +122,8 @@ public class Dealership {
                 + carRecord.getMileage() + " " + "$" + carRecord.getPrice();
         
         carRecord.setRecord(recordLine);
-        
-        //Debugging print statement--Not necessary for final
-        System.out.println(carRecord.getRecord());
     }
+    
     
     //Re-enter information that is to be deleted
     //Issue with this design is that it will delete the first read of input data
@@ -145,61 +131,48 @@ public class Dealership {
     public void deleteCar(){
         Scanner input = new Scanner(System.in);
         
-        //Get VIN
-        System.out.println("Enter the VIN: " );
+        //Get VIN of car to be deleted
+        System.out.println("Enter the VIN of car to be deleted: " );
         String userVIN = input.nextLine();
-        carRecord.setVIN(userVIN.toUpperCase()); //Had issues here
+        userVIN = userVIN.toUpperCase();
         
-        //Get Year
-        System.out.println("Enter the Year: " );
-        int userYearInt = input.nextInt();
-        String userYear = "" + userYearInt;
+        //Find the matching car record VIN
+        for (String s : carRecord.getRecord()){
+            if (s.contains(userVIN) == true){
+                System.out.println(s);
+            }
+        }
         
-        //Get Make
-        System.out.println("Enter the Make: " );
-        String userMake = input.nextLine();
-        
-        //Get Model
-        System.out.println("Enter the Model: " );
-        String userModel = input.nextLine();
-        
-        //Get Mileage
-        System.out.println("Enter the Mileage: " );
-        int userMileageInt = input.nextInt();
-        String userMileage = "" + userMileageInt;
-        
-        //Get Price
-        System.out.println("Enter the Price: " );
-        Float userPriceFlt = input.nextFloat();
-        String userPrice = "" + userPriceFlt;
-        
-       //Remove Car Elements
-       //Issue here: Will remove earlier iterations of the same type
-       carRecord.removeElement(userVIN);
-       carRecord.removeElement(userYear);
-       carRecord.removeElement(userMake);
-       carRecord.removeElement(userModel);
-       carRecord.removeElement(userMileage);
-       carRecord.removeElement(userPrice);
-       
-              
+      
         //Debugging print statement--Not necessary for final
         System.out.println(carRecord.getRecord());
     }
     
-    public boolean checkCar(){       
+    
+    /*
+    This function finds the car record and displays it based on the 
+    VIN entered by the user
+    */
+    public void checkCar(){       
         Scanner input = new Scanner(System.in);
-        ArrayList<String> record = carRecord.getRecord();
         
-        //Get VIN
-        System.out.println("Enter the VIN: " );
+        //Get VIN of car to search
+        System.out.println("Enter the VIN of car to search for: " );
         String userVIN = input.nextLine();
+        userVIN = userVIN.toUpperCase();
         
-        if(!carRecord.searchList(userVIN).equals("negativeSearch")) {
-            return true;
+        //Find the matching car record VIN
+        Boolean found = false;
+        for (String s : carRecord.getRecord()){
+            if (s.contains(userVIN) == true){
+                found = true;
+                System.out.println(s + "\n");
+            }
         }
-        else {
-            return false;
+        
+        //If car is not found in the database...
+        if (found == false){
+            System.out.println("Sorry, car record does not exist." + "\n");
         }
     }
     
@@ -210,11 +183,12 @@ public class Dealership {
         for (String s : carRecord.getRecord()){
                System.out.println(s);
         }
+        System.out.println();
     }
     
     
     
-    //This function for Option 5 finds a car record between a certain price
+    //This function finds a car record between a certain price
     public void findPrice(){
         Scanner input = new Scanner(System.in);
         
@@ -224,11 +198,9 @@ public class Dealership {
         
         System.out.println("Enter the maximum of the price range: ");
         Float max_price = input.nextFloat();
+        System.out.println();
         
-        /*
-        Convert the prices in the car records to float and check if the car
-        record is within the user's specified price range.
-        */
+        //Find cars within price range
         String temp;
         Boolean hasRecord = false;
         for (String s : carRecord.getRecord()){
@@ -248,6 +220,7 @@ public class Dealership {
                 hasRecord = true;
             }               
         }
+        System.out.println();
         
         //If no car record was found within the price range...
         if (hasRecord == false){
