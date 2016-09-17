@@ -76,13 +76,7 @@ public class Main {
                         break;
                     case "4":
                         System.out.println("You selected 4");
-                        if(dealer.checkCar()) {
-                            System.out.println("The selected car is in the"
-                                    + " database.");                           
-                        }
-                        else { System.out.println("The selected car is not in"
-                                    + " the database.");                           
-                        }
+                        dealer.checkCar();
                         break;
                     case "5":
                         System.out.println("You selected 5");
@@ -90,10 +84,7 @@ public class Main {
                         break;
                     case "6":
                         System.out.println("You selected 6");
-                        //if(count > 0) {
-                            //Car value needs to be added
-                            dealer.exportData();
-                        //}
+                        dealer.exportData();
                         quit = true;
                         break;
                     case "7":
