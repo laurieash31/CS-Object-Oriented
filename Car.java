@@ -13,14 +13,6 @@ import java.util.ArrayList;
  */
 public class Car {
     
-    /*
-    I don't know if we need a plain constructor or not. And I don't know if we need set functions for each too. 
-    I added them just in case, but I wasn't sure how to make a set function for ArrayList.
-    
-    We might need a function that either combines all the pieces of the record
-    into a string like on the slides from today, and then put the string in the ArrayList as one long string for 
-    each car record line entered by the user.
-    */
     public Car(){
             
     }
@@ -90,27 +82,6 @@ public class Car {
     
     public ArrayList<String> getRecord(){
         return this.record;
-    }
-    
-    //Searches the list for a VIN number
-    //Placed in Car beacuse it's difficult to traverse array in Dealership
-    public String searchList(String VIN) {
-        String negativeSearch = "negativeSearch";
-        
-        if (this.record.isEmpty()) {
-            System.out.println("There is nothing to search.");
-            return negativeSearch;
-        }
-        
-        for(int i = 0; i < this.record.size();i++) {
-            if(this.record.get(i).equals(VIN)) {
-                return record.get(i);
-            }
-            else {
-                return negativeSearch;
-            }
-        }
-        return negativeSearch;      
     }
     
     //Intended to remove an element from the ArrayList
