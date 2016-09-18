@@ -17,6 +17,8 @@ public class Dealership {
     //Constant values
     public static final int MAX_VIN = 5;
     public static final int MAX_YEAR = 2016;
+    public static final int MIN_MILEAGE = 0;
+    public static final int MIN_PRICE = 0;
 
     //Create an instance of Car class	
     Car carRecord = new Car();
@@ -106,13 +108,19 @@ public class Dealership {
         carRecord.setModel(userModel);
         
         //Get Mileage
-        System.out.println("Enter the Mileage: " );
-        int userMileage = input.nextInt();
+        int userMileage;
+        do {
+            System.out.println("Enter the Mileage: " );
+            userMileage = input.nextInt();
+        } while(userMileage < MIN_MILEAGE);
         carRecord.setMileage(userMileage);
         
         //Get Price
-        System.out.println("Enter the Price: " );
-        Float userPrice = input.nextFloat();
+        Float userPrice;
+        do {
+            System.out.println("Enter the Price: " );
+            userPrice = input.nextFloat();
+        } while(userPrice < MIN_PRICE);
         carRecord.setPrice(userPrice);
         
         //Add the data to the ArrayList
@@ -224,7 +232,5 @@ public class Dealership {
             System.out.println("Sorry, cannot find car within that "
                     + "price range." + "\n");
         }
-        
     }
-    
 }
