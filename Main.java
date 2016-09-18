@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package assignment1;
 
 import java.util.Scanner;
@@ -51,7 +46,7 @@ public class Main {
                 Scanner input = new Scanner(System.in);
            
                 //User input is held in "int selection"
-                System.out.println("Your selection is: " );
+                System.out.print("Your selection is: " );
                 int selection = input.nextInt();
             
                 //int comparison wasn't working, converted to string
@@ -61,39 +56,41 @@ public class Main {
                 //Can use for when each option is selected
                 switch (selectstring) {
                     case "1":
-                        System.out.println("You selected 1");
+                        System.out.println("Displaying car records..." + "\n");
                         dealer.displayRecords();
                         break;        
                     case "2":
-                        System.out.println("You selected 2");
+                        System.out.println("Add a car to the database..." + "\n");
                         dealer.addCar();
                         break;
                     case "3":
-                        System.out.println("You selected 3");
+                        System.out.println("Delete a car from the database..." + "\n");
                         dealer.deleteCar();
                         break;
                     case "4":
-                        System.out.println("You selected 4");
+                        System.out.println("Search for car..." + "\n");
                         dealer.checkCar();
                         break;
                     case "5":
-                        System.out.println("You selected 5");
+                        System.out.println("Display list of cars within range..." + "\n");
                         dealer.findPrice();
                         break;
                     case "6":
-                        System.out.println("You selected 6");
+                        System.out.println("Saving data..." + "\n");
                         dealer.exportData();
+                        System.out.println("Exiting program...");
                         quit = true;
                         break;
                     case "7":
-                        System.out.println("You selected 7");
+                        System.out.println("Displaying menu..." + "\n");
                         break;
                     default:
-                        System.out.println("Your selection is unavailable");
+                        System.out.println("Your selection is unavailable" + "\n");
                         break;
                     }
             } catch(InputMismatchException e) {
                 System.out.println("You must enter a valid option!");
+                System.out.println();
             }                    
         } while(quit == false);
     }
