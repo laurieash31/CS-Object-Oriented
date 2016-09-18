@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package assignment1;
 
 import java.io.File;
@@ -18,10 +13,14 @@ import java.io.PrintWriter;
  * @author Laura Garcia/Austin Stamper
  */
 public class Dealership {
-
-    //This is needed for being able to store the string in the ArrayList	
-    Car carRecord = new Car();
     
+    //Constant values
+    public static final int MAX_VIN = 5;
+    public static final int MAX_YEAR = 2016;
+
+    //Create an instance of Car class	
+    Car carRecord = new Car();
+       
     
     //This function tests if cars.txt exists and creates files if it doesn't
     public void fileCheck(){
@@ -29,9 +28,11 @@ public class Dealership {
             File car_records = new File("cars.txt");
             if (car_records.createNewFile()){
                 System.out.println("'cars.txt' has been created.");
+                System.out.println();
             }
             else {
                 System.out.println("Importing car record data... ");
+                System.out.println();
             }
         } catch (IOException e) {
             System.out.println("There was a problem creating 'cars.txt' ");
@@ -71,8 +72,7 @@ public class Dealership {
     
     
     //This function gets the user input for each field, then converts it to a string.
-    //Then it puts the string into the ArrayList at the first index and so on.
-    //Remove the printline debug statement that prints what's in the array elements. 
+    //Then it puts the string into the ArrayList at the first index and so on. 
     public void addCar(){
         Scanner input = new Scanner(System.in);
         
@@ -83,12 +83,15 @@ public class Dealership {
             System.out.println("Enter the VIN: " );
             userVIN = input.nextLine();
             strLength = userVIN.length();
-        } while(strLength != 5);
+        } while(strLength != MAX_VIN);
         carRecord.setVIN(userVIN.toUpperCase()); 
         
         //Get Year
-        System.out.println("Enter the Year: " );
-        int userYear = input.nextInt();
+        int userYear = 0;
+        do {
+            System.out.println("Enter the Year: " );
+            userYear = input.nextInt();
+        } while(userYear > MAX_YEAR);
         carRecord.setYear(userYear);
         
         //Get Make
@@ -115,28 +118,31 @@ public class Dealership {
         //Add the data to the ArrayList
         String recordLine = carRecord.getVIN() + " " + carRecord.getYear() + " " 
                 + carRecord.getMake() + " " + carRecord.getModel() + " " 
-                + carRecord.getMileage() + " " + "$" + carRecord.getPrice();
+                + carRecord.getMileage() + " " + "$" 
+                + String.format(java.util.Locale.US,"%.2f", carRecord.getPrice());
         
         carRecord.setRecord(recordLine);
         System.out.println();
     }
     
     
-    //Re-enter information that is to be deleted
-    //Issue with this design is that it will delete the first read of input data
-    //it finds. It will not delete a specifically designated slot entirely.
+    /*
+    This function gets the VIN from the user to delete the car record. It then
+    calls removeElement() located in the Car class to remove the element from
+    the ArrayList
+    */
     public void deleteCar(){
         Scanner input = new Scanner(System.in);
         
         //Get VIN of car to be deleted
-        System.out.println("Enter the VIN of car to be deleted: " );
+        System.out.print("Enter the VIN of car to be deleted: " );
         String userVIN = input.nextLine();
         userVIN = userVIN.toUpperCase();
         
         //Remove the car record with matching VIN
-        carRecord.removeElement(userVIN);        
+        carRecord.removeElement(userVIN); 
+        System.out.println();
     }
-    
     
     
     /*
@@ -147,9 +153,10 @@ public class Dealership {
         Scanner input = new Scanner(System.in);
         
         //Get VIN of car to search
-        System.out.println("Enter the VIN of car to search for: " );
+        System.out.print("Enter the VIN of car to search for: " );
         String userVIN = input.nextLine();
         userVIN = userVIN.toUpperCase();
+        System.out.println();
         
         //Find the matching car record VIN
         Boolean found = false;
@@ -183,10 +190,10 @@ public class Dealership {
         Scanner input = new Scanner(System.in);
         
         //Get user input to set the price range
-        System.out.println("Enter the minimum of the price range: ");
+        System.out.print("Enter the minimum of the price range: ");
         Float min_price = input.nextFloat();
-        
-        System.out.println("Enter the maximum of the price range: ");
+        System.out.println();
+        System.out.print("Enter the maximum of the price range: ");
         Float max_price = input.nextFloat();
         System.out.println();
         
