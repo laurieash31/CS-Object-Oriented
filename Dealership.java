@@ -10,8 +10,12 @@ import java.io.PrintWriter;
 
 /**
  *
- * @author Laura Garcia/Austin Stamper
+ * @author Laura Garcia
+ * @author Austin Stamper
+ * @version 1.0
  */
+
+/** The class Dealership contains the methods used in main.java */
 public class Dealership {
     
     //Constant values
@@ -24,7 +28,7 @@ public class Dealership {
     Car carRecord = new Car();
        
  /** 
- * This method tests if cars.txt exists and creates a file if it doesn't 
+ * This method tests if cars.txt exists and creates a file if it doesn't. 
  */
     //This function tests if cars.txt exists and creates files if it doesn't
     public void fileCheck(){
