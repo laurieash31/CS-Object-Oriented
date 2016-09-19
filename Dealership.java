@@ -23,7 +23,9 @@ public class Dealership {
     //Create an instance of Car class	
     Car carRecord = new Car();
        
-    
+ /** 
+ * This method tests if cars.txt exists and creates a file if it doesn't 
+ */
     //This function tests if cars.txt exists and creates files if it doesn't
     public void fileCheck(){
         try {
@@ -42,7 +44,10 @@ public class Dealership {
         }
     }
     
-    
+ /** 
+ * This method reads data in from the cars.txt file if it exists. Data is stored
+ * in the ArrayList.
+ */
     //This function reads data in from the cars.txt file if there are 
     //car records already in the file. It stores them into the ArrayList.
     public void readRecords(){
@@ -57,7 +62,9 @@ public class Dealership {
         
     }
     
-    
+/** 
+ * This method exports car records into the file "cars.txt".
+ */
     //This function places the car records into "cars.txt"
     public void exportData(){
         try {
@@ -72,9 +79,11 @@ public class Dealership {
         }
     }
     
-    
-    //This function gets the user input for each field, then converts it to a string.
-    //Then it puts the string into the ArrayList at the first index and so on. 
+    /**
+    * This method gets the user input for each field, then converts it to a 
+    * string.Then it puts the string into the ArrayList at the first index and 
+    * so on.
+    */
     public void addCar(){
         Scanner input = new Scanner(System.in);
         
@@ -134,10 +143,10 @@ public class Dealership {
     }
     
     
-    /*
-    This function gets the VIN from the user to delete the car record. It then
-    calls removeElement() located in the Car class to remove the element from
-    the ArrayList
+    /**
+    * This method gets the VIN from the user to delete the car record. It then
+    * calls removeElement() located in the Car class to remove the element from
+    * the ArrayList
     */
     public void deleteCar(){
         Scanner input = new Scanner(System.in);
@@ -153,9 +162,9 @@ public class Dealership {
     }
     
     
-    /*
-    This function finds the car record and displays it based on the 
-    VIN entered by the user
+    /**
+    * This method finds the car record and displays it based on the 
+    * VIN entered by the user
     */
     public void checkCar(){       
         Scanner input = new Scanner(System.in);
@@ -182,8 +191,9 @@ public class Dealership {
     }
     
     
-    
-    //This function diplays the car records to the console for Option 1
+    /**
+    * This method diplays the car records to the console for Option 1.
+    */ 
     public void displayRecords(){
         for (String s : carRecord.getRecord()){
                System.out.println(s);
@@ -192,8 +202,9 @@ public class Dealership {
     }
     
     
-    
-    //This function finds a car record between a certain price
+    /**
+    * This method finds a car record between a certain price.
+    */ 
     public void findPrice(){
         Scanner input = new Scanner(System.in);
         
