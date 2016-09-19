@@ -5,7 +5,9 @@ import java.util.InputMismatchException;
 
 /**
  *
- * @author Laura Garcia/Austin Stamper
+ * @author Laura Garcia
+ * @author Austin Stamper
+ * @version 1.0
  */
 public class Main {
 
