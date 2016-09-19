@@ -5,8 +5,12 @@ import java.util.Iterator;
 
 /**
  *
- * @author lauragarcia/Austin Stamper
+ * @author Laura Garcia
+ * @author Austin Stamper
+ * @version 1.0
  */
+
+/** The class Car contains the data to be used in the methods */
 public class Car {
     /**
     * This method is a default constructor.
