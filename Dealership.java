@@ -1,3 +1,10 @@
+/**
+ *
+ * @author Laura Garcia
+ * @author Austin Stamper
+ * @version 1.0
+ */
+
 package assignment1;
 
 import java.io.File;
@@ -8,12 +15,6 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.PrintWriter;
 
-/**
- *
- * @author Laura Garcia
- * @author Austin Stamper
- * @version 1.0
- */
 
 /** The class Dealership contains the methods used in main.java */
 public class Dealership {
@@ -181,6 +182,8 @@ public class Dealership {
         
         //Find the matching car record VIN
         Boolean found = false;
+        System.out.println("VIN   YEAR MAKE  MODEL  MILEAGE  PRICE");
+        System.out.println("..........................................");
         for (String s : carRecord.getRecord()){
             if (s.contains(userVIN) == true){
                 found = true;
@@ -196,9 +199,11 @@ public class Dealership {
     
     
     /**
-    * This method diplays the car records to the console for Option 1.
+    * This method displays the car records to the console for Option 1.
     */ 
     public void displayRecords(){
+        System.out.println("VIN   YEAR MAKE  MODEL  MILEAGE  PRICE");
+        System.out.println("..........................................");
         for (String s : carRecord.getRecord()){
                System.out.println(s);
         }
@@ -223,6 +228,8 @@ public class Dealership {
         //Find cars within price range
         String temp;
         Boolean hasRecord = false;
+        System.out.println("VIN   YEAR MAKE  MODEL  MILEAGE  PRICE");
+        System.out.println("..........................................");
         for (String s : carRecord.getRecord()){
             
             //Get the price from the end of the car record   
