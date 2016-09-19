@@ -1,14 +1,14 @@
-package assignment1;
-
-import java.util.ArrayList;
-import java.util.Iterator;
-
 /**
  *
  * @author Laura Garcia
  * @author Austin Stamper
  * @version 1.0
  */
+
+package assignment1;
+
+import java.util.ArrayList;
+import java.util.Iterator;
 
 /** The class Car contains the data to be used in the methods */
 public class Car {
