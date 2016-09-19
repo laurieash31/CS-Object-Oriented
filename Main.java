@@ -1,14 +1,16 @@
-package assignment1;
-
-import java.util.Scanner;
-import java.util.InputMismatchException;
-
 /**
  *
  * @author Laura Garcia
  * @author Austin Stamper
  * @version 1.0
  */
+ 
+
+package assignment1;
+
+import java.util.Scanner;
+import java.util.InputMismatchException;
+
 public class Main {
 
     public static void main(String[] args) {
