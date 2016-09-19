@@ -8,12 +8,12 @@ import java.util.Iterator;
  * @author lauragarcia/Austin Stamper
  */
 public class Car {
-    
-    //This function is a default constructor
+    /**
+    * This method is a default constructor.
+    */ 
     public Car(){}
     
-    
-    //This function is the constructor
+    //This function is the constructor 
     public Car(ArrayList<String> tempRecord, String tempVin, int tempYear, int tempMileage, float tempPrice, 
             String tempMake, String tempModel){
         this.record = tempRecord;        
@@ -25,20 +25,26 @@ public class Car {
         model = tempModel; 
     }
     
-    
-    //This function sets the newVIN to the vin in record
+    /**
+    * This method sets the newVIN to the VIN in record.
+    * @param newVIN the VIN to be set.
+    */
     public void setVIN(String newVIN){
         vin = newVIN;
     }
     
-    
-    //This function returns the vin from the record
+    /**
+    * This function returns the VIN from the record.
+    * @return the VIN in the record. 
+    */ 
     public String getVIN(){
         return vin;
     }
     
-    
-    //This function sets the year in record to newYear
+    /**
+    * This function sets the year in record to newYear.
+    * @param newYear the defined year to be set.
+    */ 
     public void setYear(int newYear){
         year = newYear;
     }
@@ -50,7 +56,10 @@ public class Car {
     }
     
     
-    //This function sets the mileage in record from newMileage
+    /**
+    * This function sets the mileage in record to newMileage
+    * @param newMileage the defined mileage to be set.
+    */ 
     public void setMileage(int newMileage){
         mileage = newMileage;
     }
@@ -62,7 +71,10 @@ public class Car {
     }
     
     
-    //This function sets the price in record to newPrice
+    /**
+    * This function sets the price in record to newPrice.
+    * @param newPrice the defined price to be set.
+    */ 
     public void setPrice(float newPrice){
         price = newPrice;
     }
@@ -74,7 +86,10 @@ public class Car {
     }
     
     
-    //This function sets the make in record to newMake
+    /**
+    * This function sets the make in record to newMake.
+    * @param newMake the defined make to be set.
+    */ 
     public void setMake(String newMake){
         make = newMake;
     }
@@ -86,7 +101,10 @@ public class Car {
     }
     
     
-    //This function sets the model in record to newModel
+    /**
+    * This function sets the model in record to newModel.
+    * @param newModel the defined model to be set.
+    */ 
     public void setModel(String newModel){
         model = newModel;
     }
@@ -98,7 +116,10 @@ public class Car {
     }
     
     
-    //This function sets a record element to newRecord
+    /**
+    * This function sets the record in record to newRecord.
+    * @param newRecord the defined record to be set.
+    */ 
     public void setRecord(String newRecord){
         record.add(newRecord);
     }
@@ -109,7 +130,10 @@ public class Car {
         return this.record;
     }
     
-    //This function removes the element from record
+    /**
+    * This function uses the VIN to remove an element from the ArrayList.
+    * @param userVIN the defined VIN used to find the element to be removed.
+    */ 
     public void removeElement(String userVIN) {
         //Find the matching car record VIN
         Iterator<String> iter = record.iterator();
