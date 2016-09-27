@@ -6,8 +6,8 @@
 package assignment2;
 
 /**
- *
- * @author lauragarcia
+ * @author Austin Stamper
+ * @author Laura Garcia
  */
 public class Truck extends Vehicle{
     
