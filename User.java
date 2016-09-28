@@ -37,7 +37,7 @@ public class User{
         lastName = lName;
     }
     
-    public String getLasstName(){
+    public String getLastName(){
         return lastName;
     }
     
