@@ -6,10 +6,12 @@
 package assignment2;
 
 /**
- * @author Austin Stamper
- * @author Laura Garcia
+ *
+ * @author lauragarcia
  */
 public class Truck extends Vehicle{
+    
+    public Truck(){}
     
     public Truck(float weight, float len){
         maxLoadWeight = weight;
