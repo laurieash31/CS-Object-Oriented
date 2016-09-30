@@ -11,6 +11,8 @@ package assignment2;
  */
 public class Motorcycle extends Vehicle{
     
+    public Motorcycle(){}
+    
     public Motorcycle(String type, int eng){
         motoType = type;
         engine = eng;
