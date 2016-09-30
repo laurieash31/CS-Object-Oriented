@@ -6,10 +6,10 @@
 package assignment2;
 
 /**
- *
+ * @author Laura Garcia
  * @author Austin Stamper
  */
-public class Customer extends User {
+public class Customer extends User implements java.io.Serializable {
     
     public Customer(int dlNum, String pNum){
         dlNumber = dlNum;
