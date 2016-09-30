@@ -6,10 +6,10 @@
 package assignment2;
 
 /**
- *
+ * @author Laura Garcia
  * @author Austin Stamper
  */
-public class Employee extends User {
+public class Employee extends User implements java.io.Serializable {
     
     public Employee(float salary, int acctNum){
         monthSalary = salary;
