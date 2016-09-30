@@ -1,15 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package assignment2;
 
 /**
- *
- * @author lauragarcia
+ * @author Austin Stamper
+ * @author Laura Garcia
  */
-public class Truck extends Vehicle{
+public class Truck extends Vehicle implements java.io.Serializable{
     
     public Truck(){}
     
