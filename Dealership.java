@@ -25,6 +25,8 @@ public class Dealership {
 
     //Create an instance of Car class	
     Vehicle carRecord = new Vehicle();
+    
+    
        
  /** 
  * This method tests if cars.txt exists and creates a file if it doesn't. 
@@ -87,8 +89,47 @@ public class Dealership {
     * string.Then it puts the string into the ArrayList at the first index and 
     * so on.
     */
-    public void addCar(){
+    public void addVehicle(){
         Scanner input = new Scanner(System.in);
+        
+        String vehicleType = null;
+        System.out.println("What type of vehicle? (Motorcycle, Truck, or Car)" );
+        vehicleType = input.nextLine();
+        
+        switch (vehicleType) {
+            
+            //Figure out if it is Truck, Motorcycle, or Car and get unique data
+            //Still needs some debugging
+            case "Truck":
+                Truck truckRecord = new Truck();
+                float loadWeight = 0;
+                float length = 0;
+                System.out.println("Enter the Maximum Load Weight: " );
+                loadWeight = input.nextFloat();
+                System.out.println("Enter the Length in Feet: " );
+                length = input.nextFloat();
+                truckRecord.setLength(length);
+                truckRecord.setMaxLoadWeight(loadWeight);
+                break;
+            case "Motorcycle":
+                Motorcycle motoRecord = new Motorcycle();
+                String type = null;
+                int eng = 0;
+                System.out.println("Enter the Type: " );
+                type = input.nextLine();
+                System.out.println("Enter the Engine Displacement: " );
+                eng = input.nextInt();
+                motoRecord.setEngine(eng);
+                motoRecord.setType(type);
+                break;
+            case "Car":
+                PassengerCar pCarRecord = new PassengerCar();
+                String bodyStyle = null;
+                System.out.println("Enter the Body Style: " );
+                bodyStyle = input.nextLine();
+                pCarRecord.setBodyStyle(bodyStyle);
+                break;
+        }
         
         //Get VIN
         String userVIN;
@@ -135,11 +176,40 @@ public class Dealership {
         } while(userPrice < MIN_PRICE);
         carRecord.setPrice(userPrice);
         
+        
+        
         //Add the data to the ArrayList
         String recordLine = carRecord.getVIN() + " " + carRecord.getYear() + " " 
                 + carRecord.getMake() + " " + carRecord.getModel() + " " 
                 + carRecord.getMileage() + " " + "$" 
                 + String.format(java.util.Locale.US,"%.2f", carRecord.getPrice());
+        
+        //Initital idea was to add the variables unique to the different vehicles
+        //through a similar switch case to the one at the top but it isn't permitted.
+        //States that recordLine is already defined.
+        /*switch (vehicleType) {                      
+            case "Truck":
+                String recordLine = carRecord.getVIN() + " " + carRecord.getYear() + " " 
+                + carRecord.getMake() + " " + carRecord.getModel() + " " 
+                + carRecord.getMileage() + " " + "$" 
+                + String.format(java.util.Locale.US,"%.2f", carRecord.getPrice())
+                + truckRecord.getLength();
+                
+                break;
+            case "Motorcycle":
+                String recordLine = carRecord.getVIN() + " " + carRecord.getYear() + " " 
+                + carRecord.getMake() + " " + carRecord.getModel() + " " 
+                + carRecord.getMileage() + " " + "$" 
+                + String.format(java.util.Locale.US,"%.2f", carRecord.getPrice());
+                
+                break;
+            case "Car":
+                String recordLine = carRecord.getVIN() + " " + carRecord.getYear() + " " 
+                + carRecord.getMake() + " " + carRecord.getModel() + " " 
+                + carRecord.getMileage() + " " + "$" 
+                + String.format(java.util.Locale.US,"%.2f", carRecord.getPrice());
+                
+                break;*/
         
         carRecord.setRecord(recordLine);
         System.out.println();
