@@ -16,7 +16,7 @@ public class Main {
         Dealership dealer = new Dealership();
         
         //Needs constructor
-        Vehicle car = new Vehicle();
+        //Vehicle car = new Vehicle();
         
         //Check if file exists
         dealer.fileCheck();
@@ -26,19 +26,22 @@ public class Main {
         
         //Set "exit program" to false for menu loop
         boolean quit = false;
-        int count = 0;
         
         do{
             //Display option menu
             System.out.println("Welcome to the dealership database. Please choose one of the following: ");
             System.out.println("------------------------------------------------------------------------");
-            System.out.println("[1] Display existing car records");
-            System.out.println("[2] Add a new car record to the database");
-            System.out.println("[3] Delete a car record from the database");
-            System.out.println("[4] Search for a car record using the VIN");
-            System.out.println("[5] Display the list of cars within a price range");
-            System.out.println("[6] Exit the program");
-            System.out.println("[7] Display the menu choices");
+            System.out.println("[1] Display existing vehicle records");
+            System.out.println("[2] Add a new vehicle record to the database");
+            System.out.println("[3] Delete a vehicle record from the database");
+            System.out.println("[4] Search for a vehicle record using the VIN");
+            System.out.println("[5] Display the list of vehicles within a price range");
+            System.out.println("[6] Display the users in the database");
+            System.out.println("[7] Add a user to the database");
+            System.out.println("[8] Update user info using their ID");
+            System.out.println("[9] Add a new user to the database");
+            System.out.println("[10] Show completed sales transactions");
+            System.out.println("[11] Exit the program");
             System.out.println("------------------------------------------------------------------------");
             System.out.print(">> ");
             
@@ -58,34 +61,46 @@ public class Main {
                 //Can use for when each option is selected
                 switch (selectstring) {
                     case "1":
-                        System.out.println("Displaying car records..." + "\n");
+                        System.out.println("Displaying vehicle records..." + "\n");
                         dealer.displayRecords();
                         break;        
                     case "2":
-                        System.out.println("Add a car to the database..." + "\n");
-                        dealer.addCar();
+                        System.out.println("Add a vehicle to the database..." + "\n");
+                        dealer.addVehicle();
                         break;
                     case "3":
-                        System.out.println("Delete a car from the database..." + "\n");
+                        System.out.println("Delete a vehicle from the database..." + "\n");
                         dealer.deleteCar();
                         break;
                     case "4":
-                        System.out.println("Search for car..." + "\n");
+                        System.out.println("Search for vehicle..." + "\n");
                         dealer.checkCar();
                         break;
                     case "5":
-                        System.out.println("Display list of cars within range..." + "\n");
+                        System.out.println("Display list of vehicless within range..." + "\n");
                         dealer.findPrice();
                         break;
                     case "6":
+                        System.out.println("Show list of users...");
+                        //dealer.printUsers
+                    case "7":
+                        System.out.println("Add a new user...");
+                        //dealer.addUser 
+                    case "8":
+                        System.out.println("Update user info...");
+                        //dealer.updateUser 
+                    case "9":
+                        System.out.println("Sell a vehicle...");
+                        //dealer.sellVehicle
+                    case "10":
+                        System.out.println("Show list of transactions...");
+                        //dealer.printTransactions
+                    case "11":
                         System.out.println("Saving data..." + "\n");
                         dealer.exportData();
                         System.out.println("Exiting program...");
                         quit = true;
-                        break;
-                    case "7":
-                        System.out.println("Displaying menu..." + "\n");
-                        break;
+                        break;                    
                     default:
                         System.out.println("Your selection is unavailable" + "\n");
                         break;
