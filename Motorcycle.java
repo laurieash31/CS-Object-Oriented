@@ -6,10 +6,10 @@
 package assignment2;
 
 /**
- *
- * @author Austin
+ * @author Laura Garcia
+ * @author Austin Stamper
  */
-public class Motorcycle extends Vehicle{
+public class Motorcycle extends Vehicle implements java.io.Serializable{
     
     public Motorcycle(){}
     
