@@ -2,17 +2,20 @@
  *
  * @author Laura Garcia
  * @author Austin Stamper
- * @version 1.0
+ * @version 2.0
  */
 package assignment2;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Scanner;
-import java.io.BufferedReader;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.PrintWriter;
+import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+
+
 
 /** The class Dealership contains the methods used in Main.java */
 public class Dealership {
@@ -22,64 +25,159 @@ public class Dealership {
     public static final int MAX_YEAR = 2016;
     public static final int MIN_MILEAGE = 0;
     public static final int MIN_PRICE = 0;
+    public static final int MIN_LOADWT = 0;
+    public static final int MIN_LENGTH = 0;
 
-    //Create an instance of Car class	
+    //Create an instance of classes	
     Vehicle carRecord = new Vehicle();
+    Truck truckRecord = new Truck();
+    Motorcycle motoRecord = new Motorcycle();
+    PassengerCar pCarRecord = new PassengerCar();
     
-    
-       
+   
+         
  /** 
- * This method tests if cars.txt exists and creates a file if it doesn't. 
+ * This method tests if 'pCarRecords', 'truckRecords', and 'motoRecords' file
+ * exists before reading in data. 
  */
     //This function tests if cars.txt exists and creates files if it doesn't
     public void fileCheck(){
-        try {
-            File car_records = new File("cars.txt");
-            if (car_records.createNewFile()){
-                System.out.println("'cars.txt' has been created.");
-                System.out.println();
+        
+        //Creates 'pCarRecords' file
+        File pCarFile = new File("pCarRecords");
+        if(!pCarFile.exists())
+        {
+            try {
+                    pCarFile.createNewFile();
+            } catch (IOException ex) {
+                System.err.println("Problem creating 'pCarRecords' file.");
             }
-            else {
-                System.out.println("Importing car record data... ");
-                System.out.println();
-            }
-        } catch (IOException e) {
-            System.out.println("There was a problem creating 'cars.txt' ");
-            e.printStackTrace();
         }
+        
+        //Creates 'truckRecords' file
+        File truckFile = new File("pCarRecords");
+        if(!truckFile.exists())
+        {
+            try {
+                truckFile.createNewFile();
+            } catch (IOException ex) {
+                System.err.println("Problem creating 'truckRecords' file.");
+            }
+        }
+        
+        //Creates 'pCarRecords' file
+        File motoFile = new File("pCarRecords");
+        if(!motoFile.exists())
+        {
+            try {
+                    motoFile.createNewFile();
+            } catch (IOException ex) {
+                System.err.println("Problem creating 'motoRecords' file.");
+            }
+        }
+           
+        System.out.println("Importing car record data... ");
+        System.out.println();    
     }
+
     
  /** 
- * This method reads data in from the cars.txt file if it exists. Data is stored
- * in the ArrayList.
+ * This method reads serialized data in from 'pCarRecords', 'truckRecords',
+ * and 'motoRecords' files.
+ * Data is stored in the ArrayList for each type of vehicle.
  */
-    //This function reads data in from the cars.txt file if there are 
+    //This function reads data in from the vehicleDatabase file if there are 
     //car records already in the file. It stores them into the ArrayList.
     public void readRecords(){
-        try (BufferedReader br = new BufferedReader(new FileReader("cars.txt"))) {
-            String line;
-            while ((line = br.readLine()) != null) {
-                carRecord.setRecord(line);
-            }
+        //Read passenger car records from database
+        try{
+            FileInputStream fin = new FileInputStream("pCarRecords");
+            ObjectInputStream ois = new ObjectInputStream(fin);
+            pCarRecord = (PassengerCar) ois.readObject();
+            ois.close();
+            
+	}catch (ClassNotFoundException e) {
+            System.err.println("Could not cast the de-serialized object");
+            
+        }catch (FileNotFoundException e) {
+            
+        }catch(Exception ex){
+            ex.printStackTrace();
+	}
+        
+        //Read truck records from database
+        try{
+            FileInputStream fin = new FileInputStream("truckRecords");
+            ObjectInputStream ois = new ObjectInputStream(fin);
+            truckRecord = (Truck) ois.readObject();
+            ois.close();  
+            
+	}catch (ClassNotFoundException e) {
+            System.err.println("Could not cast the de-serialized object");
+        
+        }catch (FileNotFoundException e) {
+            
+        }
+        
+        catch(Exception ex){
+            ex.printStackTrace();
+	}
+        
+        //Read motorcycle records from database
+        try{
+            FileInputStream fin = new FileInputStream("motoRecords");
+            ObjectInputStream ois = new ObjectInputStream(fin);
+            motoRecord = (Motorcycle) ois.readObject();
+            ois.close();  
+	}catch (ClassNotFoundException e) {
+            System.err.println("Could not cast the de-serialized object");
+            
+        }catch (FileNotFoundException e) {
+  
+        }
+        
+        catch (Exception ex){
+            ex.printStackTrace();
+	}
+    
+    }
+    
+/** 
+ * This method serializes pCarRecords, truckRecords, and motoRecords into
+ * serialized object files.
+ */
+    //This function serializes the objects into 'vehicleDatabase' "
+    public void exportData(){
+        //Serialze the passenger car data into 'pCarRecords'
+        try {
+            FileOutputStream fos = new FileOutputStream("pCarRecords");
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+            oos.writeObject(pCarRecord);
+            oos.close();
+            fos.close();
         } catch(IOException e) {
             e.printStackTrace();
         }
         
-    }
-    
-/** 
- * This method exports car records into the file "cars.txt".
- */
-    //This function places the car records into "cars.txt"
-    public void exportData(){
+        //Serialze the truck data into 'truckRecords'
         try {
-            PrintWriter outFile = new PrintWriter("cars.txt");
-            for (String s : carRecord.getRecord()){
-               outFile.println(s);
-            }
-            outFile.close();
-        } catch (FileNotFoundException e) {
-            System.out.println("File not found.");
+            FileOutputStream fos = new FileOutputStream("truckRecords");
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+            oos.writeObject(truckRecord);
+            oos.close();
+            fos.close();
+        } catch(IOException e) {
+            e.printStackTrace();
+        }
+        
+        //Serialze the motorcycle data into 'motoRecords'
+        try {
+            FileOutputStream fos = new FileOutputStream("motoRecords");
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+            oos.writeObject(motoRecord);
+            oos.close();
+            fos.close();
+        } catch(IOException e) {
             e.printStackTrace();
         }
     }
@@ -92,126 +190,300 @@ public class Dealership {
     public void addVehicle(){
         Scanner input = new Scanner(System.in);
         
-        String vehicleType = null;
-        System.out.println("What type of vehicle? (Motorcycle, Truck, or Car)" );
-        vehicleType = input.nextLine();
+        //Variables
+        String userVIN;
+        String userMake;
+        String userModel;
+        String recordLine;
+        int strLength = 0;
+        int userYear = 0;
+        Float userPrice;
+        int userMileage;
+        
+        //Have user enter vehicle type until type matches
+        int vehicleType = 0;
+        do{
+            System.out.println("What type of vehicle?");
+            System.out.println("Enter 1 for Car, 2 for Truck, or 3 for Motorcycle: ");
+            vehicleType = input.nextInt();
+        }while(vehicleType != 1 && vehicleType != 2 && vehicleType != 3);
         
         switch (vehicleType) {
             
-            //Figure out if it is Truck, Motorcycle, or Car and get unique data
-            //Still needs some debugging
-            case "Truck":
-                Truck truckRecord = new Truck();
-                float loadWeight = 0;
-                float length = 0;
-                System.out.println("Enter the Maximum Load Weight: " );
-                loadWeight = input.nextFloat();
-                System.out.println("Enter the Length in Feet: " );
-                length = input.nextFloat();
-                truckRecord.setLength(length);
-                truckRecord.setMaxLoadWeight(loadWeight);
+            //Figure out if it is car, truck, or motorcycle and get data
+            case 1:
+                //Get VIN
+                do {
+                    System.out.println("Enter the VIN: " );
+                    input.nextLine();
+                    userVIN = input.nextLine();
+                    strLength = userVIN.length();
+                } while(strLength != MAX_VIN);
+                
+                //Check for duplicate VIN in each
+                for (String s : pCarRecord.getRecord()){
+                    if (s.contains(userVIN) == true){
+                        System.out.println();
+                        System.out.println("This VIN exists! Car is stolen. Call Police! ");
+                        System.out.println();
+                        return;
+                    }
+                }
+                for (String s : truckRecord.getRecord()){
+                    if (s.contains(userVIN) == true){
+                        System.out.println();
+                        System.out.println("This VIN exists! Car is stolen. Call Police! ");
+                        System.out.println();
+                        return;
+                    }
+                }
+                for (String s : motoRecord.getRecord()){
+                    if (s.contains(userVIN) == true){
+                        System.out.println();
+                        System.out.println("This VIN exists! Car is stolen. Call Police! ");
+                        System.out.println();
+                        return;
+                    }
+                }
+                
+                pCarRecord.setVIN(userVIN.toUpperCase());
+                
+                //Get Year
+                do {
+                    System.out.println("Enter the Year: " );
+                    userYear = input.nextInt();
+                } while(userYear > MAX_YEAR);
+                pCarRecord.setYear(userYear);
+            
+                //Get Make
+                System.out.println("Enter the Make: " );
+                input.nextLine();
+                userMake = input.nextLine();
+                pCarRecord.setMake(userMake);
+            
+                //Get Model
+                System.out.println("Enter the Model: " );
+                userModel = input.nextLine();
+                pCarRecord.setModel(userModel);
+            
+                //Get Mileage
+                do {
+                    System.out.println("Enter the Mileage: " );
+                    userMileage = input.nextInt();
+                } while(userMileage < MIN_MILEAGE);
+                pCarRecord.setMileage(userMileage);
+                
+                //Get Body Style
+                System.out.println("Enter the Body Style: " );
+                input.nextLine();
+                String bodyStyle = input.nextLine();
+                pCarRecord.setBodyStyle(bodyStyle);
+                
+                //Get the Price
+                do {
+                    System.out.println("Enter the Price: " );
+                    userPrice = input.nextFloat();
+                } while(userPrice < MIN_PRICE);
+                pCarRecord.setPrice(userPrice);
+                
+                //Add the data to the ArrayList
+                recordLine = pCarRecord.getVIN() + " " + pCarRecord.getYear() + " " 
+                + pCarRecord.getMake() + " " + pCarRecord.getModel() + " " 
+                + pCarRecord.getMileage() + " " + pCarRecord.getBodyStyle() + " " + "$" 
+                + String.format(java.util.Locale.US,"%.2f", pCarRecord.getPrice());
+
+                pCarRecord.setRecord(recordLine);
+                
                 break;
-            case "Motorcycle":
-                Motorcycle motoRecord = new Motorcycle();
-                String type = null;
-                int eng = 0;
+                
+            case 2:
+                //Get VIN
+                do {
+                    System.out.println("Enter the VIN: " );
+                    input.nextLine();
+                    userVIN = input.nextLine();
+                    strLength = userVIN.length();
+                } while(strLength != MAX_VIN);
+                
+                //Check for duplicate VIN in each
+                for (String s : truckRecord.getRecord()){
+                    if (s.contains(userVIN) == true){
+                        System.out.println();
+                        System.out.println("This VIN exists! Car is stolen. Call Police! ");
+                        System.out.println();
+                        return;
+                    }
+                }
+                for (String s : pCarRecord.getRecord()){
+                    if (s.contains(userVIN) == true){
+                        System.out.println();
+                        System.out.println("This VIN exists! Car is stolen. Call Police! ");
+                        System.out.println();
+                        return;
+                    }
+                }
+                for (String s : motoRecord.getRecord()){
+                    if (s.contains(userVIN) == true){
+                        System.out.println();
+                        System.out.println("This VIN exists! Car is stolen. Call Police! ");
+                        System.out.println();
+                        return;
+                    }
+                }
+                
+                truckRecord.setVIN(userVIN.toUpperCase());
+                
+                //Get Year
+                do {
+                    System.out.println("Enter the Year: " );
+                    userYear = input.nextInt();
+                } while(userYear > MAX_YEAR);
+                truckRecord.setYear(userYear);
+            
+                //Get Make
+                System.out.println("Enter the Make: " );
+                input.nextLine();
+                userMake = input.nextLine();
+                truckRecord.setMake(userMake);
+            
+                //Get Model
+                System.out.println("Enter the Model: " );
+                userModel = input.nextLine();
+                truckRecord.setModel(userModel);
+            
+                //Get Mileage
+                do {
+                    System.out.println("Enter the Mileage: " );
+                    userMileage = input.nextInt();
+                } while(userMileage < MIN_MILEAGE);
+                truckRecord.setMileage(userMileage);
+            
+                //Get Load Weigth
+                float loadWeight = 0;
+                do{
+                    System.out.println("Enter the Maximum Load Weight: " );
+                    loadWeight = input.nextFloat();
+                } while(loadWeight < MIN_LOADWT);
+                truckRecord.setMaxLoadWeight(loadWeight);                
+                
+                //Get Length
+                float length = 0;
+                do{
+                    System.out.println("Enter the Length in Feet: " );
+                    length = input.nextFloat();
+                } while(length < MIN_LENGTH);
+                truckRecord.setLength(length); 
+
+                //Get Price
+                do {
+                    System.out.println("Enter the Price: " );
+                    userPrice = input.nextFloat();
+                } while(userPrice < MIN_PRICE);
+                truckRecord.setPrice(userPrice);                
+                
+                //Add the data to the ArrayList
+                recordLine = truckRecord.getVIN() + " " + truckRecord.getYear() + " " 
+                + truckRecord.getMake() + " " + truckRecord.getModel() + " " 
+                + truckRecord.getMileage() + " " + truckRecord.getMaxLoadWeight() + " " 
+                + truckRecord.getLength() + " " + "$" 
+                + String.format(java.util.Locale.US,"%.2f", truckRecord.getPrice());
+
+                truckRecord.setRecord(recordLine);
+                
+                break;
+                
+            case 3:             
+                //Get VIN
+                do {
+                    System.out.println("Enter the VIN: " );
+                    input.nextLine();
+                    userVIN = input.nextLine();
+                    strLength = userVIN.length();
+                } while(strLength != MAX_VIN);
+                
+                //Check for duplicate VIN
+                for (String s : motoRecord.getRecord()){
+                    if (s.contains(userVIN) == true){
+                        System.out.println();
+                        System.out.println("This VIN exists! Car is stolen. Call Police! ");
+                        System.out.println();
+                        return;
+                    }
+                }
+                for (String s : pCarRecord.getRecord()){
+                    if (s.contains(userVIN) == true){
+                        System.out.println();
+                        System.out.println("This VIN exists! Car is stolen. Call Police! ");
+                        System.out.println();
+                        return;
+                    }
+                }
+                for (String s : truckRecord.getRecord()){
+                    if (s.contains(userVIN) == true){
+                        System.out.println();
+                        System.out.println("This VIN exists! Car is stolen. Call Police! ");
+                        System.out.println();
+                        return;
+                    }
+                }
+                
+                motoRecord.setVIN(userVIN.toUpperCase());
+                
+                //Get Year
+                do {
+                    System.out.println("Enter the Year: " );
+                    userYear = input.nextInt();
+                } while(userYear > MAX_YEAR);
+                motoRecord.setYear(userYear);
+            
+                //Get Make
+                System.out.println("Enter the Make: " );
+                input.nextLine();
+                userMake = input.nextLine();
+                motoRecord.setMake(userMake);
+            
+                //Get Model
+                System.out.println("Enter the Model: " );
+                userModel = input.nextLine();
+                motoRecord.setModel(userModel);
+            
+                //Get Mileage
+                do {
+                    System.out.println("Enter the Mileage: " );
+                    userMileage = input.nextInt();
+                } while(userMileage < MIN_MILEAGE);
+                motoRecord.setMileage(userMileage);
+                
+                //Get Type
                 System.out.println("Enter the Type: " );
-                type = input.nextLine();
+                input.nextLine();
+                String type = input.nextLine();
+                motoRecord.setType(type);
+                
+                //Get Engine Displacement
+                int eng = 0;
                 System.out.println("Enter the Engine Displacement: " );
                 eng = input.nextInt();
                 motoRecord.setEngine(eng);
-                motoRecord.setType(type);
-                break;
-            case "Car":
-                PassengerCar pCarRecord = new PassengerCar();
-                String bodyStyle = null;
-                System.out.println("Enter the Body Style: " );
-                bodyStyle = input.nextLine();
-                pCarRecord.setBodyStyle(bodyStyle);
+                
+                //Get the Price
+                do {
+                    System.out.println("Enter the Price: " );
+                    userPrice = input.nextFloat();
+                } while(userPrice < MIN_PRICE);
+                motoRecord.setPrice(userPrice);
+                
+                //Add the data to the ArrayList
+                recordLine = motoRecord.getVIN() + " " + motoRecord.getYear() + " " 
+                + motoRecord.getMake() + " " + motoRecord.getModel() + " " 
+                + motoRecord.getMileage() + " " + motoRecord.getEngine() + " " 
+                + motoRecord.getType() + " " + "$" 
+                + String.format(java.util.Locale.US,"%.2f", motoRecord.getPrice());
+
+                motoRecord.setRecord(recordLine);
+                
                 break;
         }
-        
-        //Get VIN
-        String userVIN;
-        int strLength = 0;
-        do {
-            System.out.println("Enter the VIN: " );
-            userVIN = input.nextLine();
-            strLength = userVIN.length();
-        } while(strLength != MAX_VIN);
-        carRecord.setVIN(userVIN.toUpperCase()); 
-        
-        //Get Year
-        int userYear = 0;
-        do {
-            System.out.println("Enter the Year: " );
-            userYear = input.nextInt();
-        } while(userYear > MAX_YEAR);
-        carRecord.setYear(userYear);
-        
-        //Get Make
-        System.out.println("Enter the Make: " );
-        input.nextLine();
-        String userMake = input.nextLine();
-        carRecord.setMake(userMake);
-        
-        //Get Model
-        System.out.println("Enter the Model: " );
-        String userModel = input.nextLine();
-        carRecord.setModel(userModel);
-        
-        //Get Mileage
-        int userMileage;
-        do {
-            System.out.println("Enter the Mileage: " );
-            userMileage = input.nextInt();
-        } while(userMileage < MIN_MILEAGE);
-        carRecord.setMileage(userMileage);
-        
-        //Get Price
-        Float userPrice;
-        do {
-            System.out.println("Enter the Price: " );
-            userPrice = input.nextFloat();
-        } while(userPrice < MIN_PRICE);
-        carRecord.setPrice(userPrice);
-        
-        
-        
-        //Add the data to the ArrayList
-        String recordLine = carRecord.getVIN() + " " + carRecord.getYear() + " " 
-                + carRecord.getMake() + " " + carRecord.getModel() + " " 
-                + carRecord.getMileage() + " " + "$" 
-                + String.format(java.util.Locale.US,"%.2f", carRecord.getPrice());
-        
-        //Initital idea was to add the variables unique to the different vehicles
-        //through a similar switch case to the one at the top but it isn't permitted.
-        //States that recordLine is already defined.
-        /*switch (vehicleType) {                      
-            case "Truck":
-                String recordLine = carRecord.getVIN() + " " + carRecord.getYear() + " " 
-                + carRecord.getMake() + " " + carRecord.getModel() + " " 
-                + carRecord.getMileage() + " " + "$" 
-                + String.format(java.util.Locale.US,"%.2f", carRecord.getPrice())
-                + truckRecord.getLength();
-                
-                break;
-            case "Motorcycle":
-                String recordLine = carRecord.getVIN() + " " + carRecord.getYear() + " " 
-                + carRecord.getMake() + " " + carRecord.getModel() + " " 
-                + carRecord.getMileage() + " " + "$" 
-                + String.format(java.util.Locale.US,"%.2f", carRecord.getPrice());
-                
-                break;
-            case "Car":
-                String recordLine = carRecord.getVIN() + " " + carRecord.getYear() + " " 
-                + carRecord.getMake() + " " + carRecord.getModel() + " " 
-                + carRecord.getMileage() + " " + "$" 
-                + String.format(java.util.Locale.US,"%.2f", carRecord.getPrice());
-                
-                break;*/
-        
-        carRecord.setRecord(recordLine);
         System.out.println();
     }
     
@@ -230,7 +502,9 @@ public class Dealership {
         userVIN = userVIN.toUpperCase();
         
         //Remove the car record with matching VIN
-        carRecord.removeElement(userVIN); 
+        pCarRecord.removeElement(userVIN);
+        truckRecord.removeElement(userVIN);
+        motoRecord.removeElement(userVIN);
         System.out.println();
     }
     
@@ -252,7 +526,19 @@ public class Dealership {
         Boolean found = false;
         System.out.println("VIN   YEAR MAKE  MODEL  MILEAGE  PRICE");
         System.out.println("..........................................");
-        for (String s : carRecord.getRecord()){
+        for (String s : pCarRecord.getRecord()){
+            if (s.contains(userVIN) == true){
+                found = true;
+                System.out.println(s + "\n");
+            }
+        }
+        for (String s : truckRecord.getRecord()){
+            if (s.contains(userVIN) == true){
+                found = true;
+                System.out.println(s + "\n");
+            }
+        }
+        for (String s : motoRecord.getRecord()){
             if (s.contains(userVIN) == true){
                 found = true;
                 System.out.println(s + "\n");
@@ -272,7 +558,13 @@ public class Dealership {
     public void displayRecords(){
         System.out.println("VIN   YEAR MAKE  MODEL  MILEAGE  PRICE");
         System.out.println("..........................................");
-        for (String s : carRecord.getRecord()){
+        for (String s : pCarRecord.getRecord()){
+               System.out.println(s);
+        }
+        for (String s : truckRecord.getRecord()){
+               System.out.println(s);
+        }
+        for (String s : motoRecord.getRecord()){
                System.out.println(s);
         }
         System.out.println();
@@ -285,7 +577,15 @@ public class Dealership {
     public void findPrice(){
         Scanner input = new Scanner(System.in);
         
-        //Get user input to set the price range
+        //Get type of vehicle to search prices
+        int type;
+        do{
+            System.out.println("What type of vehicle do you want to search for?");
+            System.out.println("Enter 1 for Car, 2 for Truck, or 3 for Motorcycle: ");
+            type = input.nextInt();
+        }while(type != 1 && type != 2 && type != 3);
+        
+        //Get the price range
         System.out.print("Enter the minimum of the price range: ");
         Float min_price = input.nextFloat();
         System.out.println();
@@ -298,23 +598,69 @@ public class Dealership {
         Boolean hasRecord = false;
         System.out.println("VIN   YEAR MAKE  MODEL  MILEAGE  PRICE");
         System.out.println("..........................................");
-        for (String s : carRecord.getRecord()){
+        
+        switch (type) {
+            case 1: 
+                for (String s : pCarRecord.getRecord()){
             
-            //Get the price from the end of the car record   
-            temp = s.substring(s.indexOf("$") + 1 , s.length());
+                    //Get the price from the end of the car record   
+                    temp = s.substring(s.indexOf("$") + 1 , s.length());
             
-            //Convert price to float
-            float price = Float.parseFloat(temp);
+                    //Convert price to float
+                    float price = Float.parseFloat(temp);
             
-            /*
-            Check if car record price is within user's price range and display
-            car record if it is.
-            */
-            if (price >= min_price && price <= max_price){
-                System.out.println(s);
-                hasRecord = true;
-            }               
+                    /*
+                    Check if car record price is within user's price range and display
+                    car record if it is.
+                    */
+                    if (price >= min_price && price <= max_price){
+                        System.out.println(s);
+                        hasRecord = true;
+                    }              
+                }
+            break;
+            
+            case 2:        
+                for (String s : truckRecord.getRecord()){
+            
+                    //Get the price from the end of the car record   
+                    temp = s.substring(s.indexOf("$") + 1 , s.length());
+            
+                    //Convert price to float
+                    float price = Float.parseFloat(temp);
+            
+                    /*
+                    Check if car record price is within user's price range and display
+                    car record if it is.
+                    */
+                    if (price >= min_price && price <= max_price){
+                        System.out.println(s);
+                        hasRecord = true;
+                    }               
+                }
+            break;
+            
+            case 3:
+                for (String s : motoRecord.getRecord()){
+            
+                    //Get the price from the end of the car record   
+                    temp = s.substring(s.indexOf("$") + 1 , s.length());
+            
+                    //Convert price to float
+                    float price = Float.parseFloat(temp);
+            
+                    /*
+                    Check if car record price is within user's price range and display
+                    car record if it is.
+                    */
+                    if (price >= min_price && price <= max_price){
+                        System.out.println(s);
+                        hasRecord = true;
+                    }               
+                }
+            break;
         }
+        
         System.out.println();
         
         //If no car record was found within the price range...
