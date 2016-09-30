@@ -9,10 +9,10 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 /**
- *
+ * @author Laura Garcia
  * @author Austin Stamper
  */
-public class User{
+public class User implements java.io.Serializable {
     
     public User(){}
     
