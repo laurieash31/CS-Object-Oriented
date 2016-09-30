@@ -1,7 +1,7 @@
 /**
  * @author Laura Garcia
  * @author Austin Stamper
- * @version 1.0
+ * @version 2.0
  */
 
 package assignment2;
@@ -19,7 +19,7 @@ public class Main {
         //Vehicle car = new Vehicle();
         
         //Check if file exists
-        dealer.fileCheck();
+        //dealer.fileCheck();
         
         //Read data (if any) from cars.txt file into the ArrayList
         dealer.readRecords();
