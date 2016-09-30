@@ -2,7 +2,7 @@
  *
  * @author Laura Garcia
  * @author Austin Stamper
- * @version 1.0
+ * @version 2.0
  */
 package assignment2;
 
@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 /** The class Vehicle contains the data to be used in the methods */
-public class Vehicle {
+public class Vehicle implements java.io.Serializable{
 
     /**
     * This method is a default constructor.
