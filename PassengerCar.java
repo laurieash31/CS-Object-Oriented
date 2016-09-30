@@ -2,10 +2,10 @@ package assignment2;
 
 /**
  *
- * @author lauragarcia
+ * @author Laura Garcia
  * @author Austin Stamper
  */
-public class PassengerCar extends Vehicle{
+public class PassengerCar extends Vehicle implements java.io.Serializable{
     
     public PassengerCar(){}
     
