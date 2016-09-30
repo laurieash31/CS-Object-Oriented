@@ -1,10 +1,13 @@
 package assignment2;
 
 /**
+ *
+ * @author lauragarcia
  * @author Austin Stamper
- * @author Laura Garcia
  */
 public class PassengerCar extends Vehicle{
+    
+    public PassengerCar(){}
     
     public PassengerCar(String style){
         bodyStyle = style;
