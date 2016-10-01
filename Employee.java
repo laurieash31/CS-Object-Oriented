@@ -26,14 +26,14 @@ public class Employee extends User implements java.io.Serializable {
         return monthSalary;
     }
     
-    public void setAccountNum(float acctNum){
+    public void setAccountNum(int acctNum){
         accountNum = acctNum;
     }
     
-    public float getAccountNum(){
+    public int getAccountNum(){
         return accountNum;
     }
     
     private float monthSalary;
-    private float accountNum;
+    private int accountNum;
 }
