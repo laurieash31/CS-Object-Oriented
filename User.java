@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package assignment2;
 
 import java.util.ArrayList;
@@ -55,14 +50,14 @@ public class User implements java.io.Serializable {
         record.add(newRecord);
     }
     
-    public void removeElement(String userVIN) {
+    public void removeElement(String userID) {
         //Find the matching car record VIN
         Iterator<String> iter = record.iterator();
 
         while (iter.hasNext()) {
             String str = iter.next();
 
-            if (str.contains(userVIN) == true) {
+            if (str.contains(userID) == true) {
                 iter.remove();
             } 
         }
