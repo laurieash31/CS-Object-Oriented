@@ -90,7 +90,7 @@ public class Main {
                         break;
                     case "8":
                         System.out.println("Update user info...");
-                        //dealer.updateUser 
+                        dealer.updateUser(); 
                         break;
                     case "9":
                         System.out.println("Sell a vehicle...");
