@@ -33,12 +33,15 @@ public class Dealership {
     Truck truckRecord = new Truck();
     Motorcycle motoRecord = new Motorcycle();
     PassengerCar pCarRecord = new PassengerCar();
+    User userRecord = new User();
+    Employee employeeRecord = new Employee();
+    Customer customerRecord = new Customer();
     
    
          
  /** 
- * This method tests if 'pCarRecords', 'truckRecords', and 'motoRecords' file
- * exists before reading in data. 
+ * This method tests if 'pCarRecords', 'truckRecords', 'employeeRecords',
+ * 'customerRecords, and 'motoRecords' files exist before reading in data. 
  */
     //This function tests if cars.txt exists and creates files if it doesn't
     public void fileCheck(){
@@ -55,7 +58,7 @@ public class Dealership {
         }
         
         //Creates 'truckRecords' file
-        File truckFile = new File("pCarRecords");
+        File truckFile = new File("truckRecords");
         if(!truckFile.exists())
         {
             try {
@@ -65,8 +68,8 @@ public class Dealership {
             }
         }
         
-        //Creates 'pCarRecords' file
-        File motoFile = new File("pCarRecords");
+        //Creates 'motoRecords' file
+        File motoFile = new File("motoRecords");
         if(!motoFile.exists())
         {
             try {
@@ -75,15 +78,37 @@ public class Dealership {
                 System.err.println("Problem creating 'motoRecords' file.");
             }
         }
+        
+        //Creates 'employeeRecords' file
+        File employeeFile = new File("employeeRecords");
+        if(!employeeFile.exists())
+        {
+            try {
+                    employeeFile.createNewFile();
+            } catch (IOException ex) {
+                System.err.println("Problem creating 'employeeRecords' file.");
+            }
+        }
+        
+        //Creates 'customerRecords' file
+        File customerFile = new File("customerRecords");
+        if(!customerFile.exists())
+        {
+            try {
+                    customerFile.createNewFile();
+            } catch (IOException ex) {
+                System.err.println("Problem creating 'customerRecords' file.");
+            }
+        }
            
-        System.out.println("Importing car record data... ");
+        System.out.println("Importing recorded data... ");
         System.out.println();    
     }
 
     
  /** 
  * This method reads serialized data in from 'pCarRecords', 'truckRecords',
- * and 'motoRecords' files.
+ * 'employeeRecords', 'customerRecords', and 'motoRecords' files.
  * Data is stored in the ArrayList for each type of vehicle.
  */
     //This function reads data in from the vehicleDatabase file if there are 
@@ -139,11 +164,45 @@ public class Dealership {
         catch (Exception ex){
             ex.printStackTrace();
 	}
+        
+        //Read customer records from the database
+        try{
+            FileInputStream fin = new FileInputStream("customerRecords");
+            ObjectInputStream ois = new ObjectInputStream(fin);
+            customerRecord = (Customer) ois.readObject();
+            ois.close();  
+	}catch (ClassNotFoundException e) {
+            System.err.println("Could not cast the de-serialized object");
+            
+        }catch (FileNotFoundException e) {
+  
+        }
+        
+        catch (Exception ex){
+            ex.printStackTrace();
+	}
+        
+        //Read Employee records from database
+        try{
+            FileInputStream fin = new FileInputStream("employeeRecords");
+            ObjectInputStream ois = new ObjectInputStream(fin);
+            employeeRecord = (Employee) ois.readObject();
+            ois.close();  
+	}catch (ClassNotFoundException e) {
+            System.err.println("Could not cast the de-serialized object");
+            
+        }catch (FileNotFoundException e) {
+  
+        }
+        
+        catch (Exception ex){
+            ex.printStackTrace();
+	}
     
     }
     
 /** 
- * This method serializes pCarRecords, truckRecords, and motoRecords into
+ * This method serializes userRecords, pCarRecords, truckRecords, and motoRecords into
  * serialized object files.
  */
     //This function serializes the objects into 'vehicleDatabase' "
@@ -180,6 +239,131 @@ public class Dealership {
         } catch(IOException e) {
             e.printStackTrace();
         }
+        
+        //Assuming I can put this here?
+        try {
+            FileOutputStream fos = new FileOutputStream("customerRecords");
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+            oos.writeObject(customerRecord);
+            oos.close();
+            fos.close();
+        } catch(IOException e) {
+            e.printStackTrace();
+        }
+        
+        try {
+            FileOutputStream fos = new FileOutputStream("employeeRecords");
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+            oos.writeObject(employeeRecord);
+            oos.close();
+            fos.close();
+        } catch(IOException e) {
+            e.printStackTrace();
+        }
+    }
+    
+ /** 
+ * This method prints the users from the database.
+ */
+    public void printUsers() {
+        
+        System.out.println("ID  FIRST   LAST  USER SPECIFIC");
+        System.out.println("..........................................");
+        for (String s : customerRecord.getRecord()){
+               System.out.println(s);
+        }
+        for (String s : employeeRecord.getRecord()){
+               System.out.println(s);
+        }
+
+        System.out.println();
+        
+    }
+    
+ /** 
+ * This method adds new users to the database.
+ */
+    public void addUser(){
+        Scanner input = new Scanner(System.in);
+        
+        //Variables
+        String uPNumber;
+        String uFName;
+        String uLName;
+        String recordLine;
+        int uID = 0;
+        int uDLNumber = 0;
+        int uBankAcct = 0;
+        Float uMSalary;
+        
+        //Have user enter user type until type matches
+        int userType = 0;
+        do{
+            System.out.println("What type of user?");
+            System.out.println("Enter 1 for Employee or 2 for Customer: ");
+            userType = input.nextInt();
+        }while(userType != 1 && userType != 2);
+       
+        switch(userType) {
+                
+        case 1:       
+        {
+            //Get Variables for Employee
+            System.out.println("What is the user ID?");
+            uID = input.nextInt();
+            employeeRecord.setID(uID);
+            System.out.println("What is the First Name?");
+            uFName = input.nextLine();
+            employeeRecord.setFirstName(uFName);
+            System.out.println("What is the Last Name");
+            uLName = input.nextLine();
+            employeeRecord.setLastName(uLName);
+            System.out.println("What is the Monthly Salary?");
+            uMSalary = input.nextFloat();
+            employeeRecord.setMonthSalary(uMSalary);
+            System.out.println("What is the Direct Deposit Account Number?");
+            uBankAcct = input.nextInt();
+            employeeRecord.setAccountNum(uBankAcct);
+            
+            recordLine = employeeRecord.getID() + " " + employeeRecord.getFirstName() + " " 
+                + employeeRecord.getLastName() + " " + employeeRecord.getAccountNum() + " " 
+                + "$" + String.format(java.util.Locale.US,"%.2f", employeeRecord.getMonthSalary());
+
+            employeeRecord.setRecord(recordLine);
+            
+           break;     
+        }
+        
+        //Get Customer info
+        case 2:
+        {
+            System.out.println("What is the user ID?");
+            uID = input.nextInt();
+            customerRecord.setID(uID);
+            System.out.println("What is the First Name?");
+            uFName = input.nextLine();
+            customerRecord.setFirstName(uFName);
+            System.out.println("What is the Last Name?");
+            uLName = input.nextLine();
+            customerRecord.setLastName(uLName);
+            System.out.println("What is the Phone Number?");
+            uPNumber = input.nextLine();
+            customerRecord.setPNumber(uPNumber);
+            System.out.println("What is the Driver's License Number?");
+            uDLNumber = input.nextInt();
+            customerRecord.setDLNumber(uDLNumber);
+            
+            recordLine = customerRecord.getID() + " " + customerRecord.getFirstName() + " " 
+                + customerRecord.getLastName() + " " + customerRecord.getPNumber()+ " " 
+                + customerRecord.getDLNumber();
+
+            employeeRecord.setRecord(recordLine);
+            
+            break;
+        }
+        }
+            
+         System.out.println();
     }
     
     /**
