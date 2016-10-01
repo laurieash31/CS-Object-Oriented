@@ -1,5 +1,4 @@
  /**
- *
  * @author Laura Garcia
  * @author Austin Stamper
  * @version 2.0
@@ -160,4 +159,3 @@ public class Vehicle implements java.io.Serializable{
     private String make;
     private String model;
 }
-
