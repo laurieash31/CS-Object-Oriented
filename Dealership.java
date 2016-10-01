@@ -14,6 +14,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.Random;
 
 
 
@@ -267,7 +268,7 @@ public class Dealership {
  */
     public void printUsers() {
         
-        System.out.println("ID  FIRST   LAST  USER SPECIFIC");
+        System.out.println("ID  TYPE  FIRST   LAST  USER SPECIFIC");
         System.out.println("..........................................");
         for (String s : customerRecord.getRecord()){
                System.out.println(s);
@@ -295,6 +296,7 @@ public class Dealership {
         int uDLNumber = 0;
         int uBankAcct = 0;
         Float uMSalary;
+        Random rand = new Random();
         
         //Have user enter user type until type matches
         int userType = 0;
@@ -309,10 +311,11 @@ public class Dealership {
         case 1:       
         {
             //Get Variables for Employee
-            System.out.println("What is the user ID?");
-            uID = input.nextInt();
+            System.out.println("Generating new Employee ID...");
+            uID = rand.nextInt(99999) + 10000;
             employeeRecord.setID(uID);
             System.out.println("What is the First Name?");
+            input.nextLine();
             uFName = input.nextLine();
             employeeRecord.setFirstName(uFName);
             System.out.println("What is the Last Name");
@@ -325,8 +328,9 @@ public class Dealership {
             uBankAcct = input.nextInt();
             employeeRecord.setAccountNum(uBankAcct);
             
-            recordLine = employeeRecord.getID() + " " + employeeRecord.getFirstName() + " " 
-                + employeeRecord.getLastName() + " " + employeeRecord.getAccountNum() + " " 
+            recordLine = employeeRecord.getID() + " " + "EMPLOYEE" + " " 
+                    + employeeRecord.getFirstName() + " " + employeeRecord.getLastName() 
+                    + " " + employeeRecord.getAccountNum() + " " 
                 + "$" + String.format(java.util.Locale.US,"%.2f", employeeRecord.getMonthSalary());
 
             employeeRecord.setRecord(recordLine);
@@ -337,10 +341,11 @@ public class Dealership {
         //Get Customer info
         case 2:
         {
-            System.out.println("What is the user ID?");
-            uID = input.nextInt();
+            System.out.println("Generating new Customer ID...");
+            uID = rand.nextInt(99999) + 10000;
             customerRecord.setID(uID);
             System.out.println("What is the First Name?");
+            input.nextLine();
             uFName = input.nextLine();
             customerRecord.setFirstName(uFName);
             System.out.println("What is the Last Name?");
@@ -353,11 +358,11 @@ public class Dealership {
             uDLNumber = input.nextInt();
             customerRecord.setDLNumber(uDLNumber);
             
-            recordLine = customerRecord.getID() + " " + customerRecord.getFirstName() + " " 
+            recordLine = customerRecord.getID() + " " + "CUSTOMER" + " " + customerRecord.getFirstName() + " " 
                 + customerRecord.getLastName() + " " + customerRecord.getPNumber()+ " " 
                 + customerRecord.getDLNumber();
 
-            employeeRecord.setRecord(recordLine);
+            customerRecord.setRecord(recordLine);
             
             break;
         }
@@ -365,6 +370,81 @@ public class Dealership {
             
          System.out.println();
     }
+    
+    /**
+    * This method gets the User ID from the user to update their information. It then
+    * calls removeElement() located in the User class to remove the element from
+    * the ArrayList. Then it prompts the user to enter the new information and 
+    * stores it into the ArrayList with the same ID number.
+    */
+    public void updateUser(){
+        Scanner input = new Scanner(System.in);
+        
+        int userType;
+        
+        //Get User ID of the person to update
+        System.out.print("Enter the User ID of the record to be updated: " );
+        String enteredID = input.nextLine();
+        do{
+            System.out.println("Confirm by entering 1 for Employee or 2 for Customer: ");
+            userType = input.nextInt();
+        }while(userType != 1 && userType != 2);
+        
+        //Remove the user record with matching ID
+        input.nextLine();
+        switch(userType) {
+            case 1:
+                employeeRecord.removeElement(enteredID);
+                
+                System.out.println("What is the First Name?");
+                String uFName = input.nextLine();
+                employeeRecord.setFirstName(uFName);
+                System.out.println("What is the Last Name");
+                String uLName = input.nextLine();
+                employeeRecord.setLastName(uLName);
+                System.out.println("What is the Monthly Salary?");
+                Float uMSalary = input.nextFloat();
+                employeeRecord.setMonthSalary(uMSalary);
+                System.out.println("What is the Direct Deposit Account Number?");
+                int uBankAcct = input.nextInt();
+                employeeRecord.setAccountNum(uBankAcct);
+            
+                String recordLine = enteredID + " " + "EMPLOYEE" + " " 
+                + employeeRecord.getFirstName() + " " + employeeRecord.getLastName() 
+                + " " + employeeRecord.getAccountNum() + " " 
+                + "$" + String.format(java.util.Locale.US,"%.2f", employeeRecord.getMonthSalary());
+
+                employeeRecord.setRecord(recordLine);
+                break;
+                
+            case 2:
+                customerRecord.removeElement(enteredID);
+                
+                System.out.println("What is the First Name?");
+                uFName = input.nextLine();
+                customerRecord.setFirstName(uFName);
+                System.out.println("What is the Last Name");
+                uLName = input.nextLine();
+                customerRecord.setLastName(uLName);
+                System.out.println("What is the Phone Number?");
+                String phoneNum = input.nextLine();
+                customerRecord.setPNumber(phoneNum);
+                System.out.println("What is the Driver's License Number?");
+                int uDLNumber = input.nextInt();
+                customerRecord.setDLNumber(uDLNumber);
+            
+                String custRecord = enteredID + " " + "CUSTOMER" + " " 
+                + customerRecord.getFirstName() + " " + customerRecord.getLastName() 
+                + " " + customerRecord.getPNumber() +  " " + customerRecord.getDLNumber();
+
+                customerRecord.setRecord(custRecord);
+                break;
+        }
+        
+        System.out.println();
+    }
+    
+    
     
     /**
     * This method gets the user input for each field, then converts it to a 
@@ -471,8 +551,8 @@ public class Dealership {
                 pCarRecord.setPrice(userPrice);
                 
                 //Add the data to the ArrayList
-                recordLine = pCarRecord.getVIN() + " " + pCarRecord.getYear() + " " 
-                + pCarRecord.getMake() + " " + pCarRecord.getModel() + " " 
+                recordLine = pCarRecord.getVIN() + " " + "CAR" + " " 
+                + pCarRecord.getYear() + " " + pCarRecord.getMake() + " " + pCarRecord.getModel() + " " 
                 + pCarRecord.getMileage() + " " + pCarRecord.getBodyStyle() + " " + "$" 
                 + String.format(java.util.Locale.US,"%.2f", pCarRecord.getPrice());
 
@@ -566,7 +646,7 @@ public class Dealership {
                 truckRecord.setPrice(userPrice);                
                 
                 //Add the data to the ArrayList
-                recordLine = truckRecord.getVIN() + " " + truckRecord.getYear() + " " 
+                recordLine = truckRecord.getVIN() + " " + "TRUCK" + " " + truckRecord.getYear() + " " 
                 + truckRecord.getMake() + " " + truckRecord.getModel() + " " 
                 + truckRecord.getMileage() + " " + truckRecord.getMaxLoadWeight() + " " 
                 + truckRecord.getLength() + " " + "$" 
@@ -658,7 +738,7 @@ public class Dealership {
                 motoRecord.setPrice(userPrice);
                 
                 //Add the data to the ArrayList
-                recordLine = motoRecord.getVIN() + " " + motoRecord.getYear() + " " 
+                recordLine = motoRecord.getVIN() + " " + "MOTORCYCLE" + " " + motoRecord.getYear() + " " 
                 + motoRecord.getMake() + " " + motoRecord.getModel() + " " 
                 + motoRecord.getMileage() + " " + motoRecord.getEngine() + " " 
                 + motoRecord.getType() + " " + "$" 
@@ -708,7 +788,7 @@ public class Dealership {
         
         //Find the matching car record VIN
         Boolean found = false;
-        System.out.println("VIN   YEAR MAKE  MODEL  MILEAGE  PRICE");
+        System.out.println("VIN  TYPE  YEAR MAKE  MODEL  MILEAGE  PRICE");
         System.out.println("..........................................");
         for (String s : pCarRecord.getRecord()){
             if (s.contains(userVIN) == true){
@@ -740,7 +820,7 @@ public class Dealership {
     * This method displays the car records to the console for Option 1.
     */ 
     public void displayRecords(){
-        System.out.println("VIN   YEAR MAKE  MODEL  MILEAGE  PRICE");
+        System.out.println("VIN  TYPE  YEAR MAKE  MODEL  MILEAGE  PRICE");
         System.out.println("..........................................");
         for (String s : pCarRecord.getRecord()){
                System.out.println(s);
@@ -780,7 +860,7 @@ public class Dealership {
         //Find cars within price range
         String temp;
         Boolean hasRecord = false;
-        System.out.println("VIN   YEAR MAKE  MODEL  MILEAGE  PRICE");
+        System.out.println("VIN  TYPE  YEAR MAKE  MODEL  MILEAGE  PRICE");
         System.out.println("..........................................");
         
         switch (type) {
