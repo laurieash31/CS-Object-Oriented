@@ -24,8 +24,8 @@ public class Truck extends Vehicle implements java.io.Serializable{
     }
     
     /**
-     * 
-     * @return 
+     * Returns the Max Load Weight
+     * @return the Max Load Weight
      */
     public float getMaxLoadWeight(){
         return maxLoadWeight;
