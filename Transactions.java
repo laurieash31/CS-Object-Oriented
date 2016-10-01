@@ -76,3 +76,4 @@ public class Transactions implements java.io.Serializable {
     private int employeeID;
     private Date date = new Date();   
 }
+
