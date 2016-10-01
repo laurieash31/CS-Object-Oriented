@@ -82,19 +82,24 @@ public class Main {
                         break;
                     case "6":
                         System.out.println("Show list of users...");
-                        //dealer.printUsers
+                        dealer.printUsers();
+                        break;
                     case "7":
                         System.out.println("Add a new user...");
-                        //dealer.addUser 
+                        dealer.addUser();
+                        break;
                     case "8":
                         System.out.println("Update user info...");
                         //dealer.updateUser 
+                        break;
                     case "9":
                         System.out.println("Sell a vehicle...");
                         //dealer.sellVehicle
+                        break;
                     case "10":
                         System.out.println("Show list of transactions...");
                         //dealer.printTransactions
+                        break;
                     case "11":
                         System.out.println("Saving data..." + "\n");
                         dealer.exportData();
