@@ -1032,7 +1032,7 @@ public class Dealership {
      */
     public void printTransactions() {
         System.out.println("CUSTOMER ID  VIN  SALE DATE    FINAL SALES PRICE    EMPLOYEE ID");
-        System.out.println("..........................................");
+        System.out.println("...............................................................");
         for (String s : salesRecords.getSalesRecordsList()){
                System.out.println(s);
         }
