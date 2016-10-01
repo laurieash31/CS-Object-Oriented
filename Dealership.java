@@ -6,7 +6,6 @@
  */
 package assignment2;
 
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Scanner;
@@ -14,6 +13,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.Date;
 import java.util.Random;
 
 
@@ -37,74 +37,7 @@ public class Dealership {
     User userRecord = new User();
     Employee employeeRecord = new Employee();
     Customer customerRecord = new Customer();
-    
-   
-         
- /** 
- * This method tests if 'pCarRecords', 'truckRecords', 'employeeRecords',
- * 'customerRecords, and 'motoRecords' files exist before reading in data. 
- */
-    //This function tests if cars.txt exists and creates files if it doesn't
-    public void fileCheck(){
-        
-        //Creates 'pCarRecords' file
-        File pCarFile = new File("pCarRecords");
-        if(!pCarFile.exists())
-        {
-            try {
-                    pCarFile.createNewFile();
-            } catch (IOException ex) {
-                System.err.println("Problem creating 'pCarRecords' file.");
-            }
-        }
-        
-        //Creates 'truckRecords' file
-        File truckFile = new File("truckRecords");
-        if(!truckFile.exists())
-        {
-            try {
-                truckFile.createNewFile();
-            } catch (IOException ex) {
-                System.err.println("Problem creating 'truckRecords' file.");
-            }
-        }
-        
-        //Creates 'motoRecords' file
-        File motoFile = new File("motoRecords");
-        if(!motoFile.exists())
-        {
-            try {
-                    motoFile.createNewFile();
-            } catch (IOException ex) {
-                System.err.println("Problem creating 'motoRecords' file.");
-            }
-        }
-        
-        //Creates 'employeeRecords' file
-        File employeeFile = new File("employeeRecords");
-        if(!employeeFile.exists())
-        {
-            try {
-                    employeeFile.createNewFile();
-            } catch (IOException ex) {
-                System.err.println("Problem creating 'employeeRecords' file.");
-            }
-        }
-        
-        //Creates 'customerRecords' file
-        File customerFile = new File("customerRecords");
-        if(!customerFile.exists())
-        {
-            try {
-                    customerFile.createNewFile();
-            } catch (IOException ex) {
-                System.err.println("Problem creating 'customerRecords' file.");
-            }
-        }
-           
-        System.out.println("Importing recorded data... ");
-        System.out.println();    
-    }
+    Transactions salesRecords = new Transactions();
 
     
  /** 
@@ -199,8 +132,25 @@ public class Dealership {
         catch (Exception ex){
             ex.printStackTrace();
 	}
-    
+        
+        //Read sales transaction records from database
+        try{
+            FileInputStream fin = new FileInputStream("salesRecords");
+            ObjectInputStream ois = new ObjectInputStream(fin);
+            salesRecords = (Transactions) ois.readObject();
+            ois.close();  
+	}catch (ClassNotFoundException e) {
+            System.err.println("Could not cast the de-serialized object");
+            
+        }catch (FileNotFoundException e) {
+  
+        }
+        
+        catch (Exception ex){
+            ex.printStackTrace();
+	}
     }
+
     
 /** 
  * This method serializes userRecords, pCarRecords, truckRecords, and motoRecords into
@@ -241,7 +191,7 @@ public class Dealership {
             e.printStackTrace();
         }
         
-        //Assuming I can put this here?
+        //Serialze the customer data into 'customerRecords'
         try {
             FileOutputStream fos = new FileOutputStream("customerRecords");
             ObjectOutputStream oos = new ObjectOutputStream(fos);
@@ -252,6 +202,7 @@ public class Dealership {
             e.printStackTrace();
         }
         
+        //Serialze the employee data into 'employeeRecords'
         try {
             FileOutputStream fos = new FileOutputStream("employeeRecords");
             ObjectOutputStream oos = new ObjectOutputStream(fos);
@@ -261,7 +212,19 @@ public class Dealership {
         } catch(IOException e) {
             e.printStackTrace();
         }
+        
+        //Serialze the sales transactions data into 'salesRecords'
+        try {
+            FileOutputStream fos = new FileOutputStream("salesRecords");
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+            oos.writeObject(salesRecords);
+            oos.close();
+            fos.close();
+        } catch(IOException e) {
+            e.printStackTrace();
+        }
     }
+    
     
  /** 
  * This method prints the users from the database.
@@ -932,5 +895,148 @@ public class Dealership {
             System.out.println("Sorry, cannot find car within that "
                     + "price range." + "\n");
         }
+    }
+    
+    
+    /**
+     * This method is called when a vehicle is sold. 
+     * A new sales record is created and the vehicle is deleted from the database. 
+     * The transaction will not be completed if the employee, customer, and VIN 
+     * are not in the database.
+     */
+    public void sellVehicle(){
+        Scanner input = new Scanner(System.in);
+        
+        System.out.println("Starting a sales transaction...");
+        System.out.println();
+
+        //Get employee ID
+        System.out.print("Enter the Employee ID: " );
+        String empID = input.nextLine();
+        System.out.println();
+        
+        //Get customer ID
+        System.out.print("Enter the Customer ID: " );
+        String custID = input.nextLine();
+        System.out.println();
+        
+        //Get VIN of car to search
+        System.out.print("Enter the VIN of car to search for: " );
+        String userVIN = input.nextLine();
+        userVIN = userVIN.toUpperCase();
+        System.out.println();
+        
+        /*Check databases to make sure employee ID, customer ID, and VIN are in
+            the databases before sales transaction
+        */
+        Boolean foundVIN = false;
+        Boolean foundEmpID = false;
+        Boolean foundCustID = false;
+
+        for (String s : pCarRecord.getRecord()){
+            if (s.contains(userVIN) == true){
+                foundVIN = true;
+            }
+        }
+        
+        for (String s : truckRecord.getRecord()){
+            if (s.contains(userVIN) == true){
+                foundVIN = true;
+            }
+        }
+        
+        for (String s : motoRecord.getRecord()){
+            if (s.contains(userVIN) == true){
+                foundVIN = true;
+            }
+        }
+        
+        for (String e : employeeRecord.getRecord()){
+            if (e.contains(empID) == true){
+                foundEmpID = true;
+            }
+        }
+        
+        for (String c : customerRecord.getRecord()){
+            if (c.contains(custID) == true){
+                foundCustID = true;
+            }
+        }
+        
+        //If car is not found in the database...
+        if (foundVIN == false){
+            System.out.println("Sorry, car record does not exist." + "\n");
+            return;
+        }
+        
+        //If Employee ID is not found in the database...
+        if (foundEmpID == false){
+            System.out.println("Employee must be added to database before "
+                    + "sales transaction!" + "\n");
+            return;
+        }
+        
+        //If customer ID is not found in the database...
+        if (foundCustID == false){
+            System.out.println("Customer must be added to database before "
+                    + "sales transaction!" + "\n");
+            return;
+        }
+        
+        if(foundVIN == true && foundEmpID == true && foundCustID == true){
+            
+            //Removed vehicle record from database
+            pCarRecord.removeElement(userVIN);
+            truckRecord.removeElement(userVIN);
+            motoRecord.removeElement(userVIN);
+            
+            //Set customer ID for sales record
+            int customerID = Integer.parseInt(custID.trim()); 
+            salesRecords.setCustomerID(customerID);
+            
+            //Set employee ID for sales record
+            int employeeID = Integer.parseInt(empID.trim()); 
+            salesRecords.setEmployeeID(employeeID);
+            
+            //Set vehicle VIN
+            salesRecords.setVehicleVIN(userVIN);
+            
+            //Get the final sales price
+            float finalPrice;
+            do {
+                    System.out.println("Enter the final sale price: " );
+                    finalPrice = input.nextFloat();
+                } while(finalPrice < MIN_PRICE);
+            salesRecords.setFinalPrice(finalPrice);
+            
+            //Set the sales date
+            Date date = new Date();
+            salesRecords.setDate(date);
+            
+            //Set the sales transaction record
+            String salesRecordLine = salesRecords.getCustomerID() + " " 
+                + salesRecords.getVehicleVIN() + " " + salesRecords.getSalesDate() 
+                + " " + "$" 
+                + String.format(java.util.Locale.US,"%.2f", salesRecords.getFinalPrice()) 
+                + " " + salesRecords.getEmployeeID();
+            
+            System.out.println();
+ 
+            salesRecords.setSalesRecordsList(salesRecordLine);
+        }      
+    }
+    
+    
+    /**
+     * This method displays the sales transactions
+     */
+    public void printTransactions() {
+        System.out.println("CUSTOMER ID  VIN  SALE DATE    FINAL SALES PRICE    EMPLOYEE ID");
+        System.out.println("..........................................");
+        for (String s : salesRecords.getSalesRecordsList()){
+               System.out.println(s);
+        }
+        
+        System.out.println();
     }
 }
