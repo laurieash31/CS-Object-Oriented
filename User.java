@@ -5,7 +5,7 @@ import java.util.Iterator;
 
 /**
  * @author Laura Garcia
- * @author Austin Stamper
+ * @author Austin Stamper 
  */
 public class User implements java.io.Serializable {
     
