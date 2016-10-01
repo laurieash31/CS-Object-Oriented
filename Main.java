@@ -9,6 +9,7 @@ package assignment2;
 import java.util.Scanner;
 import java.util.InputMismatchException;
 
+/** This class is the main class for the package */
 public class Main {
 
     public static void main(String[] args) {
