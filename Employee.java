@@ -11,6 +11,8 @@ package assignment2;
  */
 public class Employee extends User implements java.io.Serializable {
     
+    public Employee(){}
+    
     public Employee(float salary, int acctNum){
         monthSalary = salary;
         accountNum = acctNum;
