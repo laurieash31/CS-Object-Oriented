@@ -113,7 +113,10 @@ public class Vehicle implements java.io.Serializable{
     }
     
     
-    //This function returns the model from record
+    /**
+     * This method returns the model from record
+     * @return the model from record
+     */ 
     public String getModel(){
         return model;
     }
@@ -128,7 +131,10 @@ public class Vehicle implements java.io.Serializable{
     }
     
     
-    //This function returns the record 
+    /**
+     * This function returns the record 
+     * @return the Record
+     */ 
     public ArrayList<String> getRecord(){
         return this.record;
     }
