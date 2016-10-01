@@ -15,12 +15,6 @@ public class Main {
         
         Dealership dealer = new Dealership();
         
-        //Needs constructor
-        //Vehicle car = new Vehicle();
-        
-        //Check if file exists
-        //dealer.fileCheck();
-        
         //Read data (if any) from cars.txt file into the ArrayList
         dealer.readRecords();
         
@@ -39,7 +33,7 @@ public class Main {
             System.out.println("[6] Display the users in the database");
             System.out.println("[7] Add a user to the database");
             System.out.println("[8] Update user info using their ID");
-            System.out.println("[9] Add a new user to the database");
+            System.out.println("[9] Sell a vehicle");
             System.out.println("[10] Show completed sales transactions");
             System.out.println("[11] Exit the program");
             System.out.println("------------------------------------------------------------------------");
@@ -94,11 +88,11 @@ public class Main {
                         break;
                     case "9":
                         System.out.println("Sell a vehicle...");
-                        //dealer.sellVehicle
+                        dealer.sellVehicle();
                         break;
                     case "10":
                         System.out.println("Show list of transactions...");
-                        //dealer.printTransactions
+                        dealer.printTransactions();
                         break;
                     case "11":
                         System.out.println("Saving data..." + "\n");
