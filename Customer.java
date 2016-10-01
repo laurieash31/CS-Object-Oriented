@@ -11,6 +11,8 @@ package assignment2;
  */
 public class Customer extends User implements java.io.Serializable {
     
+    public Customer(){}
+    
     public Customer(int dlNum, String pNum){
         dlNumber = dlNum;
         pNumber = pNum;
