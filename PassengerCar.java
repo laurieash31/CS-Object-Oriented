@@ -1,7 +1,6 @@
 package assignment2;
 
 /**
- *
  * @author Laura Garcia
  * @author Austin Stamper
  */
