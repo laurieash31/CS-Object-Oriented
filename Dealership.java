@@ -28,6 +28,10 @@ public class Dealership {
     public static final int MIN_PRICE = 0;
     public static final int MIN_LOADWT = 0;
     public static final int MIN_LENGTH = 0;
+    public static final int MIN_ENGINE_DIS = 0;
+    public static final int MIN_SALARY = 0;
+    public static final int MIN_ACCNT_NUM = 0;
+    public static final int MIN_DL_NUM = 0;
 
     //Create an instance of classes	
     Vehicle carRecord = new Vehicle();
@@ -231,8 +235,10 @@ public class Dealership {
  */
     public void printUsers() {
         
-        System.out.println("ID  TYPE  FIRST   LAST  USER SPECIFIC");
-        System.out.println("..........................................");
+        System.out.println("ID     TYPE      FIRST NAME           "
+                + "LAST NAME            USER SPECIFIC INFO");
+        System.out.println("..................................................."
+                + ".................................................");
         for (String s : customerRecord.getRecord()){
                System.out.println(s);
         }
@@ -284,17 +290,22 @@ public class Dealership {
             System.out.println("What is the Last Name");
             uLName = input.nextLine();
             employeeRecord.setLastName(uLName);
-            System.out.println("What is the Monthly Salary?");
-            uMSalary = input.nextFloat();
+            do {
+                System.out.println("What is the Monthly Salary?");
+                uMSalary = input.nextFloat();
+            } while(uMSalary < MIN_SALARY);
             employeeRecord.setMonthSalary(uMSalary);
-            System.out.println("What is the Direct Deposit Account Number?");
-            uBankAcct = input.nextInt();
+            do {
+                System.out.println("What is the Direct Deposit Account Number?");
+                uBankAcct = input.nextInt();
+            } while(uBankAcct < MIN_ACCNT_NUM);
             employeeRecord.setAccountNum(uBankAcct);
             
-            recordLine = employeeRecord.getID() + " " + "EMPLOYEE" + " " 
-                    + employeeRecord.getFirstName() + " " + employeeRecord.getLastName() 
-                    + " " + employeeRecord.getAccountNum() + " " 
-                + "$" + String.format(java.util.Locale.US,"%.2f", employeeRecord.getMonthSalary());
+            recordLine = String.format("%-6s", employeeRecord.getID()) + " " + "EMPLOYEE" + "  " 
+                + String.format("%-20s", employeeRecord.getFirstName()) + " " 
+                + String.format("%-20s", employeeRecord.getLastName()) + " " 
+                + String.format("ACNT #: %-15s",employeeRecord.getAccountNum()) + "  " 
+                + "SALARY: $" + String.format(java.util.Locale.US,"%.2f", employeeRecord.getMonthSalary());
 
             employeeRecord.setRecord(recordLine);
             
@@ -317,13 +328,17 @@ public class Dealership {
             System.out.println("What is the Phone Number?");
             uPNumber = input.nextLine();
             customerRecord.setPNumber(uPNumber);
-            System.out.println("What is the Driver's License Number?");
-            uDLNumber = input.nextInt();
+            do {
+                System.out.println("What is the Driver's License Number?");
+                uDLNumber = input.nextInt();
+            } while(uDLNumber < MIN_DL_NUM);
             customerRecord.setDLNumber(uDLNumber);
             
-            recordLine = customerRecord.getID() + " " + "CUSTOMER" + " " + customerRecord.getFirstName() + " " 
-                + customerRecord.getLastName() + " " + customerRecord.getPNumber()+ " " 
-                + customerRecord.getDLNumber();
+            recordLine = String.format("%-6s", customerRecord.getID()) + " " + "CUSTOMER" + "  " 
+                + String.format("%-20s", customerRecord.getFirstName()) + " " 
+                + String.format("%-20s", customerRecord.getLastName()) + " " 
+                + String.format("PH #: %-18s", customerRecord.getPNumber()) + " " 
+                + "DL #: " + customerRecord.getDLNumber();
 
             customerRecord.setRecord(recordLine);
             
@@ -372,10 +387,11 @@ public class Dealership {
                 int uBankAcct = input.nextInt();
                 employeeRecord.setAccountNum(uBankAcct);
             
-                String recordLine = enteredID + " " + "EMPLOYEE" + " " 
-                + employeeRecord.getFirstName() + " " + employeeRecord.getLastName() 
-                + " " + employeeRecord.getAccountNum() + " " 
-                + "$" + String.format(java.util.Locale.US,"%.2f", employeeRecord.getMonthSalary());
+                String recordLine = String.format("%-6s", enteredID) + " " + "EMPLOYEE" + "  " 
+                + String.format("%-20s", employeeRecord.getFirstName()) + " " 
+                + String.format("%-20s", employeeRecord.getLastName()) + " " 
+                + String.format("ACNT #: %-15s",employeeRecord.getAccountNum()) + "  " 
+                + "SALARY: $" + String.format(java.util.Locale.US,"%.2f", employeeRecord.getMonthSalary());
 
                 employeeRecord.setRecord(recordLine);
                 break;
@@ -396,9 +412,11 @@ public class Dealership {
                 int uDLNumber = input.nextInt();
                 customerRecord.setDLNumber(uDLNumber);
             
-                String custRecord = enteredID + " " + "CUSTOMER" + " " 
-                + customerRecord.getFirstName() + " " + customerRecord.getLastName() 
-                + " " + customerRecord.getPNumber() +  " " + customerRecord.getDLNumber();
+                String custRecord = String.format("%-6s", enteredID) + " " + "CUSTOMER" + "  " 
+                + String.format("%-20s", customerRecord.getFirstName()) + " " 
+                + String.format("%-20s", customerRecord.getLastName()) + " " 
+                + String.format("PH #: %-18s", customerRecord.getPNumber()) + " " 
+                + "DL #: " + customerRecord.getDLNumber();
 
                 customerRecord.setRecord(custRecord);
                 break;
@@ -514,10 +532,14 @@ public class Dealership {
                 pCarRecord.setPrice(userPrice);
                 
                 //Add the data to the ArrayList
-                recordLine = pCarRecord.getVIN() + " " + "CAR" + " " 
-                + pCarRecord.getYear() + " " + pCarRecord.getMake() + " " + pCarRecord.getModel() + " " 
-                + pCarRecord.getMileage() + " " + pCarRecord.getBodyStyle() + " " + "$" 
-                + String.format(java.util.Locale.US,"%.2f", pCarRecord.getPrice());
+                recordLine = String.format("%-6s", pCarRecord.getVIN()) + " " 
+                + "CAR" + "         " 
+                + String.format("%-5s", pCarRecord.getYear()) + " " 
+                + String.format("%-15s", pCarRecord.getMake()) + " " 
+                + String.format("%-15s", pCarRecord.getModel()) + " " 
+                + String.format("%-8s", pCarRecord.getMileage()) + " "
+                + "BODY: " + String.format("%-28s", pCarRecord.getBodyStyle()) + " "
+                + "$" + String.format(java.util.Locale.US,"%.2f", pCarRecord.getPrice()); 
 
                 pCarRecord.setRecord(recordLine);
                 
@@ -609,11 +631,15 @@ public class Dealership {
                 truckRecord.setPrice(userPrice);                
                 
                 //Add the data to the ArrayList
-                recordLine = truckRecord.getVIN() + " " + "TRUCK" + " " + truckRecord.getYear() + " " 
-                + truckRecord.getMake() + " " + truckRecord.getModel() + " " 
-                + truckRecord.getMileage() + " " + truckRecord.getMaxLoadWeight() + " " 
-                + truckRecord.getLength() + " " + "$" 
-                + String.format(java.util.Locale.US,"%.2f", truckRecord.getPrice());
+                recordLine = String.format("%-6s", truckRecord.getVIN()) + " " 
+                + "TRUCK" + "       " 
+                + String.format("%-5s", truckRecord.getYear()) + " " 
+                + String.format("%-15s", truckRecord.getMake()) + " " 
+                + String.format("%-15s", truckRecord.getModel()) + " " 
+                + String.format("%-8s", truckRecord.getMileage()) + " " 
+                + String.format("MAX LOAD LB: %6s" , truckRecord.getMaxLoadWeight()) 
+                + "  " + String.format("LENGTH: %4s", truckRecord.getLength()) + "  " 
+                + "$" + String.format(java.util.Locale.US,"%.2f", truckRecord.getPrice());
 
                 truckRecord.setRecord(recordLine);
                 
@@ -689,8 +715,10 @@ public class Dealership {
                 
                 //Get Engine Displacement
                 int eng = 0;
-                System.out.println("Enter the Engine Displacement: " );
-                eng = input.nextInt();
+                do {
+                    System.out.println("Enter the Engine Displacement: " );
+                    eng = input.nextInt();
+                } while(eng < MIN_ENGINE_DIS);
                 motoRecord.setEngine(eng);
                 
                 //Get the Price
@@ -701,11 +729,15 @@ public class Dealership {
                 motoRecord.setPrice(userPrice);
                 
                 //Add the data to the ArrayList
-                recordLine = motoRecord.getVIN() + " " + "MOTORCYCLE" + " " + motoRecord.getYear() + " " 
-                + motoRecord.getMake() + " " + motoRecord.getModel() + " " 
-                + motoRecord.getMileage() + " " + motoRecord.getEngine() + " " 
-                + motoRecord.getType() + " " + "$" 
-                + String.format(java.util.Locale.US,"%.2f", motoRecord.getPrice());
+                recordLine = String.format("%-6s", motoRecord.getVIN()) + " " 
+                + "MOTORCYCLE" + "  " 
+                + String.format("%-5s", motoRecord.getYear()) + " " 
+                + String.format("%-15s", motoRecord.getMake()) + " " 
+                + String.format("%-15s", motoRecord.getModel()) + " " 
+                + String.format("%-8s", motoRecord.getMileage()) + " "  
+                + String.format("TYPE: %-14s", motoRecord.getType()) + " " 
+                + String.format("CC: %-9s", motoRecord.getEngine()) + " " 
+                + "$" + String.format(java.util.Locale.US,"%.2f", motoRecord.getPrice());
 
                 motoRecord.setRecord(recordLine);
                 
@@ -751,8 +783,10 @@ public class Dealership {
         
         //Find the matching car record VIN
         Boolean found = false;
-        System.out.println("VIN  TYPE  YEAR MAKE  MODEL  MILEAGE  PRICE");
-        System.out.println("..........................................");
+        System.out.println("VIN    TYPE        YEAR  MAKE            "
+            + "MODEL           MILEAGE  OTHER INFO                         PRICE");
+        System.out.println("...................................................."
+            + "..........................................................");
         for (String s : pCarRecord.getRecord()){
             if (s.contains(userVIN) == true){
                 found = true;
@@ -783,8 +817,10 @@ public class Dealership {
     * This method displays the car records to the console for Option 1.
     */ 
     public void displayRecords(){
-        System.out.println("VIN  TYPE  YEAR MAKE  MODEL  MILEAGE  PRICE");
-        System.out.println("..........................................");
+        System.out.println("VIN    TYPE        YEAR  MAKE            "
+                + "MODEL           MILEAGE  OTHER INFO                         PRICE");
+        System.out.println("...................................................."
+                + "..........................................................");
         for (String s : pCarRecord.getRecord()){
                System.out.println(s);
         }
@@ -823,8 +859,10 @@ public class Dealership {
         //Find cars within price range
         String temp;
         Boolean hasRecord = false;
-        System.out.println("VIN  TYPE  YEAR MAKE  MODEL  MILEAGE  PRICE");
-        System.out.println("..........................................");
+        System.out.println("VIN    TYPE        YEAR  MAKE            "
+            + "MODEL           MILEAGE  OTHER INFO                         PRICE");
+        System.out.println("...................................................."
+            + "..........................................................");
         
         switch (type) {
             case 1: 
@@ -1014,11 +1052,12 @@ public class Dealership {
             salesRecords.setDate(date);
             
             //Set the sales transaction record
-            String salesRecordLine = salesRecords.getCustomerID() + " " 
-                + salesRecords.getVehicleVIN() + " " + salesRecords.getSalesDate() 
-                + " " + "$" 
+            String salesRecordLine = String.format("%-12s", salesRecords.getCustomerID()) + " " 
+                + String.format("%-6s", salesRecords.getVehicleVIN()) + " " 
+                + String.format("%-29s", salesRecords.getSalesDate()) + " " 
+                + "$" 
                 + String.format(java.util.Locale.US,"%.2f", salesRecords.getFinalPrice()) 
-                + " " + salesRecords.getEmployeeID();
+                + "     " + salesRecords.getEmployeeID();
             
             System.out.println();
  
@@ -1031,7 +1070,8 @@ public class Dealership {
      * This method displays the sales transactions
      */
     public void printTransactions() {
-        System.out.println("CUSTOMER ID  VIN  SALE DATE    FINAL SALES PRICE    EMPLOYEE ID");
+        System.out.println("CUSTOMER ID  VIN    SALE DATE                     "
+                + "FINAL PRICE  EMPLOYEE ID");
         System.out.println("...............................................................");
         for (String s : salesRecords.getSalesRecordsList()){
                System.out.println(s);
