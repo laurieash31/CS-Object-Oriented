@@ -63,7 +63,7 @@ public class Dealership {
             System.err.println("Could not cast the de-serialized object");
             
         }catch (FileNotFoundException e) {
-            
+  	    //Do nothing, file is created            
         }catch(Exception ex){
             ex.printStackTrace();
 	}
@@ -79,7 +79,7 @@ public class Dealership {
             System.err.println("Could not cast the de-serialized object");
         
         }catch (FileNotFoundException e) {
-            
+  	    //Do nothing, file is created            
         }
         
         catch(Exception ex){
@@ -96,7 +96,7 @@ public class Dealership {
             System.err.println("Could not cast the de-serialized object");
             
         }catch (FileNotFoundException e) {
-  
+  	    //Do nothing, file is created  
         }
         
         catch (Exception ex){
@@ -113,7 +113,7 @@ public class Dealership {
             System.err.println("Could not cast the de-serialized object");
             
         }catch (FileNotFoundException e) {
-  
+  	    //Do nothing, file is created  
         }
         
         catch (Exception ex){
@@ -130,7 +130,7 @@ public class Dealership {
             System.err.println("Could not cast the de-serialized object");
             
         }catch (FileNotFoundException e) {
-  
+  	    //Do nothing, file is created  
         }
         
         catch (Exception ex){
@@ -147,7 +147,7 @@ public class Dealership {
             System.err.println("Could not cast the de-serialized object");
             
         }catch (FileNotFoundException e) {
-  
+  	    //Do nothing, file is created
         }
         
         catch (Exception ex){
