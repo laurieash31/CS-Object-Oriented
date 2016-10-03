@@ -959,7 +959,7 @@ public class Dealership {
         System.out.println();
         
         //Get VIN of car to search
-        System.out.print("Enter the VIN of car to search for: " );
+        System.out.print("Enter the VIN of vehicle to sell: " );
         String userVIN = input.nextLine();
         userVIN = userVIN.toUpperCase();
         System.out.println();
@@ -1057,7 +1057,7 @@ public class Dealership {
                 + String.format("%-29s", salesRecords.getSalesDate()) + " " 
                 + "$" 
                 + String.format(java.util.Locale.US,"%.2f", salesRecords.getFinalPrice()) 
-                + "     " + salesRecords.getEmployeeID();
+                + " " + String.format("%11s", salesRecords.getEmployeeID());
             
             System.out.println();
  
