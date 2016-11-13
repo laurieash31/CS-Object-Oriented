@@ -816,6 +816,7 @@ public class Dealership {
     /**
     * This method displays the car records to the console for Option 1.
     */ 
+    /*
     public void displayRecords(){
         System.out.println("VIN    TYPE        YEAR  MAKE            "
                 + "MODEL           MILEAGE  OTHER INFO                         PRICE");
@@ -832,6 +833,31 @@ public class Dealership {
         }
         System.out.println();
     }
+    */
+    public String displayRecords(){
+        String header = "VIN    TYPE        YEAR  MAKE            "
+                + "MODEL           MILEAGE  OTHER INFO                         PRICE";
+        String dots = "...................................................."
+                + "..........................................................";
+        String carRecordsString = "";
+        String truckRecordsString = "";
+        String motoRecordsString = ""; 
+        for (String s : pCarRecord.getRecord()){
+               carRecordsString = carRecordsString + s;
+               carRecordsString = carRecordsString + "\n";
+        }
+        for (String s : truckRecord.getRecord()){
+               truckRecordsString = truckRecordsString + s;
+               truckRecordsString = truckRecordsString + "\n";
+        }
+        for (String s : motoRecord.getRecord()){
+               motoRecordsString = motoRecordsString + s;
+               motoRecordsString = motoRecordsString + "\n";
+        }
+        return header + "\n" + dots + "\n" + carRecordsString + truckRecordsString 
+                + motoRecordsString;
+    }
+    
     
     
     /**
