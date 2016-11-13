@@ -70,7 +70,11 @@ public class Main {
                         break;
                     case "4":
                         System.out.println("Search for vehicle..." + "\n");
-                        dealer.checkCar();
+                        //dealer.checkCar();
+                        input = new Scanner(System.in);
+                        System.out.print("Enter the VIN of car to search for: " );
+                        String userVIN = input.nextLine();
+                        System.out.print(dealer.checkCar(userVIN));
                         break;
                     case "5":
                         System.out.println("Display list of vehicless within range..." + "\n");
