@@ -26,13 +26,21 @@ public class DealershipMenu implements ItemListener {
     final static String USER_MANAGEMENT_PANEL = "User Management";
     final static String TRANSACTION_MANAGEMENT_PANEL = "Transaction Management";
     final static String DISPLAY_VEHICLE_RECORDS_PANEL = "Display vehicle records";
+    final static String SEARCH_VEHICLE_RECORDS_PANEL = "Search vehicle records";
+    final static String DISPLAY_SEARCHED_VEHICLE_RECORDS_PANEL = "Display searched vehicle records";
     
-    //Variables for Card 1
+    //Variables for Card 1 - Vehicle Management
     JRadioButton displayButton;
     JRadioButton addButton;
     JRadioButton deleteButton;
     JRadioButton searchButton;
+    JButton searchCarButton;
     JRadioButton priceSearchButton;
+    
+    //Variables for JPanels for Card1 - Vehicle Management
+    JPanel card1Search = new JPanel();
+    JPanel card1DisplaySearch = new JPanel();
+    JTextField card1SearchField;
     
     public void addComponentToPane(Container pane) {
         
@@ -48,6 +56,8 @@ public class DealershipMenu implements ItemListener {
         //Create the "cards" panels for Card 1 - Vehicle Management
         JPanel card1 = new JPanel(new GridLayout(0,1));
         JPanel card1Display = new JPanel();
+        //JPanel card1Search = new JPanel();
+        //JPanel card1DisplaySearch = new JPanel();
         
         //Add buttons to button group for card1
         ButtonGroup radioButtonGroup = new ButtonGroup();
@@ -69,6 +79,7 @@ public class DealershipMenu implements ItemListener {
         
         //Add the action listeners to the radio buttons for card1 here!!!!!
         displayButton.addActionListener(new RadioButtonListener());
+        searchButton.addActionListener(new RadioButtonListener());
         
         //Add the buttons to card1
         card1.add(displayButton);
@@ -78,17 +89,22 @@ public class DealershipMenu implements ItemListener {
         card1.add(priceSearchButton);
         
         
-        //Creating a text field for Card1A - Display Vehicles
+        //Creating a text area for Card1Display - Display Vehicles
         JTextArea textArea = new JTextArea(20, 20);
         textArea.setText(dealer.displayRecords());
         card1Display.add(textArea);
         textArea.setEditable(false);
         
+        //Creating a text field for Card1Search - Search Vehicles
+        JLabel searchCarMsgLabel = new JLabel("Enter a VIN to search: ");
+        card1SearchField = new JTextField(5);
+        searchCarButton = new JButton("Search");
+        card1Search.add(searchCarMsgLabel);
+        card1Search.add(card1SearchField);
+        card1Search.add(searchCarButton);
+        searchCarButton.addActionListener(new ButtonListener()); //ButtonAction Listener
         
-        //Add the card functions to the deck -DON'T KNOW IF I NEED THIS?????
-        //cards.add(card1Display, "Display vehicles");
-        
-        
+
         
         //Create the "cards" panels for Card 2 - User Management
         JPanel card2 = new JPanel(new GridLayout(0,1));
@@ -122,11 +138,18 @@ public class DealershipMenu implements ItemListener {
         
         //Create the panel that contains all the "cards".
         cards = new JPanel(new CardLayout());
+        
+        //Upper Combo Box Menu
         cards.add(card1, VEHICLE_MANAGEMENT_PANEL);
         cards.add(card2, USER_MANAGEMENT_PANEL);
         cards.add(card3, TRANSACTION_MANAGEMENT_PANEL);
-        cards.add(card1Display, DISPLAY_VEHICLE_RECORDS_PANEL);
         
+        //All panel for Card1 - Vehicle Management
+        cards.add(card1Display, DISPLAY_VEHICLE_RECORDS_PANEL);
+        cards.add(card1Search, SEARCH_VEHICLE_RECORDS_PANEL);
+        cards.add(card1DisplaySearch, DISPLAY_SEARCHED_VEHICLE_RECORDS_PANEL);
+        
+        //Card layouts
         pane.add(comboBoxPane, BorderLayout.PAGE_START);
         pane.add(cards, BorderLayout.CENTER);
     }
@@ -184,13 +207,35 @@ public class DealershipMenu implements ItemListener {
         dealer.exportData();
     }
 
+    private class ButtonListener implements ActionListener {
+
+        public void actionPerformed(ActionEvent evt) {
+            
+            CardLayout cardLayout = (CardLayout) cards.getLayout();
+            
+            if (evt.getSource() == searchCarButton){ 
+                //Creating a text area for card1DisplaySearch - Display Searched Vehicles
+                JTextArea textAreaSearchResults = new JTextArea(20, 20);
+                String vin = card1SearchField.getText();
+                textAreaSearchResults.setText(dealer.checkCar(vin)); //changed function to CheckCar
+                card1DisplaySearch.add(textAreaSearchResults);
+                cardLayout.show(cards, DISPLAY_SEARCHED_VEHICLE_RECORDS_PANEL);
+                
+            }
+        }
+    }
+
     private class RadioButtonListener implements ActionListener {
 
         public void actionPerformed(ActionEvent e) {
             
+            CardLayout cardLayout = (CardLayout) cards.getLayout();
             if (e.getSource() == displayButton){    
-                CardLayout cardLayout = (CardLayout) cards.getLayout();
                 cardLayout.show(cards, DISPLAY_VEHICLE_RECORDS_PANEL);
+                
+            }
+            else if (e.getSource() == searchButton){    
+                cardLayout.show(cards, SEARCH_VEHICLE_RECORDS_PANEL);
                 
             }
         }
