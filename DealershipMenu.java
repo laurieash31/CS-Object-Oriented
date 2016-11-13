@@ -15,14 +15,11 @@ import javax.swing.*;
 
 public class DealershipMenu implements ItemListener {
     JPanel cards; //a panel that uses CardLayout
+    
+    //Names for each card
     final static String VEHICLEMANAGEMENTPANEL = "Vehicle Management";
     final static String TEXTPANEL = "Card with JTextField";
-    private ButtonGroup radioButtonGroup;
-    private JRadioButton displayButton = new JRadioButton("Display all vehicles");
-    private JRadioButton addButton = new JRadioButton("Add a vehicle");
-    private JRadioButton deleteButton = new JRadioButton("Delete a vehicle");
-    private JRadioButton searchButton = new JRadioButton("Search for a vehicle");
-    private JRadioButton priceSearchButton = new JRadioButton("Search price range");
+
     
     public void addComponentToPane(Container pane) {
         
@@ -35,11 +32,16 @@ public class DealershipMenu implements ItemListener {
         comboBoxPane.add(cb);
         
         //Add buttons to button group
-        radioButtonGroup = new ButtonGroup();
+        ButtonGroup radioButtonGroup = new ButtonGroup();
+        JRadioButton displayButton = new JRadioButton("Display all vehicles");
         radioButtonGroup.add(displayButton);
+        JRadioButton addButton = new JRadioButton("Add a vehicle");
         radioButtonGroup.add(addButton);
+        JRadioButton deleteButton = new JRadioButton("Delete a vehicle");
         radioButtonGroup.add(deleteButton);
+        JRadioButton searchButton = new JRadioButton("Search for a vehicle");
         radioButtonGroup.add(searchButton);
+        JRadioButton priceSearchButton = new JRadioButton("Search price range");
         radioButtonGroup.add(priceSearchButton);
         
         //Add the action listeners to the radio buttons here later!!!!!!
