@@ -15,6 +15,9 @@ import javax.swing.*;
 
 public class DealershipMenu implements ItemListener {
     
+    //Make an instance of the Dealership class to call functions
+    static Dealership dealer = new Dealership();
+    
     //a panel that uses CardLayout
     JPanel cards = new JPanel(new CardLayout()); 
     
@@ -22,7 +25,7 @@ public class DealershipMenu implements ItemListener {
     final static String VEHICLE_MANAGEMENT_PANEL = "Vehicle Management";
     final static String USER_MANAGEMENT_PANEL = "User Management";
     final static String TRANSACTION_MANAGEMENT_PANEL = "Transaction Management";
-    final static String DISPLAY_VEHICLE_RECORDS_PANEL = "Transaction Management";
+    final static String DISPLAY_VEHICLE_RECORDS_PANEL = "Display vehicle records";
     
     //Variables for Card 1
     JRadioButton displayButton;
@@ -74,8 +77,16 @@ public class DealershipMenu implements ItemListener {
         card1.add(searchButton);
         card1.add(priceSearchButton);
         
-        //Add the card functions to the deck
-        cards.add(card1Display, "Display vehicles");
+        
+        //Creating a text field for Card1A - Display Vehicles
+        JTextArea textArea = new JTextArea(20, 20);
+        textArea.setText(dealer.displayRecords());
+        card1Display.add(textArea);
+        textArea.setEditable(false);
+        
+        
+        //Add the card functions to the deck -DON'T KNOW IF I NEED THIS?????
+        //cards.add(card1Display, "Display vehicles");
         
         
         
@@ -92,7 +103,7 @@ public class DealershipMenu implements ItemListener {
         
         //Add the action listeners to the radio buttons for card2 here later!!!!!!
         
-        //Add the buttons to card1
+        //Add the buttons to card2
         card2.add(displayUsersButton);
         card2.add(addUserButton);
         card2.add(updateUserButton);
@@ -101,11 +112,12 @@ public class DealershipMenu implements ItemListener {
         JPanel card3 = new JPanel();
         card3.add(new JTextField("TextField", 20));
         
-        //Create the panel that contains the "cards".
+        //Create the panel that contains all the "cards".
         cards = new JPanel(new CardLayout());
         cards.add(card1, VEHICLE_MANAGEMENT_PANEL);
         cards.add(card2, USER_MANAGEMENT_PANEL);
         cards.add(card3, TRANSACTION_MANAGEMENT_PANEL);
+        cards.add(card1Display, DISPLAY_VEHICLE_RECORDS_PANEL);
         
         pane.add(comboBoxPane, BorderLayout.PAGE_START);
         pane.add(cards, BorderLayout.CENTER);
@@ -136,6 +148,8 @@ public class DealershipMenu implements ItemListener {
     }
     
     public static void main(String[] args) {
+        
+        dealer.readRecords();
         /* Use an appropriate Look and Feel */
         try {
             //UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
@@ -159,14 +173,16 @@ public class DealershipMenu implements ItemListener {
                 createAndShowGUI();
             }
         });
+        dealer.exportData();
     }
 
     private class RadioButtonListener implements ActionListener {
 
         public void actionPerformed(ActionEvent e) {
+            
             if (e.getSource() == displayButton){    
                 CardLayout cardLayout = (CardLayout) cards.getLayout();
-                cardLayout.show(cards, TRANSACTION_MANAGEMENT_PANEL);
+                cardLayout.show(cards, DISPLAY_VEHICLE_RECORDS_PANEL);
                 
             }
         }
