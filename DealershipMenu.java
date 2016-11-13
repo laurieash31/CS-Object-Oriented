@@ -17,6 +17,12 @@ public class DealershipMenu implements ItemListener {
     JPanel cards; //a panel that uses CardLayout
     final static String VEHICLEMANAGEMENTPANEL = "Vehicle Management";
     final static String TEXTPANEL = "Card with JTextField";
+    private ButtonGroup radioButtonGroup;
+    private JRadioButton displayButton = new JRadioButton("Display all vehicles");
+    private JRadioButton addButton = new JRadioButton("Add a vehicle");
+    private JRadioButton deleteButton = new JRadioButton("Delete a vehicle");
+    private JRadioButton searchButton = new JRadioButton("Search for a vehicle");
+    private JRadioButton priceSearchButton = new JRadioButton("Search price range");
     
     public void addComponentToPane(Container pane) {
         
@@ -28,13 +34,23 @@ public class DealershipMenu implements ItemListener {
         cb.addItemListener(this);
         comboBoxPane.add(cb);
         
-        //Create the "cards".
-        JPanel card1 = new JPanel();
-        card1.add(new JButton("Display all vehicles"));
-        card1.add(new JButton("Add a vehicle"));
-        card1.add(new JButton("Delete a vehicle"));
-        card1.add(new JButton("Search for a vehicle"));
-        card1.add(new JButton("Search price range"));
+        //Add buttons to button group
+        radioButtonGroup = new ButtonGroup();
+        radioButtonGroup.add(displayButton);
+        radioButtonGroup.add(addButton);
+        radioButtonGroup.add(deleteButton);
+        radioButtonGroup.add(searchButton);
+        radioButtonGroup.add(priceSearchButton);
+        
+        //Add the action listeners to the radio buttons here later!!!!!!
+        
+        //Create the "cards" panels
+        JPanel card1 = new JPanel(new GridLayout(0,1));
+        card1.add(displayButton);
+        card1.add(addButton);
+        card1.add(deleteButton);
+        card1.add(searchButton);
+        card1.add(priceSearchButton);
         
         JPanel card2 = new JPanel();
         card2.add(new JTextField("TextField", 20));
