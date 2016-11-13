@@ -92,7 +92,7 @@ public class DealershipMenu implements ItemListener {
         
         //Create the "cards" panels for Card 2 - User Management
         JPanel card2 = new JPanel(new GridLayout(0,1));
-        //Add buttons to button group for card1
+        //Add buttons to button group for card2
         ButtonGroup radioButtonGroup2 = new ButtonGroup();
         JRadioButton displayUsersButton = new JRadioButton("Display users");
         radioButtonGroup2.add(displayUsersButton);
@@ -109,8 +109,16 @@ public class DealershipMenu implements ItemListener {
         card2.add(updateUserButton);
         
         //Create the "cards" panels for Card 3 - Transaction Management
-        JPanel card3 = new JPanel();
-        card3.add(new JTextField("TextField", 20));
+        JPanel card3 = new JPanel(new GridLayout(0,1));
+        ButtonGroup radioButtonGroup3 = new ButtonGroup();
+        JRadioButton addSaleButton = new JRadioButton("Sell a vehicle");
+        radioButtonGroup3.add(displayUsersButton);
+        JRadioButton displayTransactionsButton = new JRadioButton("Display Transactions");
+        radioButtonGroup3.add(addUserButton);
+        
+        //Add the buttons to card3
+        card3.add(displayTransactionsButton);
+        card3.add(addSaleButton);
         
         //Create the panel that contains all the "cards".
         cards = new JPanel(new CardLayout());
