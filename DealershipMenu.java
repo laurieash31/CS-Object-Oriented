@@ -14,43 +14,58 @@ import java.awt.event.*;
 import javax.swing.*;
 
 public class DealershipMenu implements ItemListener {
-    JPanel cards; //a panel that uses CardLayout
+    
+    //a panel that uses CardLayout
+    JPanel cards = new JPanel(new CardLayout()); 
     
     //Names for each card
-    final static String VEHICLEMANAGEMENTPANEL = "Vehicle Management";
-    final static String USERMANAGEMENTPANEL = "User Management";
-    final static String TRANSACTIONMANAGEMENT = "Transaction Management";
-
+    final static String VEHICLE_MANAGEMENT_PANEL = "Vehicle Management";
+    final static String USER_MANAGEMENT_PANEL = "User Management";
+    final static String TRANSACTION_MANAGEMENT_PANEL = "Transaction Management";
+    final static String DISPLAY_VEHICLE_RECORDS_PANEL = "Transaction Management";
+    
+    //Variables for Card 1
+    JRadioButton displayButton;
+    JRadioButton addButton;
+    JRadioButton deleteButton;
+    JRadioButton searchButton;
+    JRadioButton priceSearchButton;
     
     public void addComponentToPane(Container pane) {
         
         //Put the JComboBox in a JPanel to switch between menus
         JPanel comboBoxPane = new JPanel(); //use FlowLayout
-        String comboBoxItems[] = { VEHICLEMANAGEMENTPANEL, USERMANAGEMENTPANEL, TRANSACTIONMANAGEMENT };
+        String comboBoxItems[] = { VEHICLE_MANAGEMENT_PANEL, USER_MANAGEMENT_PANEL, TRANSACTION_MANAGEMENT_PANEL };
         JComboBox cb = new JComboBox(comboBoxItems);
         cb.setEditable(false);
         cb.addItemListener(this);
         comboBoxPane.add(cb);
         
-       
-        
+
         //Create the "cards" panels for Card 1 - Vehicle Management
         JPanel card1 = new JPanel(new GridLayout(0,1));
+        JPanel card1Display = new JPanel();
         
         //Add buttons to button group for card1
         ButtonGroup radioButtonGroup = new ButtonGroup();
-        JRadioButton displayButton = new JRadioButton("Display all vehicles");
+        
+        displayButton = new JRadioButton("Display all vehicles");
         radioButtonGroup.add(displayButton);
-        JRadioButton addButton = new JRadioButton("Add a vehicle");
+        
+        addButton = new JRadioButton("Add a vehicle");
         radioButtonGroup.add(addButton);
-        JRadioButton deleteButton = new JRadioButton("Delete a vehicle");
+        
+        deleteButton = new JRadioButton("Delete a vehicle");
         radioButtonGroup.add(deleteButton);
-        JRadioButton searchButton = new JRadioButton("Search for a vehicle");
+        
+        searchButton = new JRadioButton("Search for a vehicle");
         radioButtonGroup.add(searchButton);
-        JRadioButton priceSearchButton = new JRadioButton("Search price range");
+        
+        priceSearchButton = new JRadioButton("Search price range");
         radioButtonGroup.add(priceSearchButton);
         
-        //Add the action listeners to the radio buttons for card1 here later!!!!!!
+        //Add the action listeners to the radio buttons for card1 here!!!!!
+        displayButton.addActionListener(new RadioButtonListener());
         
         //Add the buttons to card1
         card1.add(displayButton);
@@ -58,6 +73,11 @@ public class DealershipMenu implements ItemListener {
         card1.add(deleteButton);
         card1.add(searchButton);
         card1.add(priceSearchButton);
+        
+        //Add the card functions to the deck
+        cards.add(card1Display, "Display vehicles");
+        
+        
         
         //Create the "cards" panels for Card 2 - User Management
         JPanel card2 = new JPanel(new GridLayout(0,1));
@@ -69,7 +89,6 @@ public class DealershipMenu implements ItemListener {
         radioButtonGroup2.add(addUserButton);
         JRadioButton updateUserButton = new JRadioButton("Update user information");
         radioButtonGroup2.add(updateUserButton);
-        //card2.add(new JTextField("TextField", 20));
         
         //Add the action listeners to the radio buttons for card2 here later!!!!!!
         
@@ -84,9 +103,9 @@ public class DealershipMenu implements ItemListener {
         
         //Create the panel that contains the "cards".
         cards = new JPanel(new CardLayout());
-        cards.add(card1, VEHICLEMANAGEMENTPANEL);
-        cards.add(card2, USERMANAGEMENTPANEL);
-        cards.add(card3, TRANSACTIONMANAGEMENT);
+        cards.add(card1, VEHICLE_MANAGEMENT_PANEL);
+        cards.add(card2, USER_MANAGEMENT_PANEL);
+        cards.add(card3, TRANSACTION_MANAGEMENT_PANEL);
         
         pane.add(comboBoxPane, BorderLayout.PAGE_START);
         pane.add(cards, BorderLayout.CENTER);
@@ -104,7 +123,7 @@ public class DealershipMenu implements ItemListener {
      */
     private static void createAndShowGUI() {
         //Create and set up the window.
-        JFrame frame = new JFrame("CardLayoutDemo");
+        JFrame frame = new JFrame("Dealership Menu");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
         //Create and set up the content pane.
@@ -140,5 +159,16 @@ public class DealershipMenu implements ItemListener {
                 createAndShowGUI();
             }
         });
+    }
+
+    private class RadioButtonListener implements ActionListener {
+
+        public void actionPerformed(ActionEvent e) {
+            if (e.getSource() == displayButton){    
+                CardLayout cardLayout = (CardLayout) cards.getLayout();
+                cardLayout.show(cards, TRANSACTION_MANAGEMENT_PANEL);
+                
+            }
+        }
     }
 }
