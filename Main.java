@@ -57,7 +57,8 @@ public class Main {
                 switch (selectstring) {
                     case "1":
                         System.out.println("Displaying vehicle records..." + "\n");
-                        dealer.displayRecords();
+                        //dealer.displayRecords();
+                        System.out.print(dealer.displayRecords());
                         break;        
                     case "2":
                         System.out.println("Add a vehicle to the database..." + "\n");
