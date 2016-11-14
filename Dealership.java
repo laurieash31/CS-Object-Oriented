@@ -771,7 +771,9 @@ public class Dealership {
     /**
     * This method finds the car record and displays it based on the 
     * VIN entered by the user
+    * @return A String with the headers and car record or message if records does't exits
     */
+    /*
     public void checkCar(){       
         Scanner input = new Scanner(System.in);
         
@@ -811,11 +813,52 @@ public class Dealership {
             System.out.println("Sorry, car record does not exist." + "\n");
         }
     }
+    */
+    public String checkCar(String vin){       
+
+        vin = vin.toUpperCase();
+        
+        //Find the matching car record VIN
+        Boolean found = false;
+        String header = "VIN    TYPE        YEAR  MAKE            "
+            + "MODEL           MILEAGE  OTHER INFO                         PRICE";
+        String dots = "...................................................."
+            + "..........................................................";
+        String carRecordString = "";
+        for (String s : pCarRecord.getRecord()){
+            if (s.contains(vin) == true){
+                found = true;
+                carRecordString = carRecordString + s;
+                carRecordString = carRecordString + "\n";
+            }
+        }
+        for (String s : truckRecord.getRecord()){
+            if (s.contains(vin) == true){
+                found = true;
+                carRecordString = carRecordString + s;
+                carRecordString = carRecordString + "\n";
+            }
+        }
+        for (String s : motoRecord.getRecord()){
+            if (s.contains(vin) == true){
+                found = true;
+                carRecordString = carRecordString + s;
+                carRecordString = carRecordString + "\n";
+            }
+        }
+        
+        //If car is not found in the database...
+        if (found == false){
+            carRecordString = carRecordString + "Sorry, car record does not exist." + "\n";
+        }
+        return header + "\n" + dots + "\n" + carRecordString;
+    }
     
     
     /**
     * This method displays the car records to the console for Option 1.
-    */ 
+    * @return A String of the header with vehicles records
+    */
     /*
     public void displayRecords(){
         System.out.println("VIN    TYPE        YEAR  MAKE            "
