@@ -26,6 +26,7 @@ public class DealershipMenu implements ItemListener {
     final static String USER_MANAGEMENT_PANEL = "User Management";
     final static String TRANSACTION_MANAGEMENT_PANEL = "Transaction Management";
     final static String DISPLAY_VEHICLE_RECORDS_PANEL = "Display vehicle records";
+    final static String DELETE_VEHICLE_RECORD_PANEL = "Delete a vehicle record";
     final static String SEARCH_VEHICLE_RECORDS_PANEL = "Search vehicle records";
     final static String DISPLAY_SEARCHED_VEHICLE_RECORDS_PANEL = "Display searched vehicle records";
     
@@ -34,13 +35,16 @@ public class DealershipMenu implements ItemListener {
     JRadioButton addButton;
     JRadioButton deleteButton;
     JRadioButton searchButton;
+    JButton deleteCarButton;
     JButton searchCarButton;
     JRadioButton priceSearchButton;
     
     //Variables for JPanels for Card1 - Vehicle Management
     JPanel card1Search = new JPanel();
+    JPanel card1DeleteVehicle = new JPanel();
     JPanel card1DisplaySearch = new JPanel();
-    JTextField card1SearchField;
+    static JTextField card1SearchField;
+    static JTextField card1DeleteField;
     
     public void addComponentToPane(Container pane) {
         
@@ -64,29 +68,28 @@ public class DealershipMenu implements ItemListener {
         
         displayButton = new JRadioButton("Display all vehicles");
         radioButtonGroup.add(displayButton);
+        card1.add(displayButton);
         
         addButton = new JRadioButton("Add a vehicle");
         radioButtonGroup.add(addButton);
+        card1.add(addButton);
         
         deleteButton = new JRadioButton("Delete a vehicle");
         radioButtonGroup.add(deleteButton);
+        card1.add(deleteButton);
         
         searchButton = new JRadioButton("Search for a vehicle");
         radioButtonGroup.add(searchButton);
+        card1.add(searchButton);
         
         priceSearchButton = new JRadioButton("Search price range");
         radioButtonGroup.add(priceSearchButton);
+        card1.add(priceSearchButton);
         
         //Add the action listeners to the radio buttons for card1 here!!!!!
         displayButton.addActionListener(new RadioButtonListener());
+        deleteButton.addActionListener(new RadioButtonListener());
         searchButton.addActionListener(new RadioButtonListener());
-        
-        //Add the buttons to card1
-        card1.add(displayButton);
-        card1.add(addButton);
-        card1.add(deleteButton);
-        card1.add(searchButton);
-        card1.add(priceSearchButton);
         
         
         //Creating a text area for Card1Display - Display Vehicles
@@ -94,6 +97,15 @@ public class DealershipMenu implements ItemListener {
         textArea.setText(dealer.displayRecords());
         card1Display.add(textArea);
         textArea.setEditable(false);
+        
+        //Creating a text field for Card1Delete - Delete Vehicle
+        JLabel deleteCarMsgLabel = new JLabel("Enter a VIN to delete car: ");
+        card1DeleteField = new JTextField(5);
+        deleteCarButton = new JButton("Delete");
+        card1DeleteVehicle.add(deleteCarMsgLabel);
+        card1DeleteVehicle.add(card1DeleteField);
+        card1DeleteVehicle.add(deleteCarButton);
+        deleteCarButton.addActionListener(new ButtonListener()); //ButtonAction Listener
         
         //Creating a text field for Card1Search - Search Vehicles
         JLabel searchCarMsgLabel = new JLabel("Enter a VIN to search: ");
@@ -146,6 +158,7 @@ public class DealershipMenu implements ItemListener {
         
         //All panel for Card1 - Vehicle Management
         cards.add(card1Display, DISPLAY_VEHICLE_RECORDS_PANEL);
+        cards.add(card1DeleteVehicle, DELETE_VEHICLE_RECORD_PANEL);
         cards.add(card1Search, SEARCH_VEHICLE_RECORDS_PANEL);
         cards.add(card1DisplaySearch, DISPLAY_SEARCHED_VEHICLE_RECORDS_PANEL);
         
@@ -211,16 +224,26 @@ public class DealershipMenu implements ItemListener {
 
         public void actionPerformed(ActionEvent evt) {
             
-            CardLayout cardLayout = (CardLayout) cards.getLayout();
-            
-            if (evt.getSource() == searchCarButton){ 
+            if (evt.getSource() == deleteCarButton){ 
+                CardLayout cardLayout = (CardLayout) cards.getLayout();
+                
+                //Creating a text area for card1DisplaySearch - Display Searched Vehicles
+                String vin = card1DeleteField.getText();
+                System.out.println(vin);
+                dealer.deleteCar(vin);
+                JOptionPane.showMessageDialog(null, "Vehicle has been deleted.");
+                card1DeleteField.setText("");                
+            }
+            else if (evt.getSource() == searchCarButton){ 
+                CardLayout cardLayout = (CardLayout) cards.getLayout();
+                
                 //Creating a text area for card1DisplaySearch - Display Searched Vehicles
                 String vin = card1SearchField.getText();
                 JTextArea textAreaSearchResults = new JTextArea(20, 20);
                 textAreaSearchResults.setText(dealer.checkCar(vin)); //changed function to CheckCar
                 card1DisplaySearch.add(textAreaSearchResults);
                 cardLayout.show(cards, DISPLAY_SEARCHED_VEHICLE_RECORDS_PANEL);
-                card1SearchField.setText("");
+                card1SearchField.setText("");                
             }
         }
     }
@@ -230,8 +253,12 @@ public class DealershipMenu implements ItemListener {
         public void actionPerformed(ActionEvent e) {
             
             CardLayout cardLayout = (CardLayout) cards.getLayout();
-            if (e.getSource() == displayButton){    
+            if (e.getSource() == displayButton){
                 cardLayout.show(cards, DISPLAY_VEHICLE_RECORDS_PANEL);
+                
+            }
+            else if (e.getSource() == deleteButton){    
+                cardLayout.show(cards, DELETE_VEHICLE_RECORD_PANEL);
                 
             }
             else if (e.getSource() == searchButton){    
