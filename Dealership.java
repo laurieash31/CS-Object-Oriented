@@ -752,6 +752,7 @@ public class Dealership {
     * calls removeElement() located in the Car class to remove the element from
     * the ArrayList
     */
+    /*
     public void deleteCar(){
         Scanner input = new Scanner(System.in);
         
@@ -766,12 +767,23 @@ public class Dealership {
         motoRecord.removeElement(userVIN);
         System.out.println();
     }
+    */
+    public void deleteCar(String vin){
+        
+        vin = vin.toUpperCase();
+        
+        //Remove the car record with matching VIN
+        pCarRecord.removeElement(vin);
+        truckRecord.removeElement(vin);
+        motoRecord.removeElement(vin);
+    }
     
     
     /**
     * This method finds the car record and displays it based on the 
     * VIN entered by the user
-    * @return A String with the headers and car record or message if records does't exits
+    * @param vin : a String to hold the user input
+    * @return A String holding the headers and car records, if found
     */
     /*
     public void checkCar(){       
