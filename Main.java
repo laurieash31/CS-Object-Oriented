@@ -66,7 +66,10 @@ public class Main {
                         break;
                     case "3":
                         System.out.println("Delete a vehicle from the database..." + "\n");
-                        dealer.deleteCar();
+                        input = new Scanner(System.in);
+                        System.out.print("Enter the VIN of car to be deleted: " );
+                        String userVIN2 = input.nextLine();
+                        dealer.deleteCar(userVIN2);
                         break;
                     case "4":
                         System.out.println("Search for vehicle..." + "\n");
