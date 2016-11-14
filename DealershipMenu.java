@@ -25,10 +25,15 @@ public class DealershipMenu implements ItemListener {
     final static String VEHICLE_MANAGEMENT_PANEL = "Vehicle Management";
     final static String USER_MANAGEMENT_PANEL = "User Management";
     final static String TRANSACTION_MANAGEMENT_PANEL = "Transaction Management";
+    
     final static String DISPLAY_VEHICLE_RECORDS_PANEL = "Display vehicle records";
     final static String DELETE_VEHICLE_RECORD_PANEL = "Delete a vehicle record";
     final static String SEARCH_VEHICLE_RECORDS_PANEL = "Search vehicle records";
     final static String DISPLAY_SEARCHED_VEHICLE_RECORDS_PANEL = "Display searched vehicle records";
+    
+    final static String DISPLAY_USERS_PANEL = "Display users";
+    final static String ADD_USER_PANEL = "Add a user";
+    final static String UPDATE_USER_INFO_PANEL = "Update User information";
     
     //Variables for Card 1 - Vehicle Management
     JRadioButton displayButton;
@@ -38,6 +43,18 @@ public class DealershipMenu implements ItemListener {
     JButton deleteCarButton;
     JButton searchCarButton;
     JRadioButton priceSearchButton;
+    
+    //Variables for Car 2 - User Management
+    JRadioButton rDisplayUsersButton;
+    JRadioButton rAddUserButton;
+    JRadioButton rUpdateUserButton;
+    JButton AddUserButton;
+    JButton UpdateUserButton;
+    
+    //Variables for Card 3 - Transaction Management
+    JRadioButton rDisplayTransactionsButton;
+    JRadioButton rSellVehicleButton;
+    JButton SellVehicleButton;
     
     //Variables for JPanels for Card1 - Vehicle Management
     JPanel card1Search = new JPanel();
@@ -120,33 +137,48 @@ public class DealershipMenu implements ItemListener {
         
         //Create the "cards" panels for Card 2 - User Management
         JPanel card2 = new JPanel(new GridLayout(0,1));
+        JPanel card2Display = new JPanel();
+        //JPanel card2Add = new JPanel();
+        //JPanel card2UpdateInfo = new JPanel();
+        
         //Add buttons to button group for card2
-        ButtonGroup radioButtonGroup2 = new ButtonGroup();
-        JRadioButton displayUsersButton = new JRadioButton("Display users");
-        radioButtonGroup2.add(displayUsersButton);
-        JRadioButton addUserButton = new JRadioButton("Add a user");
-        radioButtonGroup2.add(addUserButton);
-        JRadioButton updateUserButton = new JRadioButton("Update user information");
-        radioButtonGroup2.add(updateUserButton);
+        ButtonGroup radioButtonGroup2 = new ButtonGroup();        
         
-        //Add the action listeners to the radio buttons for card2 here later!!!!!!
+        rDisplayUsersButton = new JRadioButton("Display users");
+        radioButtonGroup2.add(rDisplayUsersButton);
+        card2.add(rDisplayUsersButton);
         
-        //Add the buttons to card2
-        card2.add(displayUsersButton);
-        card2.add(addUserButton);
-        card2.add(updateUserButton);
+        rAddUserButton = new JRadioButton("Add a user");
+        radioButtonGroup2.add(rAddUserButton);
+        card2.add(rAddUserButton);
+        
+        rUpdateUserButton = new JRadioButton("Update user information");
+        radioButtonGroup2.add(rUpdateUserButton);
+        card2.add(rUpdateUserButton);
+        
+        //Add the action listeners to the radio buttons for card2 here!!!!!!        
+        rDisplayUsersButton.addActionListener(new RadioButtonListener());
+        rAddUserButton.addActionListener(new RadioButtonListener());
+        rUpdateUserButton.addActionListener(new RadioButtonListener());
+        
+        //Create Text area for Card 2 - Print Users
+        JTextArea textArea2 = new JTextArea(20, 20);
+        textArea2.setText(dealer.printUsers());
+        card2Display.add(textArea2);
+        textArea2.setEditable(false);
         
         //Create the "cards" panels for Card 3 - Transaction Management
         JPanel card3 = new JPanel(new GridLayout(0,1));
         ButtonGroup radioButtonGroup3 = new ButtonGroup();
-        JRadioButton addSaleButton = new JRadioButton("Sell a vehicle");
-        radioButtonGroup3.add(displayUsersButton);
-        JRadioButton displayTransactionsButton = new JRadioButton("Display Transactions");
-        radioButtonGroup3.add(addUserButton);
         
-        //Add the buttons to card3
-        card3.add(displayTransactionsButton);
-        card3.add(addSaleButton);
+        //Add buttons to Card 3 - Transaction Management
+        rSellVehicleButton = new JRadioButton("Sell a vehicle");
+        radioButtonGroup3.add(rSellVehicleButton);
+        card3.add(rSellVehicleButton);
+        
+        rDisplayTransactionsButton = new JRadioButton("Display Transactions");
+        radioButtonGroup3.add(rDisplayTransactionsButton);
+        card3.add(rDisplayTransactionsButton);
         
         //Create the panel that contains all the "cards".
         cards = new JPanel(new CardLayout());
@@ -161,6 +193,8 @@ public class DealershipMenu implements ItemListener {
         cards.add(card1DeleteVehicle, DELETE_VEHICLE_RECORD_PANEL);
         cards.add(card1Search, SEARCH_VEHICLE_RECORDS_PANEL);
         cards.add(card1DisplaySearch, DISPLAY_SEARCHED_VEHICLE_RECORDS_PANEL);
+        
+        cards.add(card2Display, DISPLAY_USERS_PANEL);
         
         //Card layouts
         pane.add(comboBoxPane, BorderLayout.PAGE_START);
@@ -227,7 +261,7 @@ public class DealershipMenu implements ItemListener {
             if (evt.getSource() == deleteCarButton){ 
                 CardLayout cardLayout = (CardLayout) cards.getLayout();
                 
-                //Creating a text area for card1DisplaySearch - Display Searched Vehicles
+                //Creating a text area for card1DeleteField - Display Searched Vehicles
                 String vin = card1DeleteField.getText();
                 System.out.println(vin);
                 dealer.deleteCar(vin);
@@ -263,6 +297,10 @@ public class DealershipMenu implements ItemListener {
             }
             else if (e.getSource() == searchButton){    
                 cardLayout.show(cards, SEARCH_VEHICLE_RECORDS_PANEL);
+                
+            }
+            else if (e.getSource() == rDisplayUsersButton){
+                cardLayout.show(cards, DISPLAY_USERS_PANEL);
                 
             }
         }
