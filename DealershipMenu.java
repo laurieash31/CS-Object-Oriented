@@ -215,12 +215,12 @@ public class DealershipMenu implements ItemListener {
             
             if (evt.getSource() == searchCarButton){ 
                 //Creating a text area for card1DisplaySearch - Display Searched Vehicles
-                JTextArea textAreaSearchResults = new JTextArea(20, 20);
                 String vin = card1SearchField.getText();
+                JTextArea textAreaSearchResults = new JTextArea(20, 20);
                 textAreaSearchResults.setText(dealer.checkCar(vin)); //changed function to CheckCar
                 card1DisplaySearch.add(textAreaSearchResults);
                 cardLayout.show(cards, DISPLAY_SEARCHED_VEHICLE_RECORDS_PANEL);
-                
+                card1SearchField.setText("");
             }
         }
     }
