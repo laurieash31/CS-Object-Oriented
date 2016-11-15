@@ -19,7 +19,7 @@ import java.util.Random;
 
 
 /** The class Dealership contains the methods used in Main.java */
-public class Dealership {
+public class DealershipMenu {
       
     //Constant values
     public static final int MAX_VIN = 5;
