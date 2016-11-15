@@ -233,8 +233,8 @@ public class Dealership {
  /** 
  * This method prints the users from the database.
  */
-    public void printUsers() {
-        
+    public String printUsers() {
+        /*
         System.out.println("ID     TYPE      FIRST NAME           "
                 + "LAST NAME            USER SPECIFIC INFO");
         System.out.println("..................................................."
@@ -247,6 +247,23 @@ public class Dealership {
         }
 
         System.out.println();
+        */
+        String header = "ID     TYPE      FIRST NAME           "
+                + "LAST NAME            USER SPECIFIC INFO";
+        String dots = "..................................................."
+                + ".................................................";
+        String customerRecordsString = "";
+        String employeeRecordsString = "";
+        for (String s : customerRecord.getRecord()){
+               customerRecordsString = customerRecordsString + s;
+               customerRecordsString = customerRecordsString + "\n";
+        }
+        for (String s : employeeRecord.getRecord()){
+               employeeRecordsString = employeeRecordsString + s;
+               employeeRecordsString = employeeRecordsString + "\n";
+        }
+
+        return header + "\n" + dots + "\n" + customerRecordsString + employeeRecordsString;
         
     }
     
