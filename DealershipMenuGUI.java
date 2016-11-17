@@ -1,4 +1,3 @@
-package dealership;
 
 /**
  * GUI.java
@@ -20,10 +19,12 @@ public class DealershipMenuGUI extends JFrame implements ItemListener {
     
     //Initialize the logger
     private static final Logger logger = Logger.getLogger(DealershipMenuGUI.class.getName());
+    //ADDED LOGGER FILE HERE WHEN ALMOST FINISHED!!!!!!
     
     //Create the arrays to hold the vehicle and user records
     private ArrayList<Vehicle> vehicleRecords = new ArrayList <>();
     private ArrayList<User> userRecords = new ArrayList <>();
+    private ArrayList<SaleTransaction> transactionRecords = new ArrayList <>();
     
     //Variable for card panels
     private JPanel cards;
@@ -67,7 +68,7 @@ public class DealershipMenuGUI extends JFrame implements ItemListener {
             initializeEvents();
             
         }catch(Exception ex){
-           logger.log(Level.WARNING, "Initialization failed.", ex); 
+           logger.log(Level.SEVERE, "Initialization failed.", ex); 
         }
 
     }
@@ -398,6 +399,7 @@ public class DealershipMenuGUI extends JFrame implements ItemListener {
         for (Vehicle s : vehicleRecords){
             if (s.toString().contains(vin) == true){
                 JOptionPane.showMessageDialog(null, "This VIN exists! Car is stolen. Call Police! ");
+                logger.log(Level.WARNING, "Duplicate VIN.");
                 return;
             }
         }
@@ -409,6 +411,7 @@ public class DealershipMenuGUI extends JFrame implements ItemListener {
         //Check year greater than 2016
         if (Integer.parseInt(year) > 2016){
             JOptionPane.showMessageDialog(null, "This dealership does not accept concept cars.");
+            logger.log(Level.WARNING, "Invalid vehicle year");
             return;
         }
         
@@ -416,6 +419,7 @@ public class DealershipMenuGUI extends JFrame implements ItemListener {
         //Check that the mileage is greater than 0
         if (Integer.parseInt(mileage) < 0){
             JOptionPane.showMessageDialog(null, "Vehicle cannot have negative miles. Try again.");
+            logger.log(Level.WARNING, "Negative miles entered");
             return;
         }
         
@@ -424,6 +428,7 @@ public class DealershipMenuGUI extends JFrame implements ItemListener {
         if (Float.parseFloat(price) < 0){
             JOptionPane.showMessageDialog(null, "Vehicle cannot have a negative price. "
                     + "It would bankrupt the dealership. Try again.");
+            logger.log(Level.WARNING, "Negative price entered");
             return;
         }
         
@@ -666,6 +671,7 @@ public class DealershipMenuGUI extends JFrame implements ItemListener {
             
             JOptionPane.showMessageDialog(null, "Vehicle cannot have a negative price. "
                     + "It would bankrupt the dealership. Try again.");
+            logger.log(Level.WARNING, "Negative price entered");
             return;
         }
         
@@ -755,8 +761,10 @@ public class DealershipMenuGUI extends JFrame implements ItemListener {
     }
     
     
-    
-    
+    /**
+     * <CODE>showAllUsers</CODE> displays the users in the database within a 
+     * table format. 
+     */
     private void showAllUsers() {
         
         //Create a panel for the headers
@@ -805,7 +813,10 @@ public class DealershipMenuGUI extends JFrame implements ItemListener {
     
     
     
-    
+    /**
+     * <CODE>addNewUser</CODE> takes input from the user and stores the user
+     * record into the database.
+     */
     private void addNewUser() {
         
         //Create a new panel for Add User
@@ -911,6 +922,11 @@ public class DealershipMenuGUI extends JFrame implements ItemListener {
         }   
     }
     
+    
+    
+    /**
+     * <CODE>deleteUser</CODE> removes the specified user record from the database.
+     */
     private void deleteUser() {
         
         //Create the Delete Vehicle panel
