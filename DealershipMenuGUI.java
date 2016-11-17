@@ -1,3 +1,5 @@
+package dealership;
+
 /**
  * GUI.java
  */
@@ -757,6 +759,48 @@ public class DealershipMenuGUI extends JFrame implements ItemListener {
     
     private void showAllUsers() {
         
+        //Create a panel for the headers
+        JPanel topPanel = new JPanel();
+        topPanel.setLayout(new BorderLayout());
+        getContentPane().add(topPanel);
+
+        //Create the columns
+        String columns[] = {"User Type", "ID", "First Name", "Last Name", "Extra Information 1", "Extra Information 2"};
+      
+        //Create an array to hold the User data
+        int size = userRecords.size();
+        String dataValues[][] = new String[size][];
+        
+        int counter = 0;
+        for (User u : userRecords) {
+            
+            String splitData[] = u.getFormattedText().split(" ");
+            
+            if(splitData.length == 7){
+                
+                String temp[]= new String[8];
+                
+                System.arraycopy(splitData, 0, temp, 0, 7);
+                
+                temp[7] = "None";
+                
+                dataValues[counter] = temp;
+            }
+            else{
+                dataValues[counter] = splitData;
+            }
+            counter++;
+        }
+        
+        // Create a new table instance
+        JTable table = new JTable(dataValues, columns);
+        table.setFillsViewportHeight(true);
+
+        //Add the table to a scrolling pane
+        JScrollPane scrollPane = new JScrollPane(table);
+        topPanel.add(scrollPane, BorderLayout.CENTER);
+        JOptionPane.showMessageDialog(this, topPanel, "User Information", JOptionPane.PLAIN_MESSAGE);
+        
     }
     
     
@@ -764,12 +808,136 @@ public class DealershipMenuGUI extends JFrame implements ItemListener {
     
     private void addNewUser() {
         
+        //Create a new panel for Add User
+        JPanel panel = new JPanel();
+        getContentPane().add(panel);
+        panel.setLayout(new FormLayout());
+        
+        //Add a label and text field to the panel
+        panel.add(new JLabel("ID"));
+        JTextField idField = new JTextField(10);
+        panel.add(idField);
+        
+        panel.add(new JLabel("First Name"));
+        JTextField fNameField = new JTextField(20);
+        panel.add(fNameField);
+        
+        panel.add(new JLabel("Last Name"));
+        JTextField lNameField = new JTextField(20);
+        panel.add(lNameField);
+       
+        //Create a label to select the type of vehicle
+        panel.add(new JLabel("User type:"));       
+        
+        //Create radio buttons for each type of vehicle
+        JRadioButton customerButton = new JRadioButton("Customer");
+        customerButton.setSelected(true);
+        JRadioButton employeeButton = new JRadioButton("Employee");
+        
+        //Create a button group for the 3 vehicle types, add the buttons
+        ButtonGroup group = new ButtonGroup();
+        group.add(customerButton);
+        group.add(employeeButton);        
+        
+        //Create a panel to hold the vehicle type buttons
+        JPanel userTypePanel = new JPanel(new FlowLayout());
+        userTypePanel.add(customerButton);
+        userTypePanel.add(employeeButton);
+        
+        //Add the vehicle type panel to the current panel
+        panel.add(userTypePanel);
+        
+        //Add a label and text field for more vehicle information
+        panel.add(new JLabel("More information 1"));
+        JTextField moreInfoField1 = new JTextField(20);
+        panel.add(moreInfoField1);
+     
+        panel.add(new JLabel("More information 2"));
+        JTextField moreInfoField2 = new JTextField(20);
+        panel.add(moreInfoField2);
+        
+        //Show the option pane and added the ability to Okay or Cancel
+        JOptionPane.showOptionDialog(this, panel, "Add a new user", 
+        JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, null, null, null);
+        
+        /* Create the variables to hold the user input from the form */
+        
+        //Check for duplicate ID in the database
+        //for (User s : userRecords){
+        //    if (s.toString().contains(s) == true){
+        //        JOptionPane.showMessageDialog(null, "This ID exists, maybe you already have an account?");
+        //        return;
+        //    }
+        //}
+        
+        String ID = idField.getText();
+        String fName = fNameField.getText();        
+        String lName = lNameField.getText();
+        
+        String moreInfo1 = moreInfoField1.getText();
+        String moreInfo2 = moreInfoField2.getText();
+        
+        //If the customer button is selected, format data for customer and add to record
+        if(customerButton.isSelected()){
+            
+            try{
+                int dLNum = Integer.parseInt(moreInfo2);
+                int id = Integer.parseInt(ID);
+                Customer temp = new Customer(id, fName, lName, moreInfo1, dLNum);
+                
+                userRecords.add(temp);
+                
+            }catch(Exception ex){
+                logger.log(Level.SEVERE, "Number Format Exception", ex); 
+            }
+
+        }
+        
+        //If the employee radio buttom is selected, format data for employee and add to record
+        if(employeeButton.isSelected()){
+            
+            try{
+                float salary = Float.parseFloat(moreInfo1);
+                int acctNum = Integer.parseInt(moreInfo2);                
+                int id  = Integer.parseInt(ID);
+                
+                Employee temp = new Employee(id, fName, lName, salary, acctNum);
+                
+                userRecords.add(temp);
+                
+            }catch(Exception ex){
+                logger.log(Level.SEVERE, "Number Format Exception", ex);
+            }
+        }   
     }
-    
-    
     
     private void deleteUser() {
         
+        //Create the Delete Vehicle panel
+        JPanel panel = new JPanel();
+        getContentPane().add(panel);
+        panel.setLayout(new FormLayout());
+        
+        //Create a label and text field to add to the panel
+        panel.add(new JLabel("Enter the ID to delete"));
+        JTextField toDelete = new JTextField(10);
+        panel.add(toDelete);
+        
+        //Message at top of panel
+        JOptionPane.showMessageDialog(this, panel, "Delete user", JOptionPane.PLAIN_MESSAGE);
+        
+        //Get the ID to delete and delete the vehicle record
+        String id = toDelete.getText();
+        int idToDelete = Integer.parseInt(id);
+        
+        for (User u : userRecords) {
+            
+            if (u.getId() == idToDelete) {
+                userRecords.remove(u);
+                break;
+            } else {
+            }
+        }
     }
 
     
