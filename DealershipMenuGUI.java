@@ -3,9 +3,10 @@
  * GUI.java
  */
 
+import java.util.ArrayList;
 import java.awt.*;
 import java.awt.event.*;
-import java.util.ArrayList;
+import java.util.Date;
 import java.util.logging.*;
 import javax.swing.*;
 
@@ -19,7 +20,14 @@ public class DealershipMenuGUI extends JFrame implements ItemListener {
     
     //Initialize the logger
     private static final Logger logger = Logger.getLogger(DealershipMenuGUI.class.getName());
-    //ADDED LOGGER FILE HERE WHEN ALMOST FINISHED!!!!!!
+    /*  NOT WORKING AND DON'T KNOW WHY
+    private static final FileHandler fh = new FileHandler("Dealershiplog.txt");
+    // Send logger output to our 
+    FileHandler.logger.addHandler(fh);
+    // Request that every detail gets 
+    logged.logger.setLevel(Level.ALL);
+    */
+    
     
     //Create the arrays to hold the vehicle and user records
     private ArrayList<Vehicle> vehicleRecords = new ArrayList <>();
@@ -199,18 +207,23 @@ public class DealershipMenuGUI extends JFrame implements ItemListener {
             public void actionPerformed(ActionEvent e) {
                 if (displayVehiclesButton.isSelected()) {
                     showAllVehicles();
+                    logger.log(Level.INFO, "Displayed Vehicles");
                 }
                 else if (addVehicleButton.isSelected()) {
                     addNewVehicle();
+                    logger.log(Level.INFO, "Added a Vehicle");
                 }
                 else if (deleteVehicleButton.isSelected()) {
                     deleteVehicle();
+                    logger.log(Level.INFO, "Delete a Vehicle");
                 }
                 else if (searchVehicleButton.isSelected()) {
                     searchVehicleByVin();
+                    logger.log(Level.INFO, "Seach a Vehicle");
                 }
                 else if (searchVehiclePriceButton.isSelected()) {
                     searchVehicleByPrice();
+                    logger.log(Level.INFO, "Search a Vehicle by Price");
                 }
             }
         });
@@ -222,15 +235,19 @@ public class DealershipMenuGUI extends JFrame implements ItemListener {
                 
                 if (displayUsersButton.isSelected()) {
                     showAllUsers();
+                    logger.log(Level.INFO, "Display Users");
                 }
                 else if (addUserButton.isSelected()) {
                     addNewUser();
+                    logger.log(Level.INFO, "Add a User");
                 }
                 else if (deleteUserButton.isSelected()) {
                     deleteUser();
+                    logger.log(Level.INFO, "Delete a User");
                 }
                 else if (updateUserButton.isSelected()) {
                     updateUser();
+                    logger.log(Level.INFO, "Update a User");
                 }
             }
         });
@@ -242,9 +259,11 @@ public class DealershipMenuGUI extends JFrame implements ItemListener {
 
                 if (displayTransactionsButton.isSelected()) {
                     showAllTransactions();
+                    logger.log(Level.INFO, "Display Transactions");
                 }
                 else if (addTransactionButton.isSelected()) {
                     addNewTransaction();
+                    logger.log(Level.INFO, "Add a Transaction");
                 }
             }
         });
@@ -399,7 +418,7 @@ public class DealershipMenuGUI extends JFrame implements ItemListener {
         for (Vehicle s : vehicleRecords){
             if (s.toString().contains(vin) == true){
                 JOptionPane.showMessageDialog(null, "This VIN exists! Car is stolen. Call Police! ");
-                logger.log(Level.WARNING, "Duplicate VIN.");
+                logger.log(Level.WARNING, "Duplicate VIN in add vehicle");
                 return;
             }
         }
@@ -411,7 +430,7 @@ public class DealershipMenuGUI extends JFrame implements ItemListener {
         //Check year greater than 2016
         if (Integer.parseInt(year) > 2016){
             JOptionPane.showMessageDialog(null, "This dealership does not accept concept cars.");
-            logger.log(Level.WARNING, "Invalid vehicle year");
+            logger.log(Level.WARNING, "Invalid vehicle year in add vehicle");
             return;
         }
         
@@ -419,7 +438,7 @@ public class DealershipMenuGUI extends JFrame implements ItemListener {
         //Check that the mileage is greater than 0
         if (Integer.parseInt(mileage) < 0){
             JOptionPane.showMessageDialog(null, "Vehicle cannot have negative miles. Try again.");
-            logger.log(Level.WARNING, "Negative miles entered");
+            logger.log(Level.WARNING, "Negative miles entered in add vehicle");
             return;
         }
         
@@ -428,7 +447,7 @@ public class DealershipMenuGUI extends JFrame implements ItemListener {
         if (Float.parseFloat(price) < 0){
             JOptionPane.showMessageDialog(null, "Vehicle cannot have a negative price. "
                     + "It would bankrupt the dealership. Try again.");
-            logger.log(Level.WARNING, "Negative price entered");
+            logger.log(Level.WARNING, "Negative price entered in add vehicle");
             return;
         }
         
@@ -450,7 +469,7 @@ public class DealershipMenuGUI extends JFrame implements ItemListener {
                 vehicleRecords.add(temp);
                 
             }catch(Exception ex){
-                logger.log(Level.SEVERE, "Number Format Exception", ex); 
+                logger.log(Level.SEVERE, "Number Format Exception in add vehicle", ex); 
             }
 
         }
@@ -471,7 +490,7 @@ public class DealershipMenuGUI extends JFrame implements ItemListener {
                 vehicleRecords.add(temp);
                 
             }catch(Exception ex){
-                logger.log(Level.SEVERE, "Number Format Exception", ex);
+                logger.log(Level.SEVERE, "Number Format Exception in add vehicle", ex);
             }
         }
         
@@ -491,7 +510,7 @@ public class DealershipMenuGUI extends JFrame implements ItemListener {
                 vehicleRecords.add(temp);
                 
             }catch(Exception ex){
-                logger.log(Level.SEVERE, "Number Format Exception", ex);
+                logger.log(Level.SEVERE, "Number Format Exception in add vehicle", ex);
             }
         }
     }
@@ -671,7 +690,7 @@ public class DealershipMenuGUI extends JFrame implements ItemListener {
             
             JOptionPane.showMessageDialog(null, "Vehicle cannot have a negative price. "
                     + "It would bankrupt the dealership. Try again.");
-            logger.log(Level.WARNING, "Negative price entered");
+            logger.log(Level.WARNING, "Negative price entered in search vehicle by price");
             return;
         }
         
@@ -881,6 +900,8 @@ public class DealershipMenuGUI extends JFrame implements ItemListener {
         //    }
         //}
         
+        
+        /* Create the variables to hold the user input from the form */
         String ID = idField.getText();
         String fName = fNameField.getText();        
         String lName = lNameField.getText();
@@ -899,7 +920,7 @@ public class DealershipMenuGUI extends JFrame implements ItemListener {
                 userRecords.add(temp);
                 
             }catch(Exception ex){
-                logger.log(Level.SEVERE, "Number Format Exception", ex); 
+                logger.log(Level.SEVERE, "Number Format Exception in add user", ex); 
             }
 
         }
@@ -917,7 +938,7 @@ public class DealershipMenuGUI extends JFrame implements ItemListener {
                 userRecords.add(temp);
                 
             }catch(Exception ex){
-                logger.log(Level.SEVERE, "Number Format Exception", ex);
+                logger.log(Level.SEVERE, "Number Format Exception in add user", ex);
             }
         }   
     }
@@ -951,7 +972,6 @@ public class DealershipMenuGUI extends JFrame implements ItemListener {
             if (u.getId() == idToDelete) {
                 userRecords.remove(u);
                 break;
-            } else {
             }
         }
     }
@@ -959,18 +979,165 @@ public class DealershipMenuGUI extends JFrame implements ItemListener {
     
     
     private void updateUser() {
-       
-
+        //NOT A CLUE HOW TO APPROACH THIS YET  ????
     }       
 
     
+    
+    /**
+     * <CODE>showAllTransactions()</CODE> displays the transactions in the
+     * database in a formatted fashion.
+     */
     private void showAllTransactions() {
         
+        //Create a panel for the headers
+        JPanel topPanel = new JPanel();
+        topPanel.setLayout(new BorderLayout());
+        getContentPane().add(topPanel);
+
+        //Create the columns
+        String columns[] = {"Customer ID", "Employee ID", "VIN", "Day", "Month", 
+            "Date", "Time", "Time Zone", "Year", "Sale Price"};
+      
+        //Create an array to hold the vehicle data
+        int size = transactionRecords.size();
+        String dataValues[][] = new String[size][];
+        
+        int counter = 0;
+        for (SaleTransaction st : transactionRecords) {
+            
+            String splitData[] = st.getFormattedText().split(" ");
+
+            dataValues[counter] = splitData;
+           
+            counter++;
+        }
+        
+        // Create a new table instance
+        JTable table = new JTable(dataValues, columns);
+        table.setFillsViewportHeight(true);
+
+        //Add the table to a scrolling pane
+        JScrollPane scrollPane = new JScrollPane(table);
+        topPanel.add(scrollPane, BorderLayout.CENTER);
+        JOptionPane.showMessageDialog(this, topPanel, "Sales Transactions", JOptionPane.PLAIN_MESSAGE);
     }   
 
     
-    
+    /**
+     * <CODE>addNewTransaction()</CODE> represents the selling of a vehicle. It
+     * adds this transaction to the sale transaction database.
+     */
     private void addNewTransaction() {
         
+        //Create a new panel for Add Vehicle
+        JPanel panel = new JPanel();
+        getContentPane().add(panel);
+        panel.setLayout(new FormLayout());
+        
+        //Add a label and text field to the panel
+        panel.add(new JLabel("Customer ID"));
+        JTextField custIDField = new JTextField(8);
+        panel.add(custIDField);
+        
+        panel.add(new JLabel("Employee ID"));
+        JTextField emplIDField = new JTextField(8);
+        panel.add(emplIDField);
+        
+        panel.add(new JLabel("VIN"));
+        JTextField vinField = new JTextField(5);
+        panel.add(vinField);
+        
+        panel.add(new JLabel("Price"));
+        JTextField priceField = new JTextField(8);
+        panel.add(priceField);
+       
+        
+        //Show the option pane and added the ability to Okay or Cancel
+        JOptionPane.showOptionDialog(this, panel, "Sell a Vehicle", 
+        JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, null, null, null);
+        
+        
+        /* Create the variables to hold the user input from the form */
+        
+        String custID = custIDField.getText();
+
+       /* NOT WORKING????
+        //Check for customer ID in the database
+        for (User usr : userRecords){
+            if (usr.toString().contains(custID) == false){
+                System.out.println(custID);
+                JOptionPane.showMessageDialog(null, "You must create a customer record "
+                        + "before performing a sales transaction!");
+                logger.log(Level.WARNING, "Customer ID not found in sales transaction");
+                return;
+            }
+        }
+        */
+        
+        String empID = emplIDField.getText();
+        
+        /* NOT WORKING????
+        //Check for employee ID in the database
+        for (User ur : userRecords){
+            if (ur.toString().contains(empID) == false){
+                JOptionPane.showMessageDialog(null, "You must create an employee record "
+                        + "before performing a sales transaction!");
+                logger.log(Level.WARNING, "Employee ID not found for sales transaction");
+                return;
+            }
+        }
+        */ 
+        
+        String vin = vinField.getText();
+        vin = vin.toUpperCase();
+        /*NOT WORKING????
+        //Check for vehicle VIN in the database
+        for (Vehicle v : vehicleRecords){
+            if (v.toString().contains(vin) == false){
+                JOptionPane.showMessageDialog(null, "VIN does not exist in database.");
+                logger.log(Level.WARNING, "VIN not found in sales transaction");
+                return;
+            }
+        }
+        */
+        
+        //Get the current data from the system
+        Date currentDate = new Date();
+        
+        String price = priceField.getText();
+        //Check that the mileage is greater than 0
+        if (Float.parseFloat(price) < 0){
+            JOptionPane.showMessageDialog(null, "Vehicle cannot have a negative price. "
+                    + "It would bankrupt the dealership. Try again.");
+            logger.log(Level.WARNING, "Negative price entered in sales transaction");
+            return;
+        } 
+        
+        
+        try{
+            //Convert strings to numbers for constructors
+            int cID = Integer.parseInt(custID);
+            int eID = Integer.parseInt(empID);
+            float pr  = Float.parseFloat(price);
+                
+            SaleTransaction temp = new SaleTransaction(cID, eID, vin, currentDate, pr);
+                
+            transactionRecords.add(temp);
+            
+            //Get the VIN to delete and delete the vehicle record
+            String vinToDelete = vin;
+        
+            for (Vehicle v : vehicleRecords) {
+            
+                if (v.getVin().equals(vinToDelete)) {
+                    vehicleRecords.remove(v);
+                    break;
+                }
+            }
+                
+        } catch(Exception ex){
+            logger.log(Level.SEVERE, "Number Format Exception in sales transaction", ex); 
+        }
     }       
 }
