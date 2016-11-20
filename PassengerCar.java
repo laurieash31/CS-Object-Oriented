@@ -65,7 +65,7 @@ public class PassengerCar extends Vehicle {
     @Override
     public String getFormattedText() {
         String pCarRecord = vin + " " + make + " " + model + " " + year
-               + " " + mileage + " " + price + " " + bodyStyle;
+               + " " + mileage + " " + "$" + String.format("%.2f", price) + " " + bodyStyle;
         
         return pCarRecord;
     }
@@ -74,6 +74,6 @@ public class PassengerCar extends Vehicle {
     public String toString() {
         return "PassengerCar{" + "vin=" + vin + ", make=" + make + ", model=" + 
                 model + ", year=" + year + ", mileage=" + mileage + ", price=" + 
-                price + ", bodyStyle=" + bodyStyle + '}';
+                String.format("%.2f", price) + ", bodyStyle=" + bodyStyle + '}';
     }
 }
