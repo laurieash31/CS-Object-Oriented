@@ -80,7 +80,7 @@ public class Motorcycle extends Vehicle {
     @Override
     public String getFormattedText() {
         String motoRecord = vin+ " "  + make+ " "  + model + " "  + year + " "  
-               + mileage + " "  + price + " "  + type + " "  + displacement;
+               + mileage + " "  + "$" + String.format("%.2f", price) + " "  + type + " "  + displacement;
         
         return motoRecord;
     }
@@ -89,7 +89,7 @@ public class Motorcycle extends Vehicle {
     public String toString() {
         return "Motorcycle{" + "vin=" + vin + ", make=" + make + 
                 ", model=" + model + ", year=" + year + ", mileage=" + mileage + 
-                ", price=" + price + ", type=" + type + 
+                ", price=" + String.format("%.2f", price) + ", type=" + type + 
                 ", displacement=" + displacement + '}';
     }
 }
