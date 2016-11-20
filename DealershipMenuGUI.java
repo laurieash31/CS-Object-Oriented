@@ -1,4 +1,4 @@
-
+package dealership;
 /**
  * GUI.java
  */
@@ -856,25 +856,25 @@ public class DealershipMenuGUI extends JFrame implements ItemListener {
         JTextField lNameField = new JTextField(20);
         panel.add(lNameField);
        
-        //Create a label to select the type of vehicle
+        //Create a label to select the type of User
         panel.add(new JLabel("User type:"));       
         
-        //Create radio buttons for each type of vehicle
+        //Create radio buttons for each type of User
         JRadioButton customerButton = new JRadioButton("Customer");
         customerButton.setSelected(true);
         JRadioButton employeeButton = new JRadioButton("Employee");
         
-        //Create a button group for the 3 vehicle types, add the buttons
+        //Create a button group for the 2 user types, add the buttons
         ButtonGroup group = new ButtonGroup();
         group.add(customerButton);
         group.add(employeeButton);        
         
-        //Create a panel to hold the vehicle type buttons
+        //Create a panel to hold the user type buttons
         JPanel userTypePanel = new JPanel(new FlowLayout());
         userTypePanel.add(customerButton);
         userTypePanel.add(employeeButton);
         
-        //Add the vehicle type panel to the current panel
+        //Add the user type panel to the current panel
         panel.add(userTypePanel);
         
         //Add a label and text field for more vehicle information
@@ -974,12 +974,136 @@ public class DealershipMenuGUI extends JFrame implements ItemListener {
                 break;
             }
         }
+              
     }
 
     
     
     private void updateUser() {
-        //NOT A CLUE HOW TO APPROACH THIS YET  ????
+        
+        //Create the Update User panel
+        JPanel panel = new JPanel();
+        getContentPane().add(panel);
+        panel.setLayout(new FormLayout());
+        
+        //Create a label and text field to add to the panel
+        panel.add(new JLabel("Enter the ID to update"));
+        JTextField toUpdate = new JTextField(10);
+        panel.add(toUpdate);
+        
+        //Message at top of panel
+        JOptionPane.showMessageDialog(this, panel, "Update user", JOptionPane.PLAIN_MESSAGE);
+        
+        //Get the user input
+        String userUpdate = toUpdate.getText();
+        int userID = Integer.parseInt(userUpdate);
+        
+        //Create a temp ArrayList to store the matching ID record to
+        //Remove the user from the list
+        ArrayList<User> foundUser = new ArrayList<User>();
+        
+        for (User u : userRecords) {
+            
+            if (u.getId() == userID) {
+                //foundUser.add(u);
+                userRecords.remove(u);
+                break;
+            }
+        }
+        
+        //Create a new panel for Update User
+        JPanel panel2 = new JPanel();
+        getContentPane().add(panel2);
+        panel2.setLayout(new FormLayout());
+        
+        //Add a label and text field to the panel
+        panel2.add(new JLabel("ID"));
+        JTextField idField = new JTextField(10);
+        panel2.add(idField);
+        
+        panel2.add(new JLabel("First Name"));
+        JTextField fNameField = new JTextField(20);
+        panel2.add(fNameField);
+        
+        panel2.add(new JLabel("Last Name"));
+        JTextField lNameField = new JTextField(20);
+        panel2.add(lNameField);
+       
+        //Create a label to select the type of User
+        panel2.add(new JLabel("User type:"));       
+        
+        //Create radio buttons for each type of vehicle
+        JRadioButton customerButton = new JRadioButton("Customer");
+        customerButton.setSelected(true);
+        JRadioButton employeeButton = new JRadioButton("Employee");
+        
+        //Create a button group for the 2 user types, add the buttons
+        ButtonGroup group2 = new ButtonGroup();
+        group2.add(customerButton);
+        group2.add(employeeButton);        
+        
+        //Create a panel to hold the user type buttons
+        JPanel userTypePanel = new JPanel(new FlowLayout());
+        userTypePanel.add(customerButton);
+        userTypePanel.add(employeeButton);
+        
+        //Add the user type panel to the current panel
+        panel2.add(userTypePanel);
+        
+        //Add a label and text field for more vehicle information
+        panel2.add(new JLabel("More information 1"));
+        JTextField moreInfoField1 = new JTextField(20);
+        panel2.add(moreInfoField1);
+     
+        panel2.add(new JLabel("More information 2"));
+        JTextField moreInfoField2 = new JTextField(20);
+        panel2.add(moreInfoField2);
+        
+        //Show the option pane and added the ability to Okay or Cancel
+        JOptionPane.showOptionDialog(this, panel2, "Update user", 
+        JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, null, null, null);
+        
+        /* Create the variables to hold the user input from the form */
+        String ID = idField.getText();
+        String fName = fNameField.getText();        
+        String lName = lNameField.getText();
+        
+        String moreInfo1 = moreInfoField1.getText();
+        String moreInfo2 = moreInfoField2.getText();
+        
+        //If the customer button is selected, format data for customer and add to record
+        if(customerButton.isSelected()){
+            
+            try{
+                int dLNum = Integer.parseInt(moreInfo2);
+                int id = Integer.parseInt(ID);
+                Customer temp = new Customer(id, fName, lName, moreInfo1, dLNum);
+                
+                userRecords.add(temp);
+                
+            }catch(Exception ex){
+                logger.log(Level.SEVERE, "Number Format Exception in update user", ex); 
+            }
+
+        }
+        
+        //If the employee radio buttom is selected, format data for employee and add to record
+        if(employeeButton.isSelected()){
+            
+            try{
+                float salary = Float.parseFloat(moreInfo1);
+                int acctNum = Integer.parseInt(moreInfo2);                
+                int id  = Integer.parseInt(ID);
+                
+                Employee temp = new Employee(id, fName, lName, salary, acctNum);
+                
+                userRecords.add(temp);
+                
+            }catch(Exception ex){
+                logger.log(Level.SEVERE, "Number Format Exception in add user", ex);
+            }
+        }
+        
     }       
 
     
