@@ -904,7 +904,6 @@ public class DealershipMenuGUI extends JFrame implements ItemListener {
         JOptionPane.showOptionDialog(this, panel, "Add a new user",
                                      JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, null, null, null);
         
-        /* Create the variables to hold the user input from the form */
         
         //Check for duplicate ID in the database
         //for (User s : userRecords){
@@ -992,7 +991,12 @@ public class DealershipMenuGUI extends JFrame implements ItemListener {
     }
     
     
-    
+    /**
+     * <CODE>updateUser()</CODE> prompts for the user ID of which to update 
+     * the user record associated with it. 
+     * The first and last names are pre-filled and the other fields are left 
+     * blank so the user can update the other information.
+     */
     private void updateUser() {
         
         //Create the Update User panel
@@ -1208,45 +1212,11 @@ public class DealershipMenuGUI extends JFrame implements ItemListener {
         
         String custID = custIDField.getText();
         
-        /* NOT WORKING????
-         //Check for customer ID in the database
-         for (User usr : userRecords){
-         if (usr.toString().contains(custID) == false){
-         System.out.println(custID);
-         JOptionPane.showMessageDialog(null, "You must create a customer record "
-         + "before performing a sales transaction!");
-         logger.log(Level.WARNING, "Customer ID not found in sales transaction");
-         return;
-         }
-         }
-         */
-        
         String empID = emplIDField.getText();
-        
-        /* NOT WORKING????
-         //Check for employee ID in the database
-         for (User ur : userRecords){
-         if (ur.toString().contains(empID) == false){
-         JOptionPane.showMessageDialog(null, "You must create an employee record "
-         + "before performing a sales transaction!");
-         logger.log(Level.WARNING, "Employee ID not found for sales transaction");
-         return;
-         }
-         }
-         */
         
         String vin = vinField.getText();
         vin = vin.toUpperCase();
-        /*NOT WORKING????
-         //Check for vehicle VIN in the database
-         for (Vehicle v : vehicleRecords){
-         if (v.toString().contains(vin) == false){
-         JOptionPane.showMessageDialog(null, "VIN does not exist in database.");
-         logger.log(Level.WARNING, "VIN not found in sales transaction");
-         return;
-         }
-         }
-         */
+
         
         //Get the current data from the system
         Date currentDate = new Date();
