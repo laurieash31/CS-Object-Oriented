@@ -87,7 +87,7 @@ public class Truck extends Vehicle {
     @Override
     public String getFormattedText() {
         String truckRecord = vin + " " + make + " " + model+ " "  + year+ " "  + 
-               mileage + " "  + price + " "  + maxLoadWeight + " "  + length;
+               mileage + " "  + "$" + String.format("%.2f", price) + " "  + maxLoadWeight + " "  + length;
         
         return truckRecord;
     }
@@ -95,7 +95,7 @@ public class Truck extends Vehicle {
     @Override
     public String toString() {
         return "Truck{" + "vin=" + vin + ", make=" + make + ", model=" + model +
-                ", year=" + year + ", mileage=" + mileage + ", price=" + price +
+                ", year=" + year + ", mileage=" + mileage + ", price=" + String.format("%.2f", price) +
                 ", maximumLoadWeight=" + maxLoadWeight + 
                 ", length=" + length + '}';
     }
