@@ -6,6 +6,7 @@
 import java.util.ArrayList;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.IOException;
 import java.util.Date;
 import java.util.logging.*;
 import javax.swing.*;
@@ -17,17 +18,6 @@ import javax.swing.*;
  * @author Austin Stamper
  */
 public class DealershipMenuGUI extends JFrame implements ItemListener {
-    
-    //Initialize the logger
-    private static final Logger logger = Logger.getLogger(DealershipMenuGUI.class.getName());
-    /*  NOT WORKING AND DON'T KNOW WHY
-     private static final FileHandler fh = new FileHandler("Dealershiplog.txt");
-     // Send logger output to our
-     FileHandler.logger.addHandler(fh);
-     // Request that every detail gets
-     logged.logger.setLevel(Level.ALL);
-     */
-    
     
     //Create the arrays to hold the vehicle and user records
     private ArrayList<Vehicle> vehicleRecords = new ArrayList <>();
@@ -62,6 +52,35 @@ public class DealershipMenuGUI extends JFrame implements ItemListener {
     private JRadioButton displayTransactionsButton;
     private JRadioButton addTransactionButton;
     private JButton submitTMButton;
+    
+    //Initialize the Logger and create logging file
+    public static Logger logger = Logger.getLogger(DealershipMenuGUI.class.getName());
+
+    static {
+        try {
+
+            FileHandler fh = new FileHandler("dealershipLogFile.txt");
+            logger.addHandler(fh);
+            logger.setLevel(Level.ALL);
+            
+            //Format the log file in human readable format
+            fh.setFormatter(new Formatter() {
+                public String format(LogRecord rec) {
+                    StringBuffer buf = new StringBuffer(1000);
+                    buf.append(new java.util.Date());
+                    buf.append(' ');
+                    buf.append(rec.getLevel());
+                    buf.append(' ');
+                    buf.append(formatMessage(rec));
+                    buf.append('\n');
+                    return buf.toString();
+                }
+            });
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
     
     
     /**
@@ -193,6 +212,8 @@ public class DealershipMenuGUI extends JFrame implements ItemListener {
         this.add(comboBoxPane, BorderLayout.PAGE_START);
         this.add(cards, BorderLayout.CENTER);
     }
+    
+    
     
     /**
      * <CODE>initializeEvents()</CODE> calls the functions based on which button
@@ -540,6 +561,7 @@ public class DealershipMenuGUI extends JFrame implements ItemListener {
         
         //Get the VIN to delete and delete the vehicle record
         String vinToDelete = toDelete.getText();
+        vinToDelete = vinToDelete.toUpperCase();
         
         for (Vehicle v : vehicleRecords) {
             
