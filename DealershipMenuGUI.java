@@ -1,4 +1,4 @@
-package dealership;
+
 /**
  * GUI.java
  */
@@ -21,12 +21,12 @@ public class DealershipMenuGUI extends JFrame implements ItemListener {
     //Initialize the logger
     private static final Logger logger = Logger.getLogger(DealershipMenuGUI.class.getName());
     /*  NOT WORKING AND DON'T KNOW WHY
-    private static final FileHandler fh = new FileHandler("Dealershiplog.txt");
-    // Send logger output to our 
-    FileHandler.logger.addHandler(fh);
-    // Request that every detail gets 
-    logged.logger.setLevel(Level.ALL);
-    */
+     private static final FileHandler fh = new FileHandler("Dealershiplog.txt");
+     // Send logger output to our
+     FileHandler.logger.addHandler(fh);
+     // Request that every detail gets
+     logged.logger.setLevel(Level.ALL);
+     */
     
     
     //Create the arrays to hold the vehicle and user records
@@ -34,6 +34,7 @@ public class DealershipMenuGUI extends JFrame implements ItemListener {
     private ArrayList<User> userRecords = new ArrayList <>();
     private ArrayList<SaleTransaction> transactionRecords = new ArrayList <>();
     
+
     //Variable for card panels
     private JPanel cards;
     
@@ -65,8 +66,8 @@ public class DealershipMenuGUI extends JFrame implements ItemListener {
     
     /**
      * Constructor
-     * 
-     * @throws HeadlessException 
+     *
+     * @throws HeadlessException
      */
     public DealershipMenuGUI() throws HeadlessException {
         super("Dealership");
@@ -76,9 +77,9 @@ public class DealershipMenuGUI extends JFrame implements ItemListener {
             initializeEvents();
             
         }catch(Exception ex){
-           logger.log(Level.SEVERE, "Initialization failed.", ex); 
+            logger.log(Level.SEVERE, "Initialization failed.", ex);
         }
-
+        
     }
     
     /**
@@ -195,14 +196,14 @@ public class DealershipMenuGUI extends JFrame implements ItemListener {
     
     /**
      * <CODE>initializeEvents()</CODE> calls the functions based on which button
-     * is clicked. 
-     * Uses <CODE>ActionListener()</CODE> to do so. 
+     * is clicked.
+     * Uses <CODE>ActionListener()</CODE> to do so.
      * Calls the functions to implement the actions
      */
     private void initializeEvents() {
         
         //Adds the action listener to the Vehicle Management Button
-        submitVMButton.addActionListener(new ActionListener () { 
+        submitVMButton.addActionListener(new ActionListener () {
             
             public void actionPerformed(ActionEvent e) {
                 if (displayVehiclesButton.isSelected()) {
@@ -229,7 +230,7 @@ public class DealershipMenuGUI extends JFrame implements ItemListener {
         });
         
         //Adds the action listener to the User Management Button
-        submitUMButtom.addActionListener(new ActionListener () { 
+        submitUMButtom.addActionListener(new ActionListener () {
             
             public void actionPerformed(ActionEvent e) {
                 
@@ -253,10 +254,10 @@ public class DealershipMenuGUI extends JFrame implements ItemListener {
         });
         
         //Adds the action listener to the Transaction Management Button
-        submitTMButton.addActionListener(new ActionListener () { 
+        submitTMButton.addActionListener(new ActionListener () {
             
-        public void actionPerformed(ActionEvent e) {
-
+            public void actionPerformed(ActionEvent e) {
+                
                 if (displayTransactionsButton.isSelected()) {
                     showAllTransactions();
                     logger.log(Level.INFO, "Display Transactions");
@@ -271,7 +272,7 @@ public class DealershipMenuGUI extends JFrame implements ItemListener {
     
     /**
      * <CODE>itemStateChanged()</CODE> detects when changing cards
-     * @param evt 
+     * @param evt
      */
     public void itemStateChanged(ItemEvent evt) {
         CardLayout cl = (CardLayout)(cards.getLayout());
@@ -283,7 +284,7 @@ public class DealershipMenuGUI extends JFrame implements ItemListener {
     
     
     /**
-     * The <CODE>showAllVehicles()</CODE> method prints out all the vehicle 
+     * The <CODE>showAllVehicles()</CODE> method prints out all the vehicle
      * currently in the inventory, in a formatted manner on a JTable.
      */
     private void showAllVehicles() {
@@ -292,10 +293,10 @@ public class DealershipMenuGUI extends JFrame implements ItemListener {
         JPanel topPanel = new JPanel();
         topPanel.setLayout(new BorderLayout());
         getContentPane().add(topPanel);
-
+        
         //Create the columns
         String columns[] = {"VIN", "MAKE", "MODEL", "YEAR", "MILEAGE", "PRICE", "EXTRA INFO 1", "EXTRA INFO 2"};
-      
+        
         //Create an array to hold the vehicle data
         int size = vehicleRecords.size();
         String dataValues[][] = new String[size][];
@@ -324,7 +325,7 @@ public class DealershipMenuGUI extends JFrame implements ItemListener {
         // Create a new table instance
         JTable table = new JTable(dataValues, columns);
         table.setFillsViewportHeight(true);
-
+        
         //Add the table to a scrolling pane
         JScrollPane scrollPane = new JScrollPane(table);
         topPanel.add(scrollPane, BorderLayout.CENTER);
@@ -333,7 +334,7 @@ public class DealershipMenuGUI extends JFrame implements ItemListener {
     
     
     /**
-     * <CODE>addNewVehicle()</CODE> takes the input from the text fields and 
+     * <CODE>addNewVehicle()</CODE> takes the input from the text fields and
      * adds it to the ArrayList
      */
     private void addNewVehicle() {
@@ -359,17 +360,17 @@ public class DealershipMenuGUI extends JFrame implements ItemListener {
         panel.add(new JLabel("Year"));
         JTextField yearField = new JTextField(4);
         panel.add(yearField);
-       
+        
         
         panel.add(new JLabel("Mileage"));
         JTextField mileageField = new JTextField(6);
         panel.add(mileageField);
-       
+        
         
         panel.add(new JLabel("Price"));
         JTextField priceField = new JTextField(8);
         panel.add(priceField);
-       
+        
         //Create a label to select the type of vehicle
         panel.add(new JLabel("Vehicle type:"));
         
@@ -400,14 +401,14 @@ public class DealershipMenuGUI extends JFrame implements ItemListener {
         panel.add(new JLabel("More information 1"));
         JTextField moreInfoField1 = new JTextField(20);
         panel.add(moreInfoField1);
-     
+        
         panel.add(new JLabel("More information 2"));
         JTextField moreInfoField2 = new JTextField(20);
         panel.add(moreInfoField2);
         
         //Show the option pane and added the ability to Okay or Cancel
-        JOptionPane.showOptionDialog(this, panel, "Add a new vehicle", 
-        JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, null, null, null);
+        JOptionPane.showOptionDialog(this, panel, "Add a new vehicle",
+                                     JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, null, null, null);
         
         /* Create the variables to hold the user input from the form */
         
@@ -446,7 +447,7 @@ public class DealershipMenuGUI extends JFrame implements ItemListener {
         //Check that the mileage is greater than 0
         if (Float.parseFloat(price) < 0){
             JOptionPane.showMessageDialog(null, "Vehicle cannot have a negative price. "
-                    + "It would bankrupt the dealership. Try again.");
+                                          + "It would bankrupt the dealership. Try again.");
             logger.log(Level.WARNING, "Negative price entered in add vehicle");
             return;
         }
@@ -463,15 +464,15 @@ public class DealershipMenuGUI extends JFrame implements ItemListener {
                 int mil  = Integer.parseInt(mileage);
                 float pr  = Float.parseFloat(price);
                 
-                PassengerCar temp = new PassengerCar(vin, make, model, yr, mil, 
-                        pr, moreInfo1);
+                PassengerCar temp = new PassengerCar(vin, make, model, yr, mil,
+                                                     pr, moreInfo1);
                 
                 vehicleRecords.add(temp);
                 
             }catch(Exception ex){
-                logger.log(Level.SEVERE, "Number Format Exception in add vehicle", ex); 
+                logger.log(Level.SEVERE, "Number Format Exception in add vehicle", ex);
             }
-
+            
         }
         
         //If the truck radio buttom is selected, format data for truck and add to record
@@ -484,8 +485,8 @@ public class DealershipMenuGUI extends JFrame implements ItemListener {
                 float pr  = Float.parseFloat(price);
                 float loadWeight = Float.parseFloat(moreInfo1);
                 float length = Float.parseFloat(moreInfo2);
-                Truck temp = new Truck(vin, make, model, yr, mil, pr, 
-                        loadWeight, length);
+                Truck temp = new Truck(vin, make, model, yr, mil, pr,
+                                       loadWeight, length);
                 
                 vehicleRecords.add(temp);
                 
@@ -505,8 +506,8 @@ public class DealershipMenuGUI extends JFrame implements ItemListener {
                 int eng = Integer.parseInt(moreInfo2);
                 
                 Motorcycle temp = new Motorcycle(vin,
-                        make, model, yr, mil, pr, moreInfo1, eng);
-
+                                                 make, model, yr, mil, pr, moreInfo1, eng);
+                
                 vehicleRecords.add(temp);
                 
             }catch(Exception ex){
@@ -576,6 +577,7 @@ public class DealershipMenuGUI extends JFrame implements ItemListener {
         
         //Get the user input
         String userVIN = toSearch.getText();
+        userVIN = userVIN.toUpperCase();
         
         //Create a temp ArrayList to store the matching VIN record to
         ArrayList<Vehicle> foundVehicle = new ArrayList<Vehicle>();
@@ -589,7 +591,7 @@ public class DealershipMenuGUI extends JFrame implements ItemListener {
         
         //Create column header
         String columnsHeader[] = {"VIN", "MAKE", "MODEL", "YEAR", "MILEAGE", "PRICE", "MORE INFO 1", "MORE INFO 2"};
-      
+        
         //Create an array to store and display record
         int size = foundVehicle.size();
         String vehicleData[][] = new String[size][];
@@ -620,11 +622,11 @@ public class DealershipMenuGUI extends JFrame implements ItemListener {
         //Create a table to display the data
         JTable table = new JTable(vehicleData, columnsHeader);
         table.setFillsViewportHeight(true);
-
+        
         //Add the table to a scrolling pane
         JScrollPane scrollPane = new JScrollPane(table);
         topPanel.add(scrollPane, BorderLayout.CENTER);
-        JOptionPane.showMessageDialog(this, topPanel, "Search results", JOptionPane.PLAIN_MESSAGE);   
+        JOptionPane.showMessageDialog(this, topPanel, "Search results", JOptionPane.PLAIN_MESSAGE);
     }
     
     
@@ -689,14 +691,14 @@ public class DealershipMenuGUI extends JFrame implements ItemListener {
         if (minPrice < 0 || maxPrice < 0) {
             
             JOptionPane.showMessageDialog(null, "Vehicle cannot have a negative price. "
-                    + "It would bankrupt the dealership. Try again.");
+                                          + "It would bankrupt the dealership. Try again.");
             logger.log(Level.WARNING, "Negative price entered in search vehicle by price");
             return;
         }
         
         //Create a temp ArrayList to store the matching VIN record to
         ArrayList<Vehicle> foundVehicles = new ArrayList<>();
-
+        
         //If car button is selected, add the vehicle within the price range to the temp array
         if(carButton.isSelected()){
             
@@ -705,8 +707,8 @@ public class DealershipMenuGUI extends JFrame implements ItemListener {
                 if (v.getPrice() >= minPrice && v.getPrice() <= maxPrice) {
                     
                     if (v instanceof PassengerCar) {
-                        foundVehicles.add(v); 
-                    }           
+                        foundVehicles.add(v);
+                    }
                 }
             }
         }
@@ -736,12 +738,12 @@ public class DealershipMenuGUI extends JFrame implements ItemListener {
                         foundVehicles.add(v);
                     }
                 }
-            }   
+            }
         }
-         
+        
         //Create the column headers
         String columnsHeader[] = {"VIN", "MAKE", "MODEL", "YEAR", "MILEAGE", "PRICE", "MORE INFO 1", "MORE INFO 2"};//"EXTRA DETAILS 2"
-      
+        
         //Create a temp array to store the records
         int size = foundVehicles.size();
         String vehicleRecordData[][] = new String[size][];
@@ -772,7 +774,7 @@ public class DealershipMenuGUI extends JFrame implements ItemListener {
         //Create a table to display the data
         JTable table = new JTable(vehicleRecordData, columnsHeader);
         table.setFillsViewportHeight(true);
-
+        
         //Add the table to a scrolling pane
         JScrollPane scrollPane = new JScrollPane(table);
         topPanel.add(scrollPane, BorderLayout.CENTER);
@@ -781,8 +783,8 @@ public class DealershipMenuGUI extends JFrame implements ItemListener {
     
     
     /**
-     * <CODE>showAllUsers</CODE> displays the users in the database within a 
-     * table format. 
+     * <CODE>showAllUsers</CODE> displays the users in the database within a
+     * table format.
      */
     private void showAllUsers() {
         
@@ -790,10 +792,10 @@ public class DealershipMenuGUI extends JFrame implements ItemListener {
         JPanel topPanel = new JPanel();
         topPanel.setLayout(new BorderLayout());
         getContentPane().add(topPanel);
-
+        
         //Create the columns
         String columns[] = {"User Type", "ID", "First Name", "Last Name", "Extra Information 1", "Extra Information 2"};
-      
+        
         //Create an array to hold the User data
         int size = userRecords.size();
         String dataValues[][] = new String[size][];
@@ -822,7 +824,7 @@ public class DealershipMenuGUI extends JFrame implements ItemListener {
         // Create a new table instance
         JTable table = new JTable(dataValues, columns);
         table.setFillsViewportHeight(true);
-
+        
         //Add the table to a scrolling pane
         JScrollPane scrollPane = new JScrollPane(table);
         topPanel.add(scrollPane, BorderLayout.CENTER);
@@ -855,9 +857,9 @@ public class DealershipMenuGUI extends JFrame implements ItemListener {
         panel.add(new JLabel("Last Name"));
         JTextField lNameField = new JTextField(20);
         panel.add(lNameField);
-       
+        
         //Create a label to select the type of User
-        panel.add(new JLabel("User type:"));       
+        panel.add(new JLabel("User type:"));
         
         //Create radio buttons for each type of User
         JRadioButton customerButton = new JRadioButton("Customer");
@@ -867,7 +869,7 @@ public class DealershipMenuGUI extends JFrame implements ItemListener {
         //Create a button group for the 2 user types, add the buttons
         ButtonGroup group = new ButtonGroup();
         group.add(customerButton);
-        group.add(employeeButton);        
+        group.add(employeeButton);
         
         //Create a panel to hold the user type buttons
         JPanel userTypePanel = new JPanel(new FlowLayout());
@@ -881,14 +883,14 @@ public class DealershipMenuGUI extends JFrame implements ItemListener {
         panel.add(new JLabel("More information 1"));
         JTextField moreInfoField1 = new JTextField(20);
         panel.add(moreInfoField1);
-     
+        
         panel.add(new JLabel("More information 2"));
         JTextField moreInfoField2 = new JTextField(20);
         panel.add(moreInfoField2);
         
         //Show the option pane and added the ability to Okay or Cancel
-        JOptionPane.showOptionDialog(this, panel, "Add a new user", 
-        JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, null, null, null);
+        JOptionPane.showOptionDialog(this, panel, "Add a new user",
+                                     JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, null, null, null);
         
         /* Create the variables to hold the user input from the form */
         
@@ -903,7 +905,7 @@ public class DealershipMenuGUI extends JFrame implements ItemListener {
         
         /* Create the variables to hold the user input from the form */
         String ID = idField.getText();
-        String fName = fNameField.getText();        
+        String fName = fNameField.getText();
         String lName = lNameField.getText();
         
         String moreInfo1 = moreInfoField1.getText();
@@ -920,9 +922,9 @@ public class DealershipMenuGUI extends JFrame implements ItemListener {
                 userRecords.add(temp);
                 
             }catch(Exception ex){
-                logger.log(Level.SEVERE, "Number Format Exception in add user", ex); 
+                logger.log(Level.SEVERE, "Number Format Exception in add user", ex);
             }
-
+            
         }
         
         //If the employee radio buttom is selected, format data for employee and add to record
@@ -930,7 +932,7 @@ public class DealershipMenuGUI extends JFrame implements ItemListener {
             
             try{
                 float salary = Float.parseFloat(moreInfo1);
-                int acctNum = Integer.parseInt(moreInfo2);                
+                int acctNum = Integer.parseInt(moreInfo2);
                 int id  = Integer.parseInt(ID);
                 
                 Employee temp = new Employee(id, fName, lName, salary, acctNum);
@@ -940,7 +942,7 @@ public class DealershipMenuGUI extends JFrame implements ItemListener {
             }catch(Exception ex){
                 logger.log(Level.SEVERE, "Number Format Exception in add user", ex);
             }
-        }   
+        }
     }
     
     
@@ -974,9 +976,9 @@ public class DealershipMenuGUI extends JFrame implements ItemListener {
                 break;
             }
         }
-              
+        
     }
-
+    
     
     
     private void updateUser() {
@@ -1033,9 +1035,9 @@ public class DealershipMenuGUI extends JFrame implements ItemListener {
         panel2.add(new JLabel("Last Name"));
         JTextField lNameField = new JTextField(lastName, 20);
         panel2.add(lNameField);
-       
+        
         //Create a label to select the type of User
-        panel2.add(new JLabel("User type:"));       
+        panel2.add(new JLabel("User type:"));
         
         //Create radio buttons for each type of vehicle
         JRadioButton customerButton = new JRadioButton("Customer");
@@ -1045,7 +1047,7 @@ public class DealershipMenuGUI extends JFrame implements ItemListener {
         //Create a button group for the 2 user types, add the buttons
         ButtonGroup group2 = new ButtonGroup();
         group2.add(customerButton);
-        group2.add(employeeButton);        
+        group2.add(employeeButton);
         
         //Create a panel to hold the user type buttons
         JPanel userTypePanel = new JPanel(new FlowLayout());
@@ -1059,18 +1061,18 @@ public class DealershipMenuGUI extends JFrame implements ItemListener {
         panel2.add(new JLabel("More information 1"));
         JTextField moreInfoField1 = new JTextField(20);
         panel2.add(moreInfoField1);
-     
+        
         panel2.add(new JLabel("More information 2"));
         JTextField moreInfoField2 = new JTextField(20);
         panel2.add(moreInfoField2);
         
         //Show the option pane and added the ability to Okay or Cancel
-        JOptionPane.showOptionDialog(this, panel2, "Update user", 
-        JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, null, null, null);
+        JOptionPane.showOptionDialog(this, panel2, "Update user",
+                                     JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, null, null, null);
         
         /* Create the variables to hold the user input from the form */
         String ID = idField.getText();
-        String fName = fNameField.getText();        
+        String fName = fNameField.getText();
         String lName = lNameField.getText();
         
         String moreInfo1 = moreInfoField1.getText();
@@ -1087,9 +1089,9 @@ public class DealershipMenuGUI extends JFrame implements ItemListener {
                 userRecords.add(temp);
                 
             }catch(Exception ex){
-                logger.log(Level.SEVERE, "Number Format Exception in update user", ex); 
+                logger.log(Level.SEVERE, "Number Format Exception in update user", ex);
             }
-
+            
         }
         
         //If the employee radio buttom is selected, format data for employee and add to record
@@ -1097,7 +1099,7 @@ public class DealershipMenuGUI extends JFrame implements ItemListener {
             
             try{
                 float salary = Float.parseFloat(moreInfo1);
-                int acctNum = Integer.parseInt(moreInfo2);                
+                int acctNum = Integer.parseInt(moreInfo2);
                 int id  = Integer.parseInt(ID);
                 
                 Employee temp = new Employee(id, fName, lName, salary, acctNum);
@@ -1109,8 +1111,8 @@ public class DealershipMenuGUI extends JFrame implements ItemListener {
             }
         }
         
-    }       
-
+    }
+    
     
     
     /**
@@ -1123,11 +1125,11 @@ public class DealershipMenuGUI extends JFrame implements ItemListener {
         JPanel topPanel = new JPanel();
         topPanel.setLayout(new BorderLayout());
         getContentPane().add(topPanel);
-
+        
         //Create the columns
-        String columns[] = {"Customer ID", "Employee ID", "VIN", "Day", "Month", 
+        String columns[] = {"Customer ID", "Employee ID", "VIN", "Day", "Month",
             "Date", "Time", "Time Zone", "Year", "Sale Price"};
-      
+        
         //Create an array to hold the vehicle data
         int size = transactionRecords.size();
         String dataValues[][] = new String[size][];
@@ -1136,22 +1138,22 @@ public class DealershipMenuGUI extends JFrame implements ItemListener {
         for (SaleTransaction st : transactionRecords) {
             
             String splitData[] = st.getFormattedText().split(" ");
-
+            
             dataValues[counter] = splitData;
-           
+            
             counter++;
         }
         
         // Create a new table instance
         JTable table = new JTable(dataValues, columns);
         table.setFillsViewportHeight(true);
-
+        
         //Add the table to a scrolling pane
         JScrollPane scrollPane = new JScrollPane(table);
         topPanel.add(scrollPane, BorderLayout.CENTER);
         JOptionPane.showMessageDialog(this, topPanel, "Sales Transactions", JOptionPane.PLAIN_MESSAGE);
-    }   
-
+    }
+    
     
     /**
      * <CODE>addNewTransaction()</CODE> represents the selling of a vehicle. It
@@ -1180,56 +1182,56 @@ public class DealershipMenuGUI extends JFrame implements ItemListener {
         panel.add(new JLabel("Price"));
         JTextField priceField = new JTextField(8);
         panel.add(priceField);
-       
+        
         
         //Show the option pane and added the ability to Okay or Cancel
-        JOptionPane.showOptionDialog(this, panel, "Sell a Vehicle", 
-        JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, null, null, null);
+        JOptionPane.showOptionDialog(this, panel, "Sell a Vehicle",
+                                     JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, null, null, null);
         
         
         /* Create the variables to hold the user input from the form */
         
         String custID = custIDField.getText();
-
-       /* NOT WORKING????
-        //Check for customer ID in the database
-        for (User usr : userRecords){
-            if (usr.toString().contains(custID) == false){
-                System.out.println(custID);
-                JOptionPane.showMessageDialog(null, "You must create a customer record "
-                        + "before performing a sales transaction!");
-                logger.log(Level.WARNING, "Customer ID not found in sales transaction");
-                return;
-            }
-        }
-        */
+        
+        /* NOT WORKING????
+         //Check for customer ID in the database
+         for (User usr : userRecords){
+         if (usr.toString().contains(custID) == false){
+         System.out.println(custID);
+         JOptionPane.showMessageDialog(null, "You must create a customer record "
+         + "before performing a sales transaction!");
+         logger.log(Level.WARNING, "Customer ID not found in sales transaction");
+         return;
+         }
+         }
+         */
         
         String empID = emplIDField.getText();
         
         /* NOT WORKING????
-        //Check for employee ID in the database
-        for (User ur : userRecords){
-            if (ur.toString().contains(empID) == false){
-                JOptionPane.showMessageDialog(null, "You must create an employee record "
-                        + "before performing a sales transaction!");
-                logger.log(Level.WARNING, "Employee ID not found for sales transaction");
-                return;
-            }
-        }
-        */ 
+         //Check for employee ID in the database
+         for (User ur : userRecords){
+         if (ur.toString().contains(empID) == false){
+         JOptionPane.showMessageDialog(null, "You must create an employee record "
+         + "before performing a sales transaction!");
+         logger.log(Level.WARNING, "Employee ID not found for sales transaction");
+         return;
+         }
+         }
+         */
         
         String vin = vinField.getText();
         vin = vin.toUpperCase();
         /*NOT WORKING????
-        //Check for vehicle VIN in the database
-        for (Vehicle v : vehicleRecords){
-            if (v.toString().contains(vin) == false){
-                JOptionPane.showMessageDialog(null, "VIN does not exist in database.");
-                logger.log(Level.WARNING, "VIN not found in sales transaction");
-                return;
-            }
-        }
-        */
+         //Check for vehicle VIN in the database
+         for (Vehicle v : vehicleRecords){
+         if (v.toString().contains(vin) == false){
+         JOptionPane.showMessageDialog(null, "VIN does not exist in database.");
+         logger.log(Level.WARNING, "VIN not found in sales transaction");
+         return;
+         }
+         }
+         */
         
         //Get the current data from the system
         Date currentDate = new Date();
@@ -1238,10 +1240,10 @@ public class DealershipMenuGUI extends JFrame implements ItemListener {
         //Check that the mileage is greater than 0
         if (Float.parseFloat(price) < 0){
             JOptionPane.showMessageDialog(null, "Vehicle cannot have a negative price. "
-                    + "It would bankrupt the dealership. Try again.");
+                                          + "It would bankrupt the dealership. Try again.");
             logger.log(Level.WARNING, "Negative price entered in sales transaction");
             return;
-        } 
+        }
         
         
         try{
@@ -1249,22 +1251,22 @@ public class DealershipMenuGUI extends JFrame implements ItemListener {
             int cID = Integer.parseInt(custID);
             int eID = Integer.parseInt(empID);
             float pr  = Float.parseFloat(price);
-                
+            
             SaleTransaction temp = new SaleTransaction(cID, eID, vin, currentDate, pr);
-                
+            
             transactionRecords.add(temp);
             
             //Get the VIN to delete and delete the vehicle record
             String vinToDelete = vin;
-        
-            for (Vehicle v : vehicleRecords) {
             
+            for (Vehicle v : vehicleRecords) {
+                
                 if (v.getVin().equals(vinToDelete)) {
                     vehicleRecords.remove(v);
                     break;
                 }
             }
-                
+            
         } catch(Exception ex){
             logger.log(Level.SEVERE, "Number Format Exception in sales transaction", ex); 
         }
