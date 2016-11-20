@@ -325,6 +325,9 @@ public class DealershipMenuGUI extends JFrame implements ItemListener {
         // Create a new table instance
         JTable table = new JTable(dataValues, columns);
         table.setFillsViewportHeight(true);
+        table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+        TableColumnAdjuster tca = new TableColumnAdjuster(table);
+        tca.adjustColumns();
         
         //Add the table to a scrolling pane
         JScrollPane scrollPane = new JScrollPane(table);
@@ -622,6 +625,9 @@ public class DealershipMenuGUI extends JFrame implements ItemListener {
         //Create a table to display the data
         JTable table = new JTable(vehicleData, columnsHeader);
         table.setFillsViewportHeight(true);
+        table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+        TableColumnAdjuster tca = new TableColumnAdjuster(table);
+        tca.adjustColumns();
         
         //Add the table to a scrolling pane
         JScrollPane scrollPane = new JScrollPane(table);
@@ -774,6 +780,9 @@ public class DealershipMenuGUI extends JFrame implements ItemListener {
         //Create a table to display the data
         JTable table = new JTable(vehicleRecordData, columnsHeader);
         table.setFillsViewportHeight(true);
+        table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+        TableColumnAdjuster tca = new TableColumnAdjuster(table);
+        tca.adjustColumns();
         
         //Add the table to a scrolling pane
         JScrollPane scrollPane = new JScrollPane(table);
@@ -824,6 +833,9 @@ public class DealershipMenuGUI extends JFrame implements ItemListener {
         // Create a new table instance
         JTable table = new JTable(dataValues, columns);
         table.setFillsViewportHeight(true);
+        table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+        TableColumnAdjuster tca = new TableColumnAdjuster(table);
+        tca.adjustColumns();
         
         //Add the table to a scrolling pane
         JScrollPane scrollPane = new JScrollPane(table);
@@ -1147,6 +1159,9 @@ public class DealershipMenuGUI extends JFrame implements ItemListener {
         // Create a new table instance
         JTable table = new JTable(dataValues, columns);
         table.setFillsViewportHeight(true);
+        table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+        TableColumnAdjuster tca = new TableColumnAdjuster(table);
+        tca.adjustColumns();
         
         //Add the table to a scrolling pane
         JScrollPane scrollPane = new JScrollPane(table);
