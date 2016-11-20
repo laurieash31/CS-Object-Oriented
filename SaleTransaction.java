@@ -126,8 +126,8 @@ public class SaleTransaction implements Serializable {
      * @return string - saleTransactionRecord
      */
     public String getFormattedText() {
-        String saleTransactionRecord = customerId + " " + employeeId + " " + vin+ " "  + date+ " "  + 
-               salePrice;
+        String saleTransactionRecord = customerId + " " + employeeId + " " + vin
+                + " "  + date + " "  + "$" + String.format("%.2f", salePrice);
         
         return saleTransactionRecord;
     }
@@ -136,6 +136,6 @@ public class SaleTransaction implements Serializable {
     public String toString() {
         return "SaleTransaction{" + "customerId=" + customerId + ", employeeId=" 
                 + employeeId + ", vin=" + vin + ", date=" + date + ", salePrice=" 
-                + salePrice + '}';
+                + String.format("%.2f", salePrice) + '}';
     }
 }
