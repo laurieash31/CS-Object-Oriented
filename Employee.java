@@ -76,7 +76,8 @@ public class Employee extends User {
     @Override
     public String getFormattedText() {
         String employeeRecord = "Employee" + " " + id + " " + firstName + " " 
-                + lastName + " "  + monthlySalary + " "  + bankAccountNumber;
+                + lastName + " "  + "$" + String.format("%.2f", monthlySalary) 
+                + " "  + bankAccountNumber;
         
         return employeeRecord;
     }
@@ -84,7 +85,7 @@ public class Employee extends User {
     @Override
     public String toString() {
         return "Employee{" + "id=" + id + ", firstName=" + firstName 
-                + ", lastName=" + lastName + ", monthlySalary=" + monthlySalary 
+                + ", lastName=" + lastName + ", monthlySalary=" + String.format("%.2f", monthlySalary) 
                 + ", bankAccountNumber=" + bankAccountNumber + '}';
     }
 }
