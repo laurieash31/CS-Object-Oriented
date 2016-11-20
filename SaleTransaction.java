@@ -9,7 +9,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- * This class represents a sale transaction in the Car Dealership Software.
+ * This class represents a sale transaction in the Car Dealership Software. Modifications are included.
  * 
  * @author vangelis
  * @author Laura Garcia
@@ -119,6 +119,19 @@ public class SaleTransaction implements Serializable {
         this.salePrice = salePrice;
     }
 
+    
+    /**
+     * Print the attributes of the sale transaction record, in a formatted fashion.
+     * Modification to the <CODE>getFormattedText()</CODE> method to return a string
+     * @return string - saleTransactionRecord
+     */
+    public String getFormattedText() {
+        String saleTransactionRecord = customerId + " " + employeeId + " " + vin+ " "  + date+ " "  + 
+               salePrice;
+        
+        return saleTransactionRecord;
+    }
+    
     @Override
     public String toString() {
         return "SaleTransaction{" + "customerId=" + customerId + ", employeeId=" 
