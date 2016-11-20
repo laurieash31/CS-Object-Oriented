@@ -1000,12 +1000,16 @@ public class DealershipMenuGUI extends JFrame implements ItemListener {
         
         //Create a temp ArrayList to store the matching ID record to
         //Remove the user from the list
-        ArrayList<User> foundUser = new ArrayList<User>();
+        String firstName = "";
+        String lastName = "";
+        //int id = 0;
         
         for (User u : userRecords) {
             
             if (u.getId() == userID) {
-                //foundUser.add(u);
+                //id = u.getId();
+                firstName = u.getFirstName();
+                lastName = u.getLastName();
                 userRecords.remove(u);
                 break;
             }
@@ -1016,17 +1020,18 @@ public class DealershipMenuGUI extends JFrame implements ItemListener {
         getContentPane().add(panel2);
         panel2.setLayout(new FormLayout());
         
+        
         //Add a label and text field to the panel
         panel2.add(new JLabel("ID"));
         JTextField idField = new JTextField(10);
         panel2.add(idField);
         
         panel2.add(new JLabel("First Name"));
-        JTextField fNameField = new JTextField(20);
+        JTextField fNameField = new JTextField(firstName, 20);
         panel2.add(fNameField);
         
         panel2.add(new JLabel("Last Name"));
-        JTextField lNameField = new JTextField(20);
+        JTextField lNameField = new JTextField(lastName, 20);
         panel2.add(lNameField);
        
         //Create a label to select the type of User
