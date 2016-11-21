@@ -18,6 +18,7 @@ import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -1304,7 +1305,7 @@ public class DealershipMenuGUI extends JFrame implements ItemListener {
     public void readDatabase() {
         logger.log(Level.INFO, "Reading databases ...");
         // Try to read existing dealership database from a file
-        InputStream file = null;
+        InputStream file;
         InputStream buffer = null;
         ObjectInput input = null;
         try {
@@ -1321,18 +1322,20 @@ public class DealershipMenuGUI extends JFrame implements ItemListener {
             input.close();
         } catch (ClassNotFoundException ex) {
             logger.log(Level.SEVERE, "ClassNotFoundException in readDatabases()", ex.toString()); 
-        } catch (FileNotFoundException ex) {           
-            logger.log(Level.SEVERE, "FileNotFoundException in readDatabases()", ex.toString());            
+        } catch (FileNotFoundException ex) {   
+            File f = new File("Dealership.ser");
+            logger.log(Level.SEVERE, "FileNotFoundException in readDatabases()", ex.toString());
+            logger.log(Level.INFO, "Dealership.ser has been created", ex.toString());            
         } catch (IOException ex) {
             logger.log(Level.SEVERE, "IOException in readDatabases()", ex.toString());
-        } finally {       
+        } /*finally {       
             //Close the file
             try {
                 file.close();
             } catch (IOException ex) {
                 logger.log(Level.SEVERE, "IOException in readDatabase()", ex.toString());
             }
-        }
+        }*/
         logger.log(Level.INFO, "Done reading database ...");
     }
     
