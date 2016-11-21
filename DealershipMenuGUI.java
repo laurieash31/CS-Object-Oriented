@@ -69,7 +69,7 @@ public class DealershipMenuGUI extends JFrame implements ItemListener {
 
     static {
         try {
-
+            
             FileHandler fh = new FileHandler("dealershipLogFile.txt");
             logger.addHandler(fh);
             logger.setLevel(Level.ALL);
@@ -101,11 +101,10 @@ public class DealershipMenuGUI extends JFrame implements ItemListener {
      */
     public DealershipMenuGUI() throws HeadlessException {
         super("Dealership");
-        
+
         try{
             InitializeGUI();
             initializeEvents();
-            readDatabase();
             
         }catch(Exception ex){
             logger.log(Level.SEVERE, "Initialization failed.", ex);
@@ -550,6 +549,7 @@ public class DealershipMenuGUI extends JFrame implements ItemListener {
                 logger.log(Level.SEVERE, "Number Format Exception in add vehicle", ex);
             }
         }
+        writeDatabase();
     }
     
     
@@ -583,6 +583,7 @@ public class DealershipMenuGUI extends JFrame implements ItemListener {
                 break;
             }
         }
+        writeDatabase();
     }
     
     
@@ -988,6 +989,7 @@ public class DealershipMenuGUI extends JFrame implements ItemListener {
                 logger.log(Level.SEVERE, "Number Format Exception in add user", ex);
             }
         }
+        writeDatabase();
     }
     
     
@@ -1021,7 +1023,7 @@ public class DealershipMenuGUI extends JFrame implements ItemListener {
                 break;
             }
         }
-        
+        writeDatabase();
     }
     
     
@@ -1160,7 +1162,7 @@ public class DealershipMenuGUI extends JFrame implements ItemListener {
                 logger.log(Level.SEVERE, "Number Format Exception in add user", ex);
             }
         }
-        
+        writeDatabase();
     }
     
     
@@ -1289,6 +1291,7 @@ public class DealershipMenuGUI extends JFrame implements ItemListener {
         } catch(Exception ex){
             logger.log(Level.SEVERE, "Number Format Exception in sales transaction", ex); 
         }
+        writeDatabase();
     }
     
     
@@ -1310,16 +1313,16 @@ public class DealershipMenuGUI extends JFrame implements ItemListener {
             input = new ObjectInputStream(buffer);
             
             // Read serilized data
-            ArrayList<Vehicle> vehicleRecords = (ArrayList<Vehicle>) input.readObject();
-            ArrayList<User> userRecords = (ArrayList<User>) input.readObject();
-            ArrayList<SaleTransaction> transactionRecords = (ArrayList<SaleTransaction>) input.readObject();
+            vehicleRecords = (ArrayList<Vehicle>) input.readObject();
+            userRecords = (ArrayList<User>) input.readObject();
+            transactionRecords = (ArrayList<SaleTransaction>) input.readObject();
 
-            
+            buffer.close();
             input.close();
         } catch (ClassNotFoundException ex) {
             logger.log(Level.SEVERE, "ClassNotFoundException in readDatabases()", ex.toString()); 
-        } catch (FileNotFoundException ex) {
-            logger.log(Level.SEVERE, "FileNotFoundException in readDatabases()", ex.toString());
+        } catch (FileNotFoundException ex) {           
+            logger.log(Level.SEVERE, "FileNotFoundException in readDatabases()", ex.toString());            
         } catch (IOException ex) {
             logger.log(Level.SEVERE, "IOException in readDatabases()", ex.toString());
         } finally {       
@@ -1327,11 +1330,12 @@ public class DealershipMenuGUI extends JFrame implements ItemListener {
             try {
                 file.close();
             } catch (IOException ex) {
-                logger.log(Level.SEVERE, "IOException in writeDatabase()", ex.toString());
+                logger.log(Level.SEVERE, "IOException in readDatabase()", ex.toString());
             }
         }
         logger.log(Level.INFO, "Done reading database ...");
     }
+    
     
     
     
@@ -1354,6 +1358,7 @@ public class DealershipMenuGUI extends JFrame implements ItemListener {
             output.writeObject(userRecords);
             output.writeObject(transactionRecords);
             
+            buffer.close();
             output.close();
         } catch (IOException ex) {
             logger.log(Level.SEVERE, "IOException in writeDatabase()", ex.toString());
