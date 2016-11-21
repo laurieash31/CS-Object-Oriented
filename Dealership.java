@@ -1,46 +1,97 @@
+package assignment5;
+
 /*
- * Dealership class responisble for running GUI in Main
+ * Car Dealership Managment Software v0.1 
+ * Developed for CS3354: Object Oriented Design and Programming.
+ * Copyright: Vangelis Metsis (vmetsis@txstate.edu)
  */
 
-import javax.swing.JFrame;
-
 /**
- *
+ * Solution from Assignment 2
+ * Slight modifications to work with GUI
+ * 
+ * @author vangelis
  * @author Laura Garcia
  * @author Austin Stamper
  */
-public class Dealership {
+
+
+public class Customer extends User {
+    private String phoneNumber;
+    private int driverLicenceNumber;
 
     /**
-     * Void method to create and set GUI properties
+     * Default constructor.
      */
-    private static void createDisplayGUI() {
-        
-        //Create the GUI from the GUI class and set its properties
-        DealershipMenuGUI frame = new DealershipMenuGUI();
-        frame.readDatabase();
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.pack();
-        frame.setVisible(true);
+    public Customer() {
+        this.phoneNumber = "";
+        this.driverLicenceNumber = 0;
+    }
+
+    /**
+     * Constructor initializes a customer object with the provided values.
+     * @param id
+     * @param phoneNumber
+     * @param driverLicenceNumber
+     * @param firstName
+     * @param lastName
+     */
+    public Customer(int id, String firstName, String lastName, String phoneNumber, int driverLicenceNumber) {
+        super(id, firstName, lastName);
+        this.phoneNumber = phoneNumber;
+        this.driverLicenceNumber = driverLicenceNumber;
+    }
+
+    /**
+     * Get the phone number.
+     * @return phoneNumber
+     */
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    /**
+     * Set the phone number.
+     * @param phoneNumber
+     */
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    /**
+     * Get the driver license number.
+     * @return driverLicenceNumber
+     */
+    public int getDriverLicenceNumber() {
+        return driverLicenceNumber;
+    }
+
+    /**
+     * Set the driver license number.
+     * @param driverLicenceNumber
+     */
+    public void setDriverLicenceNumber(int driverLicenceNumber) {
+        this.driverLicenceNumber = driverLicenceNumber;
     }
     
-    /*
-     * Main function to run on thread that displays the GUI window
-    */
-    public static void main(String[] args) {
-        //DealershipMenuGUI frame = new DealershipMenuGUI();
-        //frame.readDatabase();
+    /**
+     * Print the attributes of the customer, in a formatted fashion.
+     * Modification to the <CODE>getFormattedText()</CODE> method to return a string
+     * @return string - customerRecord
+     */
+    @Override
+    public String getFormattedText() {
         
-        //Schedule a job for the event dispatch thread:
-        //creating and showing this application's GUI.
-        javax.swing.SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-                //DealershipMenuGUI frame = new DealershipMenuGUI();
-                //frame.readDatabase();
-                createDisplayGUI();
-                //frame.writeDatabase();
-            }
-        });
-        //frame.writeDatabase();
+        String customerRecord = "Customer" + " " + id + " " + firstName + " " 
+                + lastName + " "  + phoneNumber + " "  + driverLicenceNumber;
+        
+        return customerRecord;
+    }
+
+    @Override
+    public String toString() { 
+        return "Customer{" + "id=" + id + ", firstName=" + firstName 
+                + ", lastName=" + lastName + ", phoneNumber=" + phoneNumber 
+                + ", driverLicenceNumber=" + driverLicenceNumber + '}';
     }
 }
