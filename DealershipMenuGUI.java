@@ -1,3 +1,4 @@
+package assignment5;
 
 /**
  * DealershipMenuGUI.java
@@ -71,7 +72,7 @@ public class DealershipMenuGUI extends JFrame implements ItemListener {
     static {
         try {
             
-            FileHandler fh = new FileHandler("dealershipLogFile.txt");
+            FileHandler fh = new FileHandler("dealershipLogFile.%u.%g.txt");
             logger.addHandler(fh);
             logger.setLevel(Level.ALL);
             
@@ -95,6 +96,7 @@ public class DealershipMenuGUI extends JFrame implements ItemListener {
     }
     
     
+    
     /**
      * Constructor
      *
@@ -112,6 +114,8 @@ public class DealershipMenuGUI extends JFrame implements ItemListener {
         }
         
     }
+    
+    
     
     /**
      * Initializes the GUI and sets all the components to it
@@ -369,6 +373,7 @@ public class DealershipMenuGUI extends JFrame implements ItemListener {
     }
     
     
+    
     /**
      * <CODE>addNewVehicle()</CODE> takes the input from the text fields and
      * adds it to the ArrayList
@@ -551,7 +556,9 @@ public class DealershipMenuGUI extends JFrame implements ItemListener {
             }
         }
         writeDatabase();
+        JOptionPane.showMessageDialog(null, "Vehicle has been added to database. ");
     }
+    
     
     
     /**
@@ -585,6 +592,7 @@ public class DealershipMenuGUI extends JFrame implements ItemListener {
             }
         }
         writeDatabase();
+        JOptionPane.showMessageDialog(null, "Vehicle has been removed from database. ");
     }
     
     
@@ -827,6 +835,7 @@ public class DealershipMenuGUI extends JFrame implements ItemListener {
     }
     
     
+    
     /**
      * <CODE>showAllUsers</CODE> displays the users in the database within a
      * table format.
@@ -941,15 +950,6 @@ public class DealershipMenuGUI extends JFrame implements ItemListener {
                                      JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, null, null, null);
         
         
-        //Check for duplicate ID in the database
-        //for (User s : userRecords){
-        //    if (s.toString().contains(s) == true){
-        //        JOptionPane.showMessageDialog(null, "This ID exists, maybe you already have an account?");
-        //        return;
-        //    }
-        //}
-        
-        
         /* Create the variables to hold the user input from the form */
         String ID = idField.getText();
         String fName = fNameField.getText();
@@ -991,6 +991,7 @@ public class DealershipMenuGUI extends JFrame implements ItemListener {
             }
         }
         writeDatabase();
+        JOptionPane.showMessageDialog(null, "User has been added to database. ");
     }
     
     
@@ -1025,7 +1026,9 @@ public class DealershipMenuGUI extends JFrame implements ItemListener {
             }
         }
         writeDatabase();
+        JOptionPane.showMessageDialog(null, "User has been removed from database. ");
     }
+    
     
     
     /**
@@ -1164,6 +1167,7 @@ public class DealershipMenuGUI extends JFrame implements ItemListener {
             }
         }
         writeDatabase();
+        JOptionPane.showMessageDialog(null, "User information has been updated. ");
     }
     
     
@@ -1209,6 +1213,7 @@ public class DealershipMenuGUI extends JFrame implements ItemListener {
         topPanel.add(scrollPane, BorderLayout.CENTER);
         JOptionPane.showMessageDialog(this, topPanel, "Sales Transactions", JOptionPane.PLAIN_MESSAGE);
     }
+    
     
     
     /**
@@ -1293,6 +1298,7 @@ public class DealershipMenuGUI extends JFrame implements ItemListener {
             logger.log(Level.SEVERE, "Number Format Exception in sales transaction", ex); 
         }
         writeDatabase();
+        JOptionPane.showMessageDialog(null, "Sales transaction complete. ");
     }
     
     
@@ -1328,17 +1334,9 @@ public class DealershipMenuGUI extends JFrame implements ItemListener {
             logger.log(Level.INFO, "Dealership.ser has been created", ex.toString());            
         } catch (IOException ex) {
             logger.log(Level.SEVERE, "IOException in readDatabases()", ex.toString());
-        } /*finally {       
-            //Close the file
-            try {
-                file.close();
-            } catch (IOException ex) {
-                logger.log(Level.SEVERE, "IOException in readDatabase()", ex.toString());
-            }
-        }*/
+        } 
         logger.log(Level.INFO, "Done reading database ...");
     }
-    
     
     
     
