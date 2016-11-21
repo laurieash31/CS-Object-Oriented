@@ -1,6 +1,6 @@
 
 /**
- * GUI.java
+ * DealershipMenuGUI.java
  */
 
 import java.util.ArrayList;
@@ -10,6 +10,18 @@ import java.io.IOException;
 import java.util.Date;
 import java.util.logging.*;
 import javax.swing.*;
+import java.io.InputStream;
+import java.io.ObjectInput;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutput;
+import java.io.ObjectOutputStream;
+import java.io.OutputStream;
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+
 
 /**
  * GUI class that implements the GUI functionality
@@ -22,8 +34,7 @@ public class DealershipMenuGUI extends JFrame implements ItemListener {
     //Create the arrays to hold the vehicle and user records
     private ArrayList<Vehicle> vehicleRecords = new ArrayList <>();
     private ArrayList<User> userRecords = new ArrayList <>();
-    private ArrayList<SaleTransaction> transactionRecords = new ArrayList <>();
-    
+    private ArrayList<SaleTransaction> transactionRecords = new ArrayList <>(); 
 
     //Variable for card panels
     private JPanel cards;
@@ -94,6 +105,7 @@ public class DealershipMenuGUI extends JFrame implements ItemListener {
         try{
             InitializeGUI();
             initializeEvents();
+            readDatabase();
             
         }catch(Exception ex){
             logger.log(Level.SEVERE, "Initialization failed.", ex);
@@ -1277,5 +1289,82 @@ public class DealershipMenuGUI extends JFrame implements ItemListener {
         } catch(Exception ex){
             logger.log(Level.SEVERE, "Number Format Exception in sales transaction", ex); 
         }
-    }       
+    }
+    
+    
+    
+    /**
+     * This method is used to read the database from a file, serializable objects.
+     */
+    @SuppressWarnings("unchecked") // This will prevent Java unchecked operation warning when
+    // convering from serialized Object to Arraylist<>
+    public void readDatabase() {
+        logger.log(Level.INFO, "Reading databases ...");
+        // Try to read existing dealership database from a file
+        InputStream file = null;
+        InputStream buffer = null;
+        ObjectInput input = null;
+        try {
+            file = new FileInputStream("Dealership.ser");
+            buffer = new BufferedInputStream(file);
+            input = new ObjectInputStream(buffer);
+            
+            // Read serilized data
+            ArrayList<Vehicle> vehicleRecords = (ArrayList<Vehicle>) input.readObject();
+            ArrayList<User> userRecords = (ArrayList<User>) input.readObject();
+            ArrayList<SaleTransaction> transactionRecords = (ArrayList<SaleTransaction>) input.readObject();
+
+            
+            input.close();
+        } catch (ClassNotFoundException ex) {
+            logger.log(Level.SEVERE, "ClassNotFoundException in readDatabases()", ex.toString()); 
+        } catch (FileNotFoundException ex) {
+            logger.log(Level.SEVERE, "FileNotFoundException in readDatabases()", ex.toString());
+        } catch (IOException ex) {
+            logger.log(Level.SEVERE, "IOException in readDatabases()", ex.toString());
+        } finally {       
+            //Close the file
+            try {
+                file.close();
+            } catch (IOException ex) {
+                logger.log(Level.SEVERE, "IOException in writeDatabase()", ex.toString());
+            }
+        }
+        logger.log(Level.INFO, "Done reading database ...");
+    }
+    
+    
+    
+    /**
+     * This method is used to save the Dealership database as a 
+     * serializable object.
+     */
+    public void writeDatabase() {
+        logger.log(Level.INFO, "Writing database...");
+        //serialize the database
+        OutputStream file = null;
+        OutputStream buffer = null;
+        ObjectOutput output = null;
+        try {
+            file = new FileOutputStream("Dealership.ser");
+            buffer = new BufferedOutputStream(file);
+            output = new ObjectOutputStream(buffer);
+            
+            output.writeObject(vehicleRecords);
+            output.writeObject(userRecords);
+            output.writeObject(transactionRecords);
+            
+            output.close();
+        } catch (IOException ex) {
+            logger.log(Level.SEVERE, "IOException in writeDatabase()", ex.toString());
+        } finally {       
+            //Close the file
+            try {
+                file.close();
+            } catch (IOException ex) {
+                logger.log(Level.SEVERE, "IOException in writeDatabase()", ex.toString());
+            }
+        }
+        logger.log(Level.INFO, "Done writing database ...");
+    }
 }
