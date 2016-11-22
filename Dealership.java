@@ -26,9 +26,10 @@ public class Dealership {
         frame.setVisible(true);
     }
     
-    /*
-     * Main function to run on thread that displays the GUI window
-    */
+    /**
+     * Main function that runs GUI in a thread
+     * @param args 
+     */
     public static void main(String[] args) {
    
         //Schedule a job for the event dispatch thread:
