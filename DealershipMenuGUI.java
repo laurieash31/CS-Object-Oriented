@@ -1,4 +1,4 @@
-package assign5test;
+package assignment5;
 
 /**
  * DealershipMenuGUI.java
