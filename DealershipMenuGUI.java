@@ -1,4 +1,4 @@
-package assignment5;
+package assign5test;
 
 /**
  * DealershipMenuGUI.java
@@ -455,6 +455,11 @@ public class DealershipMenuGUI extends JFrame implements ItemListener {
         
         String vin = vinField.getText();
         vin = vin.toUpperCase();
+        if (vin.length() != 5) {
+            JOptionPane.showMessageDialog(null, "VIN can only be 5 characters long. Try again.");
+                logger.log(Level.INFO, "VIN was not 5 characters");
+                return;
+        }
         
         //Check for duplicate VIN in the database
         for (Vehicle s : vehicleRecords){
