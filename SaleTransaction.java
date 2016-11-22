@@ -1,3 +1,5 @@
+package assignment5;
+
 /*
  * Car Dealership Managment Software v0.1 
  * Developed for CS3354: Object Oriented Design and Programming.
@@ -9,7 +11,8 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- * This class represents a sale transaction in the Car Dealership Software. Modifications are included.
+ * Solution for Assignment 2, with modifications to implement a GUI
+ * This class represents a sale transaction in the Car Dealership Software.
  * 
  * @author vangelis
  * @author Laura Garcia
